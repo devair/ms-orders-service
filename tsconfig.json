@@ -1,0 +1,22 @@
+{
+  "version": "2.4.2",
+  "compilerOptions": {
+    "lib": [
+      "es5",
+      "es6"
+    ],
+    "target": "ES2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "resolveJsonModule": true    
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": [
+    "node_modules"
+  ]
+}

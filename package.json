@@ -1,0 +1,39 @@
+{
+  "name": "pedidos",
+  "version": "1.0.0",
+  "description": "micro servico para pedidos - POS TECH FIAP",
+  "main": "index.js",
+  "author": "Devair F Tonon",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "build": "tsc -p .",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
+    "test": "jest"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
+    "pg": "^8.12.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.11",
+    "@types/uuid": "^9.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "eslint": "^8.35.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.7.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.7.0",
+    "prettier": "^2.8.4",
+    "ts-jest": "^29.1.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.5.4"
+  }
+}
