@@ -20,7 +20,6 @@ class OrdersRepositoryPostgres implements IOrdersGateway{
     async list(): Promise<Order[]> {
         const all = await this.repository
         .createQueryBuilder('order')
-        .where('status IN (:...status)', { status: [OrderStatus.DONE, OrderStatus.IN_PROGRESS, OrderStatus.RECEIVED ]})
         .orderBy('created_at', 'ASC')
         .getMany()
 
