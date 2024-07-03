@@ -52,7 +52,7 @@ describe('Orders tests', () => {
 
         // creating a customer
         const customer = { name: 'Fulano', cpf: '35712606607', phone: '4799999999', email: 'fulano@silva.com.br' }
-        const customerCreated = await createCustomerUseCase.execute(customer)
+        await createCustomerUseCase.execute(customer)
 
     })
 

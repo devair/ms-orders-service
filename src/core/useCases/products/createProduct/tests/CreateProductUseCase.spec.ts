@@ -28,7 +28,7 @@ describe('Products Use Case tests', ()=>{
             price: 1, categoryId: category.id, image: ''
         })
         
-        expect(category).toHaveProperty('id')
+        expect(product).toHaveProperty('id')
 
     })
 
@@ -47,7 +47,7 @@ describe('Products Use Case tests', ()=>{
 
             await createProducteUse.execute({
                 name: 'produto1', code: product.code , description: 'teste',
-                price: 1, categoryId: category.id, image: ''
+                price: 1, categoryId: categoryCreated.id, image: ''
             })
 
         }).rejects.toBeInstanceOf(Error)

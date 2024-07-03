@@ -5,7 +5,7 @@ class DeleteProductController {
     
     constructor(private productsRepository: IProductsGateway){}
 
-    async handler(id: number): Promise<Boolean> {
+    async handler(id: number): Promise<boolean> {
 
         const deleteProductUseCase = new DeleteProductUseCase(this.productsRepository)       
 
