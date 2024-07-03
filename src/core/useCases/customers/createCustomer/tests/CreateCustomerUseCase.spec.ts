@@ -23,7 +23,7 @@ describe('Customers Use Case tests',()=>{
 
         expect(async ()=>{            
 
-            const customer1 = await createCustomerUseCase.execute({ name: 'Fulano', cpf: '35712606607', 
+            await createCustomerUseCase.execute({ name: 'Fulano', cpf: '35712606607', 
             phone: '4799999999', email: 'fulano@silva.com.br'})
 
             await createCustomerUseCase.execute({ name: 'Ciclano', cpf: '35712606607', 

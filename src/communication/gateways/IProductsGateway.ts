@@ -13,7 +13,7 @@ interface IProductsGateway{
     
     findByName(name: string): Promise<Product[]>
     
-    delete( id: number): Promise<Boolean>
+    delete( id: number): Promise<boolean>
     
     update(product: Product): Promise<Product>
 

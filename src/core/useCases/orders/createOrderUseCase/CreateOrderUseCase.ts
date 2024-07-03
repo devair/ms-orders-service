@@ -21,7 +21,7 @@ class CreateOrderUseCase {
         if (customer) {
             customerFound = await this.customersRepository.findByCpf(customer.cpf)
 
-            if (!customer) {
+            if (!customerFound) {
                 throw new Error(`Customer ${customer.cpf} not found`)
             }
         }
