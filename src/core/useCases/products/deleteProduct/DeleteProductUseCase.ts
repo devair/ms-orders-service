@@ -4,7 +4,7 @@ class DeleteProductUseCase {
 
     constructor(private productsRepository: IProductsGateway){}
 
-    async execute(id: number): Promise<Boolean> {
+    async execute(id: number): Promise<boolean> {
         return await this.productsRepository.delete(id)
     }
 }
