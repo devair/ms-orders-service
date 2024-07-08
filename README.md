@@ -50,7 +50,7 @@ Para executar a aplicação é necesssário ter o Docker instalado localmente co
 ### b) Acessar o diretório do projeto
 
 ~~~bash  
-  cd tc-2023
+  cd ms-orders-service
 ~~~
 
 ### c) Rodar no Docker
