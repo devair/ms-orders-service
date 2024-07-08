@@ -2,8 +2,6 @@ name: Docker Image CI
 
 on:
   workflow_call:  
-  workflow_dispatch:
-
 env:
   LATEST_TAG: devatron/ms-orders-service:latest  
 jobs:
