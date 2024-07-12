@@ -1,0 +1,13 @@
+{
+    "default": {
+      "requireModule": ["ts-node/register"],
+      "require": ["features/**/*.js"],
+      "format": [
+        "progress-bar",        
+        ["usage", "reports/cucumber/usage.txt"],
+        ["message", "reports/cucumber/messages.ndjson"],
+        ["junit", "reports/cucumber/junit.xml"],
+        ["html", "reports/cucumber/html-formatter.html"]
+      ]      
+    }
+  }
