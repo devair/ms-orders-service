@@ -2,8 +2,8 @@ import 'reflect-metadata'
 import express from 'express'
 import "express-async-errors"
 import * as dotenv from 'dotenv'
-import { router  } from './external/web/routers'
-import { AppDataSource } from './external/datasource/typeorm'
+import { router  } from './adapters/web/routers'
+import { AppDataSource } from './adapters/datasource/typeorm'
 
 dotenv.config()
 

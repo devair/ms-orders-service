@@ -1,4 +1,4 @@
-import { AppDataSource } from '../external/datasource/typeorm'; // Ajuste o caminho conforme necessário
+import { AppDataSource } from '../adapters/datasource/typeorm'; // Ajuste o caminho conforme necessário
 
 beforeAll(async () => {
   await AppDataSource.initialize();
