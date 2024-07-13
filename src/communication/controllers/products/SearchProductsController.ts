@@ -10,6 +10,10 @@ class SearchProductsController {
 
     async handler (name : string, categoryName: string, code: string): Promise<OutputFindProductDTO[]>{
         
+        if(!name && !categoryName && !code){
+            throw Error('Missing parameters: code, name OR categoryName')
+        }
+
         const findByNameProductUseCase = new FindByNameProductUseCase(this.productsRepository)
         const findProductByCategoryNameUseCase = new FindProductByCategoryNameUseCase(this.productsRepository)
         const findByCodeProductUseCase = new FindByCodeProductUseCase(this.productsRepository) 
