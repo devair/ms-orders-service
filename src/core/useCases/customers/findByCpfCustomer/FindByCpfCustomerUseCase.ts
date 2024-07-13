@@ -6,6 +6,11 @@ class FindByCpfCustomerUseCase {
     constructor(private customersRepository: ICustomersGateway){}
 
     async execute(cpf: string): Promise<OutputFindCustomerDTO> {
+
+        if(!cpf){
+            throw new Error(`Missing parameter: cpf`)
+        }
+
         const customer = await this.customersRepository.findByCpf(cpf)
 
         if(!customer){
