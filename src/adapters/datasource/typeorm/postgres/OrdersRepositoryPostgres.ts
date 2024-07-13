@@ -1,7 +1,7 @@
 import { Repository } from "typeorm"
 import { AppDataSource } from ".."
 import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway"
-import { Order, OrderStatus } from "../../../../core/entities/Order"
+import { Order } from "../../../../core/entities/Order"
 import { OrderEntity } from "../entities/OrderEntity"
 
 class OrdersRepositoryPostgres implements IOrdersGateway{
