@@ -34,9 +34,9 @@ describe('Products Service tests', () => {
             price: 1, categoryId: category.id, image: ''
         })
 
-        let { id, code, name, description, categoryId, price, image } = productCreated
+        let { id, code, name, categoryId, price, image } = productCreated
 
-        description = 'New description'
+        let description = 'New description'
 
         const productChanged = await editProductUseCase.execute({ id, code, name, categoryId, description, price, image })
 
@@ -64,8 +64,8 @@ describe('Products Service tests', () => {
 
         expect(async () => {
 
-            let { id, code, name, description, categoryId, price, image } = product
-            categoryId = 999
+            let { id, code, name, description, price, image } = product
+            let categoryId = 999
             await editProductUseCase.execute({ id, code, name, description, categoryId, price, image })
 
         }).rejects.toBeInstanceOf(Error)

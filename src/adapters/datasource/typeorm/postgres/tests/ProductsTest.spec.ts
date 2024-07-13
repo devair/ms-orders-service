@@ -2,7 +2,6 @@ import { ICategoriesGateway } from "../../../../../communication/gateways/ICateg
 import { IProductsGateway } from "../../../../../communication/gateways/IProductsGateway"
 import { Category } from "../../../../../core/entities/Category"
 import { Product } from "../../../../../core/entities/Product"
-import { InputCreateProductDTO } from "../../../../../core/useCases/products/createProduct/ICreateProductDTO"
 import { CategoriesRepositoryPostgres } from "../CategoriesRepositoryPostgres"
 import { ProductsRepositoryPostgres } from "../ProductsRepositoryPostgres"
 
