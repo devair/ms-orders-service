@@ -1,5 +1,5 @@
 import { ICategoriesGateway } from "../../../../../communication/gateways/ICategoriesGateway"
-import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { CategoriesRepositoryPostgres } from "../../../../../adapters/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { Category } from "../../../../entities/Category"
 import { CreateCategoryUseCase } from "../CreateCategoryUseCase"
 

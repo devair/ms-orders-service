@@ -1,5 +1,5 @@
 
-import { CustomersRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CustomersRepositoryPostgres"
+import { CustomersRepositoryPostgres } from "../../../../../adapters/datasource/typeorm/postgres/CustomersRepositoryPostgres"
 import { CreateCustomerUseCase } from "../../createCustomer/CreateCustomerUseCase"
 import { FindByNameCustomerUseCase } from "../FindByNameCustomerUseCase"
 

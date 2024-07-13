@@ -1,4 +1,4 @@
-import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { CategoriesRepositoryPostgres } from "../../../../../adapters/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { CreateCategoryUseCase } from "../../createCategory/CreateCategoryUseCase"
 import { ListCategoriesUseCase } from "../ListCategoriesUseCase"
 
