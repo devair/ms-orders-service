@@ -87,14 +87,10 @@ class CategoriesApi {
         const categoriesRepository = new CategoriesRepositoryPostgres()
         const findByNameCategoryController = new FindByNameCategoryController(categoriesRepository)
         
-        try{
-            if(name){
-                
-                const data = await findByNameCategoryController.handler( name.toString())
-                response.contentType('application/json')
-                return response.status(200).send(CategoryPresenter.toJson(data))
-
-            }
+        try{                
+            const data = await findByNameCategoryController.handler( name.toString())
+            response.contentType('application/json')
+            return response.status(200).send(CategoryPresenter.toJson(data))            
         }
         catch( ex ) {
             return response.status(400).json({ message: ex.message })
