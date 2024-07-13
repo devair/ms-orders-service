@@ -14,10 +14,9 @@ jobs:
     secrets: inherit
 
   publish:
-    name: Publish Docker Image
     needs: sonarqube    
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' &&  needs.sonarqube.result == 'success' 
-    runs-on: ubuntu-latest
-    steps:        
-      - name: Run workfloe
-        uses: ./.github/workflows/docker-image.yml      
+    name: Publish Docker Image
+    uses: ./.github/workflows/docker-image.yml
+    secrets: inherit      
+    
