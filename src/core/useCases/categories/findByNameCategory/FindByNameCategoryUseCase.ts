@@ -6,6 +6,11 @@ class FindByNameCategoryUseCase {
     constructor(private categoriesRepository: ICategoriesGateway) { }
 
     async execute(name: string): Promise<OutputFindCategoryDTO[]> {
+        
+        if (!name){
+            throw Error('Missing parameter: name')
+        }
+
         const categories = await this.categoriesRepository.findByName(name)
 
         const output = categories.map((elem) => ({
