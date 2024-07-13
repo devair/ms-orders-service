@@ -1,17 +1,25 @@
+import { ICategoriesGateway } from "../../../../../communication/gateways/ICategoriesGateway"
 import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { Category } from "../../../../entities/Category"
 import { CreateCategoryUseCase } from "../CreateCategoryUseCase"
 
 let createCategoryeUse : CreateCategoryUseCase
+let category: Category
+let categoriesRepository: ICategoriesGateway
 
 describe('Categories Service tests', ()=>{
 
     beforeEach(()=>{
-        const categoriesRepository = new CategoriesRepositoryPostgres()
+        categoriesRepository = new CategoriesRepositoryPostgres()
         createCategoryeUse = new CreateCategoryUseCase(categoriesRepository)             
     })
 
     it('Should be able to create a new category', async()=>{
-        const category = await createCategoryeUse.execute( {name: 'Bebida', description: 'Bebidas'})
+        const categoryCreated = await createCategoryeUse.execute( {name: 'Bebida', description: 'Bebidas'})
+
+        category = new Category()
+        
+        Object.assign(category, categoryCreated)
 
         expect(category).toHaveProperty('id')
     })    
@@ -20,8 +28,6 @@ describe('Categories Service tests', ()=>{
 
         expect(async ()=>{    
             
-           await createCategoryeUse.execute( {name: 'Bebida', description: 'Bebidas'} ) 
-
            await createCategoryeUse.execute( {name: 'Bebida', description: 'Bebidas'} ) 
 
         }).rejects.toBeInstanceOf(Error)

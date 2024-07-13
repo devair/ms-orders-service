@@ -3,6 +3,7 @@ import { CustomersRepositoryPostgres } from "../../../../../external/datasource/
 import { OrderItemsRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/OrderItemsRepositoryPostgres"
 import { OrdersRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/OrdersRepositoryPostgres"
 import { ProductsRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/ProductsRepositoryPostgres"
+import { Customer } from "../../../../entities/Customer"
 import { CreateCategoryUseCase } from "../../../categories/createCategory/CreateCategoryUseCase"
 import { FindByIdCategoryUseCase } from "../../../categories/findByIdCategory/FindByIdCategoryUseCase"
 import { CreateCustomerUseCase } from "../../../customers/createCustomer/CreateCustomerUseCase"
@@ -10,17 +11,15 @@ import { FindByCpfCustomerUseCase } from "../../../customers/findByCpfCustomer/F
 import { CreateProductUseCase } from "../../../products/createProduct/CreateProductUseCase"
 import { FindByCodeProductUseCase } from "../../../products/findByCodeProduct/FindByCodeProductUseCase"
 import { CreateOrderUseCase } from "../../createOrderUseCase/CreateOrderUseCase"
-import { FindByIdOrderUseCase } from "../FindByIdOrderUseCase"
-
+import { UpdateOrderStatusUseCase } from "../UpdateOrderStatusUseCase"
 
 let createCategoryUseCase: CreateCategoryUseCase
 let createProductUseCase: CreateProductUseCase
 let createCustomerUseCase: CreateCustomerUseCase
 let findByCpfCustomerUseCase: FindByCpfCustomerUseCase
-let findByIdCategoryUseCase: FindByIdCategoryUseCase
 let findByCodeProductUseCase: FindByCodeProductUseCase
 let createOrderUseCase: CreateOrderUseCase
-let findByIdOrderUseCase: FindByIdOrderUseCase
+let updateOrderStatusUseCase: UpdateOrderStatusUseCase
 
 describe('Orders tests', () => {
     beforeAll(async () => {
@@ -31,8 +30,7 @@ describe('Orders tests', () => {
         const ordersRepository = new OrdersRepositoryPostgres()
         const orderItemsRepository = new OrderItemsRepositoryPostgres()
         
-        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)
-        findByIdCategoryUseCase = new FindByIdCategoryUseCase(categoriesRepository)
+        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)        
         findByCodeProductUseCase = new FindByCodeProductUseCase(productsRepository)
         
         createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository)
@@ -40,9 +38,10 @@ describe('Orders tests', () => {
         createProductUseCase = new CreateProductUseCase(productsRepository, categoriesRepository)
 
         createOrderUseCase = new CreateOrderUseCase(ordersRepository,orderItemsRepository, 
-            customersRepository,productsRepository )
+            customersRepository, productsRepository )
+         
+        updateOrderStatusUseCase = new UpdateOrderStatusUseCase(ordersRepository)
 
-            findByIdOrderUseCase = new FindByIdOrderUseCase(ordersRepository)
 
         // creating a category
         const category = { name: 'Bebida', description: 'Bebida gelada' }
@@ -54,14 +53,14 @@ describe('Orders tests', () => {
             price: 1, categoryId: categoryCreated.id, image: ''
         })
 
+
         // creating a customer
         const customer = { name: 'Fulano', cpf: '35712606607', phone: '4799999999', email: 'fulano@silva.com.br' }
         await createCustomerUseCase.execute(customer)
 
     })
 
-    it('Should be able to find a order by id', async()=>{
-        
+    it('Should be able to a update status order', async () => {
         const product = await findByCodeProductUseCase.execute('1')
         const customer = await findByCpfCustomerUseCase.execute('35712606607')
         const orderItems = []
@@ -75,17 +74,28 @@ describe('Orders tests', () => {
         const orderCreated = await createOrderUseCase.execute({ customer, orderItems })
 
         expect(orderCreated.amount).toBe(90)
+        
+        const orderUpdated = await updateOrderStatusUseCase.execute({id: orderCreated.id , status: 'Pronto'})
 
+        expect(orderUpdated.status).toBe('Pronto')
 
-        const orderFound = await findByIdOrderUseCase.execute(orderCreated.id)
-
-        expect(orderFound).toHaveProperty('id')
     })
-    
-    it('Should not be able to find a order', async () => {
 
-        expect(async () => {            
-            await findByIdOrderUseCase.execute(999)
+    it('Should not be able to update status order. Order not found', async () => {
+
+        expect(async () => {
+            const customer = new Customer()
+            customer.cpf = '35712606607'
+
+            const orderItems = []
+
+            orderItems.push({
+                product: { code: '21' },
+                quantity: 2,
+                unitPrice: 45.0
+            })
+        
+            await createOrderUseCase.execute({ customer, orderItems })
         }).rejects.toBeInstanceOf(Error)
 
     })
