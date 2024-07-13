@@ -1,0 +1,23 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  sonarqube:    
+    uses: ./.github/workflows/sonarqube.yml
+    secrets: inherit
+
+  publish:
+    name: Publish Docker Image
+    needs: sonarqube    
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' &&  needs.sonarqube.result == 'success' 
+    runs-on: ubuntu-latest
+    steps:        
+      - name: Run workfloe
+        uses: ./.github/workflows/docker-image.yml      
