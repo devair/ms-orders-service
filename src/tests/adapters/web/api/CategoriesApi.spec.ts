@@ -4,7 +4,7 @@ import { settings } from 'pactum'
 
 let categoryCreated: any
 
-describe("PaymentsApi", () => {
+describe("CategoriesApi", () => {
 
   beforeAll(async () => {
     settings.setLogLevel('ERROR')    
