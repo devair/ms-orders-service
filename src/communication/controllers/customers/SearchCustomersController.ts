@@ -9,6 +9,10 @@ class SearchCustomersController {
 
     async handler( cpf: string , name: string ) : Promise<OutputFindCustomerDTO[]>{
         
+        if(!cpf && !name ){
+            throw Error('Missing parameters: name OR cpf')
+        }
+
         const findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(this.customersRepository)
         const findByNameCustomerUseCase = new FindByNameCustomerUseCase(this.customersRepository)
         let customers =[]
