@@ -5,7 +5,6 @@ import { OrdersRepositoryPostgres } from "../../../../../adapters/datasource/typ
 import { ProductsRepositoryPostgres } from "../../../../../adapters/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { Customer } from "../../../../entities/Customer"
 import { CreateCategoryUseCase } from "../../../categories/createCategory/CreateCategoryUseCase"
-import { FindByIdCategoryUseCase } from "../../../categories/findByIdCategory/FindByIdCategoryUseCase"
 import { CreateCustomerUseCase } from "../../../customers/createCustomer/CreateCustomerUseCase"
 import { FindByCpfCustomerUseCase } from "../../../customers/findByCpfCustomer/FindByCpfCustomerUseCase"
 import { CreateProductUseCase } from "../../../products/createProduct/CreateProductUseCase"

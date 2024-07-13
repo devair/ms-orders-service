@@ -4,7 +4,6 @@ import { OrderItemsRepositoryPostgres } from "../../../../../adapters/datasource
 import { OrdersRepositoryPostgres } from "../../../../../adapters/datasource/typeorm/postgres/OrdersRepositoryPostgres"
 import { ProductsRepositoryPostgres } from "../../../../../adapters/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { CreateCategoryUseCase } from "../../../categories/createCategory/CreateCategoryUseCase"
-import { FindByIdCategoryUseCase } from "../../../categories/findByIdCategory/FindByIdCategoryUseCase"
 import { CreateCustomerUseCase } from "../../../customers/createCustomer/CreateCustomerUseCase"
 import { FindByCpfCustomerUseCase } from "../../../customers/findByCpfCustomer/FindByCpfCustomerUseCase"
 import { CreateProductUseCase } from "../../../products/createProduct/CreateProductUseCase"
@@ -16,7 +15,6 @@ let createCategoryUseCase: CreateCategoryUseCase
 let createProductUseCase: CreateProductUseCase
 let createCustomerUseCase: CreateCustomerUseCase
 let findByCpfCustomerUseCase: FindByCpfCustomerUseCase
-let findByIdCategoryUseCase: FindByIdCategoryUseCase
 let findByCodeProductUseCase: FindByCodeProductUseCase
 let createOrderUseCase: CreateOrderUseCase
 let listOrdersUseCase: ListOrdersUseCase
@@ -30,8 +28,7 @@ describe('Orders tests', () => {
         const ordersRepository = new OrdersRepositoryPostgres()
         const orderItemsRepository = new OrderItemsRepositoryPostgres()
         
-        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)
-        findByIdCategoryUseCase = new FindByIdCategoryUseCase(categoriesRepository)
+        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)        
         findByCodeProductUseCase = new FindByCodeProductUseCase(productsRepository)
         
         createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository)
