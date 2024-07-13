@@ -45,6 +45,15 @@ describe("ProductsApi", () => {
     expect(response.body).toHaveProperty("id")        
   })
 
+  it("should not be able to create a new product", async () => {
+    const response = await request(app)
+      .post("/api/v1/products")
+      .send({        
+        name: 'Produto 1',        
+      })            
+    expect(response.status).toBe(400)    
+  })
+
   
   it("Should be able to find a product by id", async () => {
     const response = await request(app)
