@@ -1,12 +1,12 @@
-import { CustomersRepositoryInMemory } from "../CustomersRepositoryInMemory"
-import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway"
+import { ICustomersGateway } from "../../../../../communication/gateways/ICustomersGateway"
+import { CustomersRepositoryPostgres } from "../CustomersRepositoryPostgres"
 
 let customersRepository: ICustomersGateway
 
 describe('Customers tests',()=>{
 
     beforeAll(()=>{
-        customersRepository = new CustomersRepositoryInMemory()
+        customersRepository = new CustomersRepositoryPostgres()
     })
 
     it('Should be able to create a new customer', async ()=>{

@@ -4,10 +4,10 @@ import { ICustomersGateway } from "../../../../communication/gateways/ICustomers
 import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway"
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
 import { Order } from "../../../../core/entities/Order"
-import { CategoriesRepositoryInMemory } from "../CategoriesRepositoryInMemory"
-import { CustomersRepositoryInMemory } from "../CustomersRepositoryInMemory"
 import { OrdersRepositoryInMemory } from "../OrdersRepositoryInMemory"
-import { ProductsRepositoryInMemory } from "../ProductsRepositoryInMemory"
+import { CustomersRepositoryPostgres } from "../../typeorm/postgres/CustomersRepositoryPostgres"
+import { CategoriesRepositoryPostgres } from "../../typeorm/postgres/CategoriesRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../../typeorm/postgres/ProductsRepositoryPostgres"
 
 
 let ordersRepository: IOrdersGateway
@@ -18,9 +18,9 @@ let categoriesRepository: ICategoriesGateway
 describe('Orders tests', () => {
     beforeAll( async () => {
 
-        customersRepository = new CustomersRepositoryInMemory()
-        categoriesRepository = new CategoriesRepositoryInMemory()
-        productsRepository = new ProductsRepositoryInMemory(categoriesRepository)
+        customersRepository = new CustomersRepositoryPostgres()
+        categoriesRepository = new CategoriesRepositoryPostgres()
+        productsRepository = new ProductsRepositoryPostgres()
         ordersRepository = new OrdersRepositoryInMemory()
 
         // creating a category
