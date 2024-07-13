@@ -51,11 +51,7 @@ class ProductsRepositoryPostgres implements IProductsGateway {
     async delete(id: number): Promise<boolean> {
         const deleteResult = await this.repository.delete(id)
 
-        if (deleteResult.affected > 0){
-            return true;
-        }
-
-        return false;
+        return deleteResult.affected > 0
     }
 
     async update(product: Product): Promise<Product> {

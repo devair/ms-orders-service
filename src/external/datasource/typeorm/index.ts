@@ -6,7 +6,7 @@ dotenv.config()
 const commonConfig = {
   entities: [__dirname + '/entities/*.ts',  'dist/external/datasource/typeorm/entities/*.js'],
   synchronize: true,
-  logging: true
+  logging: false
 };
 
 const developmentConfig: DataSourceOptions = {

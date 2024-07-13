@@ -1,23 +1,24 @@
-import { CategoriesRepositoryInMemory } from "../../../../../external/datasource/in-memory/CategoriesRepositoryInMemory"
-import { ProductsRepositoryInMemory } from "../../../../../external/datasource/in-memory/ProductsRepositoryInMemory"
+import { ICategoriesGateway } from "../../../../../communication/gateways/ICategoriesGateway"
+import { IProductsGateway } from "../../../../../communication/gateways/IProductsGateway"
+import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { CreateCategoryUseCase } from "../../../categories/createCategory/CreateCategoryUseCase"
-import { FindByIdCategoryUseCase } from "../../../categories/findByIdCategory/FindByIdCategoryUseCase"
 import { CreateProductUseCase } from "../../createProduct/CreateProductUseCase"
 import { DeleteProductUseCase } from "../DeleteProductUseCase"
 
+let productsRepository : IProductsGateway
+let categoriesRepository : ICategoriesGateway
 let createCategoryeUse : CreateCategoryUseCase
 let createProducteUse : CreateProductUseCase
-let findByIdCategoryUseCase: FindByIdCategoryUseCase
 let deleteProductUseCase: DeleteProductUseCase
 
 describe('Products Use Case tests', ()=>{
 
-    beforeEach(()=>{
-        const categoriesRepository = new CategoriesRepositoryInMemory()
-        const productsRepository = new ProductsRepositoryInMemory(categoriesRepository)
+    beforeAll(()=>{
+        categoriesRepository = new CategoriesRepositoryPostgres()
+        productsRepository = new ProductsRepositoryPostgres()
                
-        createCategoryeUse = new CreateCategoryUseCase(categoriesRepository)             
-        findByIdCategoryUseCase = new FindByIdCategoryUseCase(categoriesRepository)
+        createCategoryeUse = new CreateCategoryUseCase(categoriesRepository)                     
         createProducteUse = new CreateProductUseCase(productsRepository, categoriesRepository)
         deleteProductUseCase = new DeleteProductUseCase(productsRepository)
     })
