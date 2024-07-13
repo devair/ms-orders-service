@@ -1,22 +1,24 @@
-import { CategoriesRepositoryInMemory } from "../../../../../external/datasource/in-memory/CategoriesRepositoryInMemory"
-import { ProductsRepositoryInMemory } from "../../../../../external/datasource/in-memory/ProductsRepositoryInMemory"
+import { ICategoriesGateway } from "../../../../../communication/gateways/ICategoriesGateway"
+import { IProductsGateway } from "../../../../../communication/gateways/IProductsGateway"
+import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { CreateCategoryUseCase } from "../../../categories/createCategory/CreateCategoryUseCase"
-import { FindByIdCategoryUseCase } from "../../../categories/findByIdCategory/FindByIdCategoryUseCase"
 import { CreateProductUseCase } from "../../createProduct/CreateProductUseCase"
 import { FindByNameProductUseCase } from "../FindByNameProductUseCase"
 
+let productsRepository : IProductsGateway
+let categoriesRepository : ICategoriesGateway
 let createProducteUse : CreateProductUseCase
 let createCategoryeUseCase : CreateCategoryUseCase
 let findByNameProductUseCase : FindByNameProductUseCase
-let findByIdCategoryUseCase: FindByIdCategoryUseCase
+
 describe('Products Use Case tests', ()=>{
 
-    beforeEach(()=>{
-        const categoriesRepository = new CategoriesRepositoryInMemory()
-        createCategoryeUseCase = new CreateCategoryUseCase(categoriesRepository)    
-        findByIdCategoryUseCase = new FindByIdCategoryUseCase(categoriesRepository)
+    beforeAll(()=>{
+        categoriesRepository = new CategoriesRepositoryPostgres()
+        productsRepository = new ProductsRepositoryPostgres()
 
-        const productsRepository = new ProductsRepositoryInMemory(categoriesRepository)
+        createCategoryeUseCase = new CreateCategoryUseCase(categoriesRepository)
         createProducteUse = new CreateProductUseCase(productsRepository, categoriesRepository) 
         findByNameProductUseCase = new FindByNameProductUseCase(productsRepository)                    
     })

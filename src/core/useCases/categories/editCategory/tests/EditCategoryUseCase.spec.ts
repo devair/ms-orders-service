@@ -1,4 +1,4 @@
-import { CategoriesRepositoryInMemory } from "../../../../../external/datasource/in-memory/CategoriesRepositoryInMemory"
+import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { CreateCategoryUseCase } from "../../createCategory/CreateCategoryUseCase"
 import { EditCategoryUseCase } from "../EditCategoryUseCase"
 
@@ -9,7 +9,7 @@ let updateCategoryUseCase: EditCategoryUseCase
 describe('Categories Service tests', ()=>{
 
     beforeEach(()=>{
-        const categoriesRepository = new CategoriesRepositoryInMemory()
+        const categoriesRepository = new CategoriesRepositoryPostgres()
         createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository)
         updateCategoryUseCase = new EditCategoryUseCase(categoriesRepository)
 
@@ -19,7 +19,7 @@ describe('Categories Service tests', ()=>{
 
         const categoryBebida = await createCategoryUseCase.execute( {name: 'Bebida', description: 'Bebidas'} ) 
         
-        await updateCategoryUseCase.execute( {id: categoryBebida.id, description: 'Descriptin updated' } )
+        await updateCategoryUseCase.execute( {id: categoryBebida.id, name: 'Descriptin updated' } )
                 
     })
 

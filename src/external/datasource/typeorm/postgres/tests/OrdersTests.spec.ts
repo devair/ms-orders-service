@@ -1,13 +1,13 @@
 import "reflect-metadata"
-import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
-import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway"
-import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway"
-import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
-import { Order } from "../../../../core/entities/Order"
-import { CategoriesRepositoryInMemory } from "../CategoriesRepositoryInMemory"
-import { CustomersRepositoryInMemory } from "../CustomersRepositoryInMemory"
-import { OrdersRepositoryInMemory } from "../OrdersRepositoryInMemory"
-import { ProductsRepositoryInMemory } from "../ProductsRepositoryInMemory"
+import { ICategoriesGateway } from "../../../../../communication/gateways/ICategoriesGateway"
+import { ICustomersGateway } from "../../../../../communication/gateways/ICustomersGateway"
+import { IOrdersGateway } from "../../../../../communication/gateways/IOrdersGateway"
+import { IProductsGateway } from "../../../../../communication/gateways/IProductsGateway"
+import { Order } from "../../../../../core/entities/Order"
+import { CustomersRepositoryPostgres } from "../CustomersRepositoryPostgres"
+import { CategoriesRepositoryPostgres } from "../CategoriesRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../ProductsRepositoryPostgres"
+import { OrdersRepositoryPostgres } from "../OrdersRepositoryPostgres"
 
 
 let ordersRepository: IOrdersGateway
@@ -18,10 +18,10 @@ let categoriesRepository: ICategoriesGateway
 describe('Orders tests', () => {
     beforeAll( async () => {
 
-        customersRepository = new CustomersRepositoryInMemory()
-        categoriesRepository = new CategoriesRepositoryInMemory()
-        productsRepository = new ProductsRepositoryInMemory(categoriesRepository)
-        ordersRepository = new OrdersRepositoryInMemory()
+        customersRepository = new CustomersRepositoryPostgres()
+        categoriesRepository = new CategoriesRepositoryPostgres()
+        productsRepository = new ProductsRepositoryPostgres()
+        ordersRepository = new OrdersRepositoryPostgres()
 
         // creating a category
         const category = await categoriesRepository.create({ name: 'Bebida' , description: 'Bebida gelada'})

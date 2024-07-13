@@ -15,6 +15,7 @@ interface OutputCreateProductDTO {
     code: string
     description: string    
     category : OutputFindCategoryDTO
+    categoryId: number 
     price: number
     image: string
 }

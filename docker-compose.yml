@@ -24,6 +24,12 @@ services:
     volumes:
       - ./src:/usr/src/app/src 
 
+    environment:
+      - DB_HOST=localhost                 
+      - DB_PORT=5432
+      - DB_DATABASE=pedidos_db 
+      - DB_USER=docker
+      - DB_PASS=docker
     links:
       - postgres-db
 

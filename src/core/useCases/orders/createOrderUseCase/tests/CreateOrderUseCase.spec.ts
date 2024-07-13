@@ -1,11 +1,10 @@
-import { CategoriesRepositoryInMemory } from "../../../../../external/datasource/in-memory/CategoriesRepositoryInMemory"
-import { CustomersRepositoryInMemory } from "../../../../../external/datasource/in-memory/CustomersRepositoryInMemory"
-import { OrderItemsRepositoryInMemory } from "../../../../../external/datasource/in-memory/OrderItemsRepositoryInMemory"
-import { OrdersRepositoryInMemory } from "../../../../../external/datasource/in-memory/OrdersRepositoryInMemory"
-import { ProductsRepositoryInMemory } from "../../../../../external/datasource/in-memory/ProductsRepositoryInMemory"
+import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { CustomersRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CustomersRepositoryPostgres"
+import { OrderItemsRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/OrderItemsRepositoryPostgres"
+import { OrdersRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/OrdersRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { Customer } from "../../../../entities/Customer"
 import { CreateCategoryUseCase } from "../../../categories/createCategory/CreateCategoryUseCase"
-import { FindByIdCategoryUseCase } from "../../../categories/findByIdCategory/FindByIdCategoryUseCase"
 import { CreateCustomerUseCase } from "../../../customers/createCustomer/CreateCustomerUseCase"
 import { FindByCpfCustomerUseCase } from "../../../customers/findByCpfCustomer/FindByCpfCustomerUseCase"
 import { CreateProductUseCase } from "../../../products/createProduct/CreateProductUseCase"
@@ -16,21 +15,19 @@ let createCategoryUseCase: CreateCategoryUseCase
 let createProductUseCase: CreateProductUseCase
 let createCustomerUseCase: CreateCustomerUseCase
 let findByCpfCustomerUseCase: FindByCpfCustomerUseCase
-let findByIdCategoryUseCase: FindByIdCategoryUseCase
 let findByCodeProductUseCase: FindByCodeProductUseCase
 let createOrderUseCase: CreateOrderUseCase
 
 describe('Orders tests', () => {
     beforeAll(async () => {
 
-        const categoriesRepository = new CategoriesRepositoryInMemory()
-        const customersRepository = new CustomersRepositoryInMemory()
-        const productsRepository = new ProductsRepositoryInMemory(categoriesRepository)
-        const ordersRepository = new OrdersRepositoryInMemory()
-        const orderItemsRepository = new OrderItemsRepositoryInMemory()
+        const categoriesRepository = new CategoriesRepositoryPostgres()
+        const customersRepository = new CustomersRepositoryPostgres()
+        const productsRepository = new ProductsRepositoryPostgres()
+        const ordersRepository = new OrdersRepositoryPostgres()
+        const orderItemsRepository = new OrderItemsRepositoryPostgres()
         
-        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)
-        findByIdCategoryUseCase = new FindByIdCategoryUseCase(categoriesRepository)
+        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)        
         findByCodeProductUseCase = new FindByCodeProductUseCase(productsRepository)
         
         createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository)

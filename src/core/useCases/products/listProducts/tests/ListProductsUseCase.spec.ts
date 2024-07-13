@@ -1,24 +1,26 @@
-import { CategoriesRepositoryInMemory } from "../../../../../external/datasource/in-memory/CategoriesRepositoryInMemory"
-import { ProductsRepositoryInMemory } from "../../../../../external/datasource/in-memory/ProductsRepositoryInMemory"
+import { ICategoriesGateway } from "../../../../../communication/gateways/ICategoriesGateway"
+import { IProductsGateway } from "../../../../../communication/gateways/IProductsGateway"
+import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { CreateCategoryUseCase } from "../../../categories/createCategory/CreateCategoryUseCase"
-import { FindByIdCategoryUseCase } from "../../../categories/findByIdCategory/FindByIdCategoryUseCase"
 import { CreateProductUseCase } from "../../createProduct/CreateProductUseCase"
 import { ListProductsUseCase } from "../ListProductsUseCase"
 
+let productsRepository : IProductsGateway
+let categoriesRepository : ICategoriesGateway
 let createProductUseCase : CreateProductUseCase
 let createCategoryeUseCase: CreateCategoryUseCase
 let listProductsUseCase: ListProductsUseCase
-let findByIdCategoryUseCase: FindByIdCategoryUseCase
+
 
 describe('Products Use Case tests', ()=>{
 
-    beforeEach(()=>{
-        const categoriesRepository = new CategoriesRepositoryInMemory()
-        findByIdCategoryUseCase = new FindByIdCategoryUseCase(categoriesRepository)       
-        createCategoryeUseCase = new CreateCategoryUseCase(categoriesRepository)  
+    beforeAll(()=>{
+        categoriesRepository = new CategoriesRepositoryPostgres()
+        productsRepository = new ProductsRepositoryPostgres()
 
-        const productsRepository = new ProductsRepositoryInMemory(categoriesRepository)
-        createProductUseCase = new CreateProductUseCase(productsRepository,categoriesRepository)             
+        createCategoryeUseCase = new CreateCategoryUseCase(categoriesRepository)
+        createProductUseCase = new CreateProductUseCase(productsRepository, categoriesRepository) 
         listProductsUseCase = new ListProductsUseCase(productsRepository)             
     })
 

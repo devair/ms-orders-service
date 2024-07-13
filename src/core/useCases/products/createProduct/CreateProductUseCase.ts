@@ -32,6 +32,7 @@ class CreateProductUseCase {
             description: product.description,
             price: product.price,
             image: product.image,
+            categoryId: categoryFound.id,
             category: {
                 id: categoryFound.id,
                 name: categoryFound.name,

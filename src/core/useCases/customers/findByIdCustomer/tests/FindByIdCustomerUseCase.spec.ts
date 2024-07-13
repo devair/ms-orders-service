@@ -1,4 +1,4 @@
-import { CustomersRepositoryInMemory } from "../../../../../external/datasource/in-memory/CustomersRepositoryInMemory"
+import { CustomersRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CustomersRepositoryPostgres"
 import { CreateCustomerUseCase } from "../../createCustomer/CreateCustomerUseCase"
 import { FindByIdCustomerUseCase } from "../FindByIdCustomerUseCase"
 
@@ -8,7 +8,7 @@ let findByIdCustomerUseCase : FindByIdCustomerUseCase
 describe('Customers User Case tests', ()=>{
 
     beforeEach(()=>{
-        const customersRepository = new CustomersRepositoryInMemory()
+        const customersRepository = new CustomersRepositoryPostgres()
         createCustomerUseCase = new CreateCustomerUseCase(customersRepository) 
         findByIdCustomerUseCase = new FindByIdCustomerUseCase(customersRepository)                    
     })
