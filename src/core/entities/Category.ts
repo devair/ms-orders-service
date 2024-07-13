@@ -3,9 +3,9 @@ import { Product } from "./Product"
 class Category {
     
     readonly id: number
-    readonly name: string
-    readonly description: string
-    readonly products: Product[]
+    name: string
+    description: string
+    products: Product[]
     readonly createdAt: Date
 
     constructor(id: number, name: string, description: string){

@@ -1,35 +1,32 @@
-import "reflect-metadata"
-import { DataSource } from 'typeorm'
-import * as dotenv from 'dotenv'
+import { DataSource, DataSourceOptions } from 'typeorm';
+import * as dotenv from 'dotenv';
 
 dotenv.config()
 
-const dbname = process.env.DB_DATABASE //|| 'pedidos_db'
-const dbuser = process.env.DB_USER //|| 'docker'
-const dbpassword = process.env.DB_PASS //|| 'docker'
-const dbhost = process.env.DB_HOST // || 'postgres-db'
-const dbport = process.env.DB_PORT // || 'postgres-db'
-    
-const AppDataSource = new DataSource({
-    type: "postgres",
-    host: dbhost,
-    port: parseInt(dbport),
-    username: dbuser,
-    password: dbpassword,
-    database: dbname,
-    synchronize: true,
-    logging: true,
-    entities: ["./dist/external/datasource/typeorm/entities/*.js"],
-    subscribers: [],
-    migrations: [],
-})
+const commonConfig = {
+  entities: [__dirname + '/entities/*.ts',  'dist/external/datasource/typeorm/entities/*.js'],
+  synchronize: true,
+  logging: true
+};
 
-AppDataSource.initialize()
-    .then(() => {
-        console.log("Data Source has been initialized!")
-    })
-    .catch((err) => {
-        console.error("Error during Data Source initialization", err)
-    })
+const developmentConfig: DataSourceOptions = {
+  ...commonConfig,
+  type: 'postgres',
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_DATABASE,
+};
 
-export { AppDataSource } 
+const testConfig: DataSourceOptions = {
+  ...commonConfig,
+  type: 'sqlite',
+  database: ':memory:',
+};
+
+const dataSourceConfig  = process.env.NODE_ENV === 'test' ? testConfig : developmentConfig;
+
+const AppDataSource = new DataSource(dataSourceConfig);
+
+export { AppDataSource }
