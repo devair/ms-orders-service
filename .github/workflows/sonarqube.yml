@@ -10,7 +10,7 @@ on:
 jobs:
   sonarcloud:
     name: SonarCloud
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
     steps:
       - uses: actions/checkout@v3
         with:
@@ -20,7 +20,8 @@ jobs:
       - name: Test and coverage
         run: yarn jest --coverage --forceExit --detectOpenHandles
       - name: Listar
-        run: pwd && ls reports   
+        if: ${{ env.SHOW_DIRECTORY == '1' }}
+        run: find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"  
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env: 
