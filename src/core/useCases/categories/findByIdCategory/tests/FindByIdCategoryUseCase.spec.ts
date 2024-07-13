@@ -1,4 +1,4 @@
-import { CategoriesRepositoryInMemory } from "../../../../../external/datasource/in-memory/CategoriesRepositoryInMemory"
+import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { CreateCategoryUseCase } from "../../createCategory/CreateCategoryUseCase"
 import { FindByIdCategoryUseCase } from "../FindByIdCategoryUseCase"
 
@@ -8,7 +8,7 @@ let findByIdCategoryUseCase : FindByIdCategoryUseCase
 describe('Categories Service tests', ()=>{
 
     beforeEach(()=>{
-        const categoriesRepository = new CategoriesRepositoryInMemory()
+        const categoriesRepository = new CategoriesRepositoryPostgres()
         createCategoryeUse = new CreateCategoryUseCase(categoriesRepository) 
         findByIdCategoryUseCase = new FindByIdCategoryUseCase(categoriesRepository)                    
     })

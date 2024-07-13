@@ -22,7 +22,7 @@ describe('Category testes', () => {
 
         const categories = await categoriesRepository.list()
 
-        expect(categories.length).toBeGreaterThanOrEqual(1)
+        expect(categories.length).toBeGreaterThan(0)
     })
 
     it('Should be able to find by id', async () => {

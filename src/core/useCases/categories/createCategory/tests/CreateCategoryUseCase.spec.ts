@@ -1,12 +1,12 @@
+import { CategoriesRepositoryPostgres } from "../../../../../external/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { CreateCategoryUseCase } from "../CreateCategoryUseCase"
-import { CategoriesRepositoryInMemory } from "../../../../../external/datasource/in-memory/CategoriesRepositoryInMemory"
 
 let createCategoryeUse : CreateCategoryUseCase
 
 describe('Categories Service tests', ()=>{
 
     beforeEach(()=>{
-        const categoriesRepository = new CategoriesRepositoryInMemory()
+        const categoriesRepository = new CategoriesRepositoryPostgres()
         createCategoryeUse = new CreateCategoryUseCase(categoriesRepository)             
     })
 
