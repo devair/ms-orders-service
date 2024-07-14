@@ -1,5 +1,5 @@
 
-# Microserviço de pedidos  
+# Micro serviço de pedidos  
 
 Projeto exemplo de um sistema para gestão de pedidos de uma lanchonete utilizando os conceitos de Arquitetura Limpa (Clean Architecture)
 
