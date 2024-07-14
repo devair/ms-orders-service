@@ -26,10 +26,8 @@ class SearchProductsController {
         else if (categoryName){
             products = await findProductByCategoryNameUseCase.execute( categoryName.toString())
         }
-        else if (code){
-            console.log(code)
-            const product = await findByCodeProductUseCase.execute( code.toString())
-            console.log(product)
+        else if (code){            
+            const product = await findByCodeProductUseCase.execute( code.toString())            
             products.push(product)
         }
     
