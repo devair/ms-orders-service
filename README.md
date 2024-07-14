@@ -37,14 +37,14 @@ O estabelecimento pode gerenciar o pedido à medida que ele segue em preparaçã
 [Análise no SonarCloud](https://sonarcloud.io/summary/overall?id=devair_ms-orders-service)
 ![imagem sonar](./static/sonar-analise.png)
 
-## 3) Rodar localmente no Docker for Windows
+## 4) Rodar localmente no Docker for Windows
 
 Para executar a aplicação é necesssário ter o Docker instalado localmente com o Kubernetes ativado
 
 ### a) Clonar o projeto 
 
 ~~~bash
-  git clone https://github.com/devair/tc-2023.git
+  git clone https://github.com/devair/ms-orders-service.git
 ~~~
 
 ### b) Acessar o diretório do projeto
@@ -59,34 +59,6 @@ Para executar a aplicação é necesssário ter o Docker instalado localmente co
 ~~~bash  
 docker compose build && docker compose up
 ~~~  
-
-## 4) Rodar aplicação em Kubernetes
-
-Ter o Minikube instalado localmente
-
-### a) Iniciar o cluster do Minikube para Windows
-
-###
-~~~bash
-minikube start
-~~~
-
-### b) Implantar Pods, Services, ConfigMaps e Volumes
-Acessar a pasta kubernetes e executar para cada arquivo o seguinte comando
-
-Utilizar um dos arquivos abaixo, conforme o sistema operacional:
-
-[run.bat](./kubernetes/run.bat) (Windows) 
-
-[run.sh](./kubernetes/run.sh)  (Linux)
-
-### c) Redirecionar portas para acesso via localhost
-
-Para acessar a aplicação via local host na porta 3333, executar o comando abaixo:
-
-~~~bash
-kubectl port-forward service/svc-app 3333:80
-~~~
 
 ### d) Verificar o estado da aplicação
 Executar o comando abaixo no prompt e obter o retorno 'Ok' indicando que a aplicação está em execução
