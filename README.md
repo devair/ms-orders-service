@@ -27,12 +27,12 @@ O estabelecimento pode gerenciar o pedido à medida que ele segue em preparaçã
 
 ## 2) Documentos
 
-### Relatório de testes unitários
+### a) Relatório de testes unitários
 
 [Relatório de cobertura em Html](./static/coverage-report.html)
 ![Relatório jest](./static/coverage-report.png)
 
-## 3) Sonarqube
+### b) Sonarqube
 
 [Análise no SonarCloud](https://sonarcloud.io/summary/overall?id=devair_ms-orders-service)
 ![imagem sonar](./static/sonar-analise.png)
