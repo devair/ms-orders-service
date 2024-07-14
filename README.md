@@ -27,15 +27,15 @@ O estabelecimento pode gerenciar o pedido à medida que ele segue em preparaçã
 
 ## 2) Documentos
 
-### Arquitetura de software
-<img src="./documents/fase2/Application Clean Architecture.png" alt="Architeture software diagram"/>
-<img src="./documents/fase2/Application Clean Architecture.drawio" alt="Architeture software diagram"/>
+### Relatório de testes unitários
 
+[Relatório de cobertura em Html](.static/coverage-report.html)
+![Relatório jest](./static/coverage-report.png)
 
-### Kubernetes
-<img src="./documents/fase2/Kubernetes.png" alt="Kubernetes"/> 
-<img src="./documents/fase2/Kubernetes.drawio" alt="Kubernetes"/>
-  
+## 3) Sonarqube
+
+[Análise no SonarCloud](https://sonarcloud.io/summary/overall?id=devair_ms-payments-service)
+![imagem sonar](./static/sonar-analise.png)
 
 ## 3) Rodar localmente no Docker for Windows
 
