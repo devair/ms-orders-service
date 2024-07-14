@@ -9,8 +9,7 @@
     "start": "tsc && node dist/index.js",
     "build": "tsc -p .",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
-    "test": "jest --coverage --forceExit --detectOpenHandles  ",
-    "test-cucumber": "cucumber-js --publish",
+    "test": "jest --forceExit --detectOpenHandles",
     "sonar": "sonar-scanner"
   },
   "dependencies": {
