@@ -29,7 +29,7 @@ O estabelecimento pode gerenciar o pedido à medida que ele segue em preparaçã
 
 ### Relatório de testes unitários
 
-[Relatório de cobertura em Html](.static/coverage-report.html)
+[Relatório de cobertura em Html](./static/coverage-report.html)
 ![Relatório jest](./static/coverage-report.png)
 
 ## 3) Sonarqube
