@@ -34,7 +34,7 @@ O estabelecimento pode gerenciar o pedido à medida que ele segue em preparaçã
 
 ## 3) Sonarqube
 
-[Análise no SonarCloud](https://sonarcloud.io/summary/overall?id=devair_ms-payments-service)
+[Análise no SonarCloud](https://sonarcloud.io/summary/overall?id=devair_ms-orders-service)
 ![imagem sonar](./static/sonar-analise.png)
 
 ## 3) Rodar localmente no Docker for Windows
