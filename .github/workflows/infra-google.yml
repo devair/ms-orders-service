@@ -82,10 +82,7 @@ jobs:
 
     - id: ORDER_URI
       name: Get orders service location
-      run: kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
-    
-    - name: eco
-      run: echo "${{ steps.ORDER_URI.outputs.stdout }}"
+      run: echo "$(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"      
     
     - name: Delete config map
       run: kubectl delete cm ms-orders-service-config-map --ignore-not-found
