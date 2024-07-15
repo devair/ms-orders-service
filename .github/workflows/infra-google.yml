@@ -80,4 +80,4 @@ jobs:
         location: ${{ env.GAR_LOCATION }}
 
     - id: 'order_service_ip'
-      run: $ kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+      run: kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
