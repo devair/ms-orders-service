@@ -84,5 +84,9 @@ jobs:
       name: Get orders service location
       run: kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
     
-    - name: Create secret
-      run: kubectl delete secret orders-uri --ignore-not-found && kubectl create secret generic orders-uri --from-literal=orders-uri=http://${{ steps.order_service_ip.outputs.stdout }}/${{ env.ORDERS_API_VERSION }}
+    - name: Delete config map
+      run: kubectl delete cm ms-orders-service-config-map
+
+    - name: Create config map
+      run: kubectl create cm ms-orders-service-config-map --from-literal=ORDERS_URI=http://${{ steps.order_service_ip.outputs.stdout }}/${{ env.ORDERS_API_VERSION }}http://${{ steps.order_service_ip.outputs.stdout }}/${{ env.ORDERS_API_VERSION }}
+
