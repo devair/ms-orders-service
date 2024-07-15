@@ -14,10 +14,17 @@ jobs:
     uses: ./.github/workflows/sonarqube.yml
     secrets: inherit
 
-  publish:
+  docker:
     needs: sonarqube    
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' &&  needs.sonarqube.result == 'success' 
     name: Publish Docker Image
     uses: ./.github/workflows/docker-image.yml
-    secrets: inherit      
+    secrets: inherit    
+
+  deploy:
+    needs: docker    
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' &&  needs.docker.result == 'success' 
+    name: Deploy to GKE
+    uses: ./.github/workflows/infra-google.yml
+    secrets: inherit
     
