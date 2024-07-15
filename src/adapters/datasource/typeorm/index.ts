@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 dotenv.config()
 
 const commonConfig = {
-  entities: [__dirname + '/entities/*.ts',  'dist/external/datasource/typeorm/entities/*.js'],
+  entities: [__dirname + '/entities/*.ts','dist/adapters/**/entities/*.js'],
   synchronize: true,
   logging: false
 };

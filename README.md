@@ -1,5 +1,5 @@
 
-# Microserviço de pedidos  
+# Micro serviço de pedidos  
 
 Projeto exemplo de um sistema para gestão de pedidos de uma lanchonete utilizando os conceitos de Arquitetura Limpa (Clean Architecture)
 
@@ -27,24 +27,24 @@ O estabelecimento pode gerenciar o pedido à medida que ele segue em preparaçã
 
 ## 2) Documentos
 
-### Arquitetura de software
-<img src="./documents/fase2/Application Clean Architecture.png" alt="Architeture software diagram"/>
-<img src="./documents/fase2/Application Clean Architecture.drawio" alt="Architeture software diagram"/>
+### a) Relatório de testes unitários
 
+[Relatório de cobertura em Html](./static/coverage-report.html)
+![Relatório jest](./static/coverage-report.png)
 
-### Kubernetes
-<img src="./documents/fase2/Kubernetes.png" alt="Kubernetes"/> 
-<img src="./documents/fase2/Kubernetes.drawio" alt="Kubernetes"/>
-  
+### b) Sonarqube
 
-## 3) Rodar localmente no Docker for Windows
+[Análise no SonarCloud](https://sonarcloud.io/summary/overall?id=devair_ms-orders-service)
+![imagem sonar](./static/sonar-analise.png)
+
+## 4) Rodar localmente no Docker for Windows
 
 Para executar a aplicação é necesssário ter o Docker instalado localmente com o Kubernetes ativado
 
 ### a) Clonar o projeto 
 
 ~~~bash
-  git clone https://github.com/devair/tc-2023.git
+  git clone https://github.com/devair/ms-orders-service.git
 ~~~
 
 ### b) Acessar o diretório do projeto
@@ -59,34 +59,6 @@ Para executar a aplicação é necesssário ter o Docker instalado localmente co
 ~~~bash  
 docker compose build && docker compose up
 ~~~  
-
-## 4) Rodar aplicação em Kubernetes
-
-Ter o Minikube instalado localmente
-
-### a) Iniciar o cluster do Minikube para Windows
-
-###
-~~~bash
-minikube start
-~~~
-
-### b) Implantar Pods, Services, ConfigMaps e Volumes
-Acessar a pasta kubernetes e executar para cada arquivo o seguinte comando
-
-Utilizar um dos arquivos abaixo, conforme o sistema operacional:
-
-[run.bat](./kubernetes/run.bat) (Windows) 
-
-[run.sh](./kubernetes/run.sh)  (Linux)
-
-### c) Redirecionar portas para acesso via localhost
-
-Para acessar a aplicação via local host na porta 3333, executar o comando abaixo:
-
-~~~bash
-kubectl port-forward service/svc-app 3333:80
-~~~
 
 ### d) Verificar o estado da aplicação
 Executar o comando abaixo no prompt e obter o retorno 'Ok' indicando que a aplicação está em execução
@@ -238,16 +210,3 @@ Body Response:
     "amount": <ORDER AMOUNT>
 }
 ~~~
-
-
-## 7) Vídeos demonstração  
-
-
-[Vídeo 1 - Explicação geral do projeto](https://vimeo.com/921741552/076d0bb27a)
-
-[Vídeo 2 - Estrutura do projeto no vs code](https://vimeo.com/921763369/d2cd0079d8)
-
-[Vídeo 3 - Uso do Kubernetes e Swagger](https://vimeo.com/921784451/6124eb0a30)
-
-
-
