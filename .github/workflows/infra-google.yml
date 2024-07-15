@@ -26,7 +26,7 @@ env:
   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
   REPOSITORY: samples # TODO: update to Artifact Registry docker repository
   IMAGE: static-site
-
+  ORDERS_URI: 0.0.0.0
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
@@ -82,7 +82,7 @@ jobs:
 
     - id: ORDER_URI
       name: Get orders service location
-      run: echo "$(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"      
+      run: echo "ORDERS_URI=$(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" >> "$ORDERS_URI"     
     
     - name: Delete config map
       run: kubectl delete cm ms-orders-service-config-map --ignore-not-found
