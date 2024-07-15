@@ -98,4 +98,4 @@ jobs:
     - name: Create config map
       run: |       
         kubectl delete cm ms-orders-service-config-map --ignore-not-found
-        kubectl create cm ms-orders-service-config-map --from-literal=ORDERS_URI=http://${{ env.ORDERS_URI }}/${{ env.ORDERS_API_VERSION }} --from-literal=APP_PORT=3333   
+        kubectl create cm ms-orders-service-config-map --from-literal=ORDERS_URI=http://${{ env.ORDERS_URI }}${{ env.ORDERS_API_VERSION }} --from-literal=APP_PORT=3333   
