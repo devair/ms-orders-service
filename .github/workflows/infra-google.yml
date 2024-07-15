@@ -80,19 +80,16 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GAR_LOCATION }}
 
-    - name: Get orders service location
-      id: ORDER_URI
+    - name: Get orders service location      
       run: | 
-        {  
-          echo "ORDERS_URI=$(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" >> "$GITHUB_ENV"             
-
-          echo $ORDERS_URI
-        }
+        ORDERS_URI=$(kubectl get service/ms-orders-service-svc  -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        echo "ORDERS_URI=$ORDERS_URI" >> $GITHUB_ENV
+        echo {{ env.ORDERS_URI }}
     
     - name: Delete config map
       run: kubectl delete cm ms-orders-service-config-map --ignore-not-found
 
     - name: Create config map
-      run: kubectl create cm ms-orders-service-config-map --from-literal=ORDERS_URI=${{ steps.ORDER_URI.outputs.stdout }} --from-literal=APP_PORT=3333   
+      run: kubectl create cm ms-orders-service-config-map --from-literal=ORDERS_URI=${{ env.ORDERS_URI }} --from-literal=APP_PORT=3333   
 
 
