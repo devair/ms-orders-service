@@ -9,6 +9,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
 jobs:
   sonarqube:    
     uses: ./.github/workflows/sonarqube.yml
@@ -24,7 +28,7 @@ jobs:
   deploy:
     needs: docker    
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' &&  needs.docker.result == 'success' 
-    name: Deploy to GKE
+    name: Build and Deploy to GKE
     uses: ./.github/workflows/infra-google.yml
     secrets: inherit
     
