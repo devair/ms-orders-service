@@ -84,7 +84,7 @@ jobs:
       id: ORDER_URI
       run: | 
         {  
-          echo $(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}') >> $ORDERS_URI             
+          echo "ORDERS_URI=$(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" >> "$GITHUB_ENV"             
 
           echo $ORDERS_URI
         }
