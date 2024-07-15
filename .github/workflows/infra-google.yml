@@ -71,11 +71,9 @@ jobs:
       uses: "google-github-actions/setup-gcloud@v2"
       with:
         install_components: "gke-gcloud-auth-plugin"
-        
-    # Get the GKE credentials so we can deploy to the cluster
-    - name: Set up GKE credentials
-      uses: google-github-actions/get-gke-credentials@v2            
+
+    - name: Authenticate to GKE cluster
+      uses: google-github-actions/get-gke-credentials@v2
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
-    
+        location: ${{ env.GAR_LOCATION }}
