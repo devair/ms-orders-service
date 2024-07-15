@@ -12,7 +12,7 @@ dotenv.config()
 const app = express()
 app.disable("x-powered-by")
 
-const port = process.env.APP_PORT
+const port = process.env.APP_PORT || 3333
 
 app.use(express.json())
 

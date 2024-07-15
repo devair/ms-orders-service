@@ -17,7 +17,9 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  ORDERS_SERVICE: ${{ vars.ORDERS_SERVICE }}
+  ORDERS_API_VERSION: ${{ vars.ORDERS_API_VERSION }}
+  PROJECT_ID: ${{ vars.GKE_PROJECT }}
   GAR_LOCATION: ${{ vars.GAR_LOCATION }} # us-central1 TODO:  update region of the Artifact Registry
   GKE_CLUSTER: ${{ vars.GKE_CLUSTER }}    # cluster-1  TODO: update to cluster name 
   GKE_ZONE: ${{ vars.GKE_ZONE }}  # us-central1-c TODO: update to cluster zone
@@ -71,11 +73,20 @@ jobs:
       uses: "google-github-actions/setup-gcloud@v2"
       with:
         install_components: "gke-gcloud-auth-plugin"
-        
-    # Get the GKE credentials so we can deploy to the cluster
-    - name: Set up GKE credentials
-      uses: google-github-actions/get-gke-credentials@v2            
+
+    - name: Authenticate to GKE cluster
+      uses: google-github-actions/get-gke-credentials@v2
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
+        location: ${{ env.GAR_LOCATION }}
+
+    - id: ORDER_URI
+      name: Get orders service location
+      run: echo "$(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"      
     
+    - name: Delete config map
+      run: kubectl delete cm ms-orders-service-config-map --ignore-not-found
+
+    - name: Create config map
+      run: kubectl create cm ms-orders-service-config-map --from-literal=ORDERS_URI=${{ steps.ORDER_URI.outputs.stdout }}
+
