@@ -17,6 +17,7 @@ on:
   workflow_dispatch:
 
 env:
+  ORDERS_SERVICE: ${{ vars.ORDERS_SERVICE }}
   PROJECT_ID: ${{ vars.GKE_PROJECT }}
   GAR_LOCATION: ${{ vars.GAR_LOCATION }} # us-central1 TODO:  update region of the Artifact Registry
   GKE_CLUSTER: ${{ vars.GKE_CLUSTER }}    # cluster-1  TODO: update to cluster name 
@@ -77,3 +78,6 @@ jobs:
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GAR_LOCATION }}
+
+    - id: 'order_service_ip'
+      run: $ kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
