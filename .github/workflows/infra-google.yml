@@ -80,9 +80,14 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GAR_LOCATION }}
 
-    - id: ORDER_URI
-      name: Get orders service location
-      run: echo "ORDERS_URI=$(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" >> "$ORDERS_URI"     
+    - name: Get orders service location
+      id: ORDER_URI
+      run: | 
+        {  
+          echo $(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}') >> $ORDERS_URI             
+
+          echo $ORDERS_URI
+        }
     
     - name: Delete config map
       run: kubectl delete cm ms-orders-service-config-map --ignore-not-found
