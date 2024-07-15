@@ -210,16 +210,3 @@ Body Response:
     "amount": <ORDER AMOUNT>
 }
 ~~~
-
-
-## 7) Vídeos demonstração  
-
-
-[Vídeo 1 - Explicação geral do projeto](https://vimeo.com/921741552/076d0bb27a)
-
-[Vídeo 2 - Estrutura do projeto no vs code](https://vimeo.com/921763369/d2cd0079d8)
-
-[Vídeo 3 - Uso do Kubernetes e Swagger](https://vimeo.com/921784451/6124eb0a30)
-
-
-
