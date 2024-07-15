@@ -26,7 +26,7 @@ env:
   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
   REPOSITORY: samples # TODO: update to Artifact Registry docker repository
   IMAGE: static-site
-
+  ORDERS_URI: 0.0.0.0
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
@@ -80,14 +80,16 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GAR_LOCATION }}
 
-    - id: ORDER_URI
-      name: Get orders service location
-      run: echo "$(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"      
+    - name: Get orders service location      
+      run: | 
+        ORDERS_URI=$(kubectl get service/ms-orders-service-svc  -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        echo "ORDERS_URI=$ORDERS_URI" >> $GITHUB_ENV
+        echo {{ env.ORDERS_URI }}
     
     - name: Delete config map
       run: kubectl delete cm ms-orders-service-config-map --ignore-not-found
 
     - name: Create config map
-      run: kubectl create cm ms-orders-service-config-map --from-literal=ORDERS_URI=${{ steps.ORDER_URI.outputs.stdout }} --from-literal=APP_PORT=3333   
+      run: kubectl create cm ms-orders-service-config-map --from-literal=ORDERS_URI=http://${{ env.ORDERS_URI }}/${{ env.ORDERS_API_VERSION }} --from-literal=APP_PORT=3333   
 
 
