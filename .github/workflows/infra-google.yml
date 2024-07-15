@@ -85,4 +85,4 @@ jobs:
       run: kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
     
     - name: Create secret
-      run: kubectl delete secret orders_uri --ignore-not-found && kubectl create secret generic orders_uri --from-literal=orders_uri=http://${{ steps.order_service_ip.outputs.stdout }}/${{ env.ORDERS_API_VERSION }}
+      run: kubectl delete secret orders-uri --ignore-not-found && kubectl create secret generic orders-uri --from-literal=orders-uri=http://${{ steps.order_service_ip.outputs.stdout }}/${{ env.ORDERS_API_VERSION }}
