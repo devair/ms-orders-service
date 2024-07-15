@@ -16,7 +16,10 @@ class CategoriesApi {
         
         try{
             const data  = await listCategoriesController.handler()    
-            response.contentType('application/json')       
+            response.contentType('application/json')
+
+            console.log(data)
+            
             return response.status(200).send(CategoryPresenter.toJson(data))
 
         } catch (ex) {
