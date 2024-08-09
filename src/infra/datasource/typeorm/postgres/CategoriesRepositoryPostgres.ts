@@ -43,6 +43,11 @@ class CategoriesRepositoryPostgres implements ICategoriesGateway{
         return categories
     }
 
+    async findOneByName(name: string): Promise<Category> {
+        const category = this.repository.findOne({ where: { name }})
+        return category 
+    }
+
 }
 
 export { CategoriesRepositoryPostgres }

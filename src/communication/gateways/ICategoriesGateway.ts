@@ -13,6 +13,8 @@ interface ICategoriesGateway{
     findById(id: number): Promise<Category>
 
     update({ id, name, description }: InputUpdateCategoryDTO): Promise<void>
+
+    findOneByName(name: string): Promise<Category>
 }
 
 export { ICategoriesGateway }

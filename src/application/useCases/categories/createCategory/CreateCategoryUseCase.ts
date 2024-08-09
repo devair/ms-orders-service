@@ -17,9 +17,9 @@ class CreateCategoryUseCase {
 
     async execute({ name, description }: InputCreateCategoryDTO): Promise<OutputCreateCategoryDTO> {
 
-        const categoryAlreadExists = await this.categoriesRepository.findByName(name)
+        const categoryAlreadExists = await this.categoriesRepository.findOneByName(name)
 
-        if (categoryAlreadExists.length > 0) {
+        if (categoryAlreadExists) {
             throw new Error(`Category ${name} already exists`);
         }
 
