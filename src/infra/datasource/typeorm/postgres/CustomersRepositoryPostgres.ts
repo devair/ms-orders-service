@@ -1,17 +1,13 @@
 import { Repository } from "typeorm";
-import { AppDataSource } from "..";
 import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway";
 import { Customer } from "../../../../core/entities/Customer";
 import { InputCreateCustomerDTO } from "../../../../application/dtos/customers/ICreateCustomerDTO";
-import { CustomerEntity } from "../entities/CustomerEntity";
 
 class CustomersRepositoryPostgres implements ICustomersGateway {
 
-    private repository: Repository<Customer>
-    
-    constructor(){
-        this.repository = AppDataSource.getRepository(CustomerEntity)
-    }
+    constructor(
+        private readonly repository: Repository<Customer>
+    ){}
 
     async create({ name, email, cpf, phone }: InputCreateCustomerDTO): Promise<Customer> {
         const customer = this.repository.create({

@@ -1,16 +1,15 @@
-import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
 import { FindByIdCategoryUseCase } from "../../../../application/useCases/categories/findByIdCategory/FindByIdCategoryUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryeUse : CreateCategoryUseCase
 let findByIdCategoryUseCase : FindByIdCategoryUseCase
 
 describe('Categories Service tests', ()=>{
 
-    beforeEach(()=>{
-        const categoriesRepository = new CategoriesRepositoryPostgres()
-        createCategoryeUse = new CreateCategoryUseCase(categoriesRepository) 
-        findByIdCategoryUseCase = new FindByIdCategoryUseCase(categoriesRepository)                    
+    beforeEach(()=>{        
+        createCategoryeUse = new CreateCategoryUseCase(AppDataSource) 
+        findByIdCategoryUseCase = new FindByIdCategoryUseCase(AppDataSource)                    
     })
 
     it('Should be able to find a category by id', async()=>{

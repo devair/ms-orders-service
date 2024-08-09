@@ -21,15 +21,20 @@ export const createApp = async () => {
         return response.status(200).send('Ok');
     })
 
-    app.use('/api/v1', router)
-
+    
     // Configura Persistencia
     if (process.env.NODE_ENV !== 'test') {
-        AppDataSource.initialize().then(() => {
+        AppDataSource.initialize().then((datasource) => {
+                        
+            app.use('/api/v1', router(datasource))
+            
             app.listen(port, () => {
                 console.log(`Orders service listening  on port ${port}`);
             });
         }).catch(error => console.log(error));
+    }
+    else{        
+        app.use('/api/v1', router(AppDataSource))     
     }
 
     return app

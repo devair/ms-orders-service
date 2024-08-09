@@ -1,16 +1,17 @@
 import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
 import { EditCategoryUseCase } from "../../../../application/useCases/categories/editCategory/EditCategoryUseCase"
+import { Category } from "../../../../core/entities/Category"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryUseCase: CreateCategoryUseCase
 let updateCategoryUseCase: EditCategoryUseCase
 
 describe('Categories Service tests', ()=>{
 
-    beforeEach(()=>{
-        const categoriesRepository = new CategoriesRepositoryPostgres()
-        createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository)
-        updateCategoryUseCase = new EditCategoryUseCase(categoriesRepository)
+    beforeEach(()=>{                
+        createCategoryUseCase = new CreateCategoryUseCase(AppDataSource)
+        updateCategoryUseCase = new EditCategoryUseCase(AppDataSource)
 
     })
 

@@ -1,18 +1,13 @@
 import { Repository } from "typeorm"
-import { AppDataSource } from ".."
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
 import { Product } from "../../../../core/entities/Product"
 import { InputCreateProductDTO } from "../../../../application/dtos/products/ICreateProductDTO"
-import { ProductEntity } from "../entities/ProductEntity"
-
 
 class ProductsRepositoryPostgres implements IProductsGateway {
 
-    private repository: Repository<Product>
-
-    constructor(){
-        this.repository = AppDataSource.getRepository(ProductEntity)
-    }
+    constructor(
+        private repository: Repository<Product>
+    ){}
 
     async create({ code, name, description, categoryId, price, image }: InputCreateProductDTO): Promise<Product> {
         const product = this.repository.create({ name, code, description, 

@@ -7,11 +7,6 @@ let productCreated: any
 
 describe("ProductsApi", () => {
 
-  beforeAll(async () => {
-    settings.setLogLevel('ERROR')    
-  }, 60000)
-
-
   it("should be able to create a new category", async () => {
     const response = await request(await app)
       .post("/api/v1/categories")

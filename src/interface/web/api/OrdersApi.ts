@@ -1,86 +1,82 @@
-import { Request, Response } from "express";
-import { CreateOrderController } from "../../../communication/controllers/orders/CreateOrderController";
-import { OrdersRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/OrdersRepositoryPostgres";
-import { OrderItemsRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/OrderItemsRepositoryPostgres";
-import { CustomersRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres";
-import { ProductsRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres";
-import { ListOrdersController } from "../../../communication/controllers/orders/ListOrdersController";
-import { FindByIdOrderController } from "../../../communication/controllers/orders/FindByIdOrderController";
-import { UpdateOrderStatusController } from "../../../communication/controllers/orders/UpdateOrderStatusController";
-import { OrderPresenter } from "../../../communication/presenters/OrderPresenter";
+import { Request, Response } from "express"
+import { CreateOrderController } from "../../../communication/controllers/orders/CreateOrderController"
+import { ListOrdersController } from "../../../communication/controllers/orders/ListOrdersController"
+import { FindByIdOrderController } from "../../../communication/controllers/orders/FindByIdOrderController"
+import { UpdateOrderStatusController } from "../../../communication/controllers/orders/UpdateOrderStatusController"
+import { OrderPresenter } from "../../../communication/presenters/OrderPresenter"
 import RabbitMQOrderQueueAdapterOUT from "../../../infra/messaging/RabbitMQOrderQueueAdapterOUT"
 import { CreateOrderUseCase } from "../../../application/useCases/orders/createOrderUseCase/CreateOrderUseCase"
+import { DataSource } from "typeorm"
+import { ListOrdersUseCase } from "../../../application/useCases/orders/listOrders/ListOrdersUseCase"
+import { FindByIdOrderUseCase } from "../../../application/useCases/orders/findByIdOrder/FindByIdOrderUseCase"
+import { UpdateOrderStatusUseCase } from "../../../application/useCases/orders/updateStatus/UpdateOrderStatusUseCase"
 class OrdersApi {
-    
-    static async create (request: Request, response: Response ): Promise<Response>{
-        
-        const { customer, orderItems } =  request.body;                
-        const ordersRepository = new OrdersRepositoryPostgres()
-        const orderItemsRepository = new OrderItemsRepositoryPostgres()
-        const customersRepository = new CustomersRepositoryPostgres()
-        const productsRepository = new ProductsRepositoryPostgres()
-        const orderPublisher = new RabbitMQOrderQueueAdapterOUT()        
-        const createOrderUseCase = new CreateOrderUseCase(ordersRepository, orderItemsRepository,
-            customersRepository, productsRepository, orderPublisher)
+    constructor(
+        private readonly dataSource: DataSource
+    ) { }
 
+    async create(request: Request, response: Response): Promise<Response> {
+        const { customer, orderItems } = request.body
+        const orderPublisher = new RabbitMQOrderQueueAdapterOUT()
+        const createOrderUseCase = new CreateOrderUseCase(this.dataSource, orderPublisher)
         const createOrderController = new CreateOrderController(createOrderUseCase)
-        
+
         try {
             const data = await createOrderController.handler({ customer, orderItems })
             response.contentType('application/json')
             return response.status(201).send(OrderPresenter.toJson(data))
         }
         catch (ex) {
-            return response.status(400).json({ message: ex.message });
-        }        
+            return response.status(400).json({ message: ex.message })
+        }
     }
 
-    static async list(request: Request, response: Response): Promise<Response> {
+    async list(request: Request, response: Response): Promise<Response> {
 
-        const ordersRepository = new OrdersRepositoryPostgres()
-        const listOrdersController = new ListOrdersController(ordersRepository)
-        
-        try{
+        const listOrdersUseCase = new ListOrdersUseCase(this.dataSource)
+        const listOrdersController = new ListOrdersController(listOrdersUseCase)
+
+        try {
             const data = await listOrdersController.handler()
             response.contentType('application/json')
             return response.status(200).send(OrderPresenter.toJson(data))
         } catch (ex) {
-            return response.status(400).json({ message: ex.message });
-        }        
+            return response.status(400).json({ message: ex.message })
+        }
     }
 
-    static async findById(request: Request, response: Response): Promise<Response> {
+    async findById(request: Request, response: Response): Promise<Response> {
 
         const { id } = request.params
-        const ordersRepository = new OrdersRepositoryPostgres()
-        const findByIdOrderController = new FindByIdOrderController(ordersRepository)        
+        const findByIdOrderUse = new FindByIdOrderUseCase(this.dataSource)
+        const findByIdOrderController = new FindByIdOrderController(findByIdOrderUse)
 
-        try{
-            const data = await findByIdOrderController.handler( parseInt(id) )
+        try {
+            const data = await findByIdOrderController.handler(parseInt(id))
             response.contentType('application/json')
             return response.status(200).send(OrderPresenter.toJson(data))
         }
-        catch( ex ) {
+        catch (ex) {
             return response.status(400).json({ message: ex.message })
-        }        
+        }
     }
 
-    static async updateStatus(request: Request, response: Response): Promise<Response> {
+    async updateStatus(request: Request, response: Response): Promise<Response> {
 
         let { id } = request.params
         let { status } = request.body
 
-        const ordersRepository = new OrdersRepositoryPostgres()
-        const updateStatusOrderController = new UpdateOrderStatusController(ordersRepository)
+        const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(this.dataSource)       
+        const updateStatusOrderController = new UpdateOrderStatusController(updateOrderStatusUseCase)
 
-        try{
-            const data =  await updateStatusOrderController.handler( { id: parseInt(id), status } )     
+        try {
+            const data = await updateStatusOrderController.handler({ id: parseInt(id), status })
             response.contentType('application/json')
-            return response.status(200).send(OrderPresenter.toJson(data))       
+            return response.status(200).send(OrderPresenter.toJson(data))
         }
-        catch( ex ) {
+        catch (ex) {
             return response.status(400).json({ message: ex.message })
-        }        
+        }
     }
 }
 

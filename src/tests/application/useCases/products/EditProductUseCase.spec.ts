@@ -1,15 +1,10 @@
-import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
-import { ProductsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
-import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
-import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
 import { Product } from "../../../../core/entities/Product"
 import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
 import { CreateProductUseCase } from "../../../../application/useCases/products/createProduct/CreateProductUseCase"
 import { EditProductUseCase } from "../../../../application/useCases/products/editProduct/EditProductUseCase"
 import { FindByIdProductUseCase } from "../../../../application/useCases/products/findByIdProduct/FindByIdProductUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
-let productsRepository: IProductsGateway
-let categoriesRepository: ICategoriesGateway
 let createCategoryeUseCase: CreateCategoryUseCase
 let createProducteUse: CreateProductUseCase
 let findByIdProductUseCase: FindByIdProductUseCase
@@ -17,13 +12,11 @@ let editProductUseCase: EditProductUseCase
 let product: Product
 
 describe('Products Service tests', () => {
-    beforeAll(() => {
-        categoriesRepository = new CategoriesRepositoryPostgres()
-        productsRepository = new ProductsRepositoryPostgres()
-        createProducteUse = new CreateProductUseCase(productsRepository, categoriesRepository)
-        createCategoryeUseCase = new CreateCategoryUseCase(categoriesRepository)
-        findByIdProductUseCase = new FindByIdProductUseCase(productsRepository)
-        editProductUseCase = new EditProductUseCase(productsRepository, categoriesRepository)
+    beforeAll(() => {        
+        createProducteUse = new CreateProductUseCase(AppDataSource)
+        createCategoryeUseCase = new CreateCategoryUseCase(AppDataSource)
+        findByIdProductUseCase = new FindByIdProductUseCase(AppDataSource)
+        editProductUseCase = new EditProductUseCase(AppDataSource)
     })
 
     it('Should be able to edit an product', async () => {

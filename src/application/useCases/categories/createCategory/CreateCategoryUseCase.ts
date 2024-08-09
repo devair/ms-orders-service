@@ -1,10 +1,19 @@
 
+import { DataSource } from "typeorm"
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway";
+import { CategoryEntity } from "../../../../infra/datasource/typeorm/entities/CategoryEntity"
 import { InputCreateCategoryDTO, OutputCreateCategoryDTO } from "../../../dtos/categories/ICreateCategoryDTO";
+import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 
 class CreateCategoryUseCase {
 
-    constructor(private categoriesRepository: ICategoriesGateway){}
+    private categoriesRepository: ICategoriesGateway
+
+    constructor(
+        private dataSource: DataSource        
+    ){
+        this.categoriesRepository = new CategoriesRepositoryPostgres(this.dataSource.getRepository(CategoryEntity))
+    }
 
     async execute({ name, description }: InputCreateCategoryDTO): Promise<OutputCreateCategoryDTO> {
 

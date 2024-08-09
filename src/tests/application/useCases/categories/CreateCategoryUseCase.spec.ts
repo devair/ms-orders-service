@@ -2,6 +2,7 @@ import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeo
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
 import { Category } from "../../../../core/entities/Category"
 import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryeUse : CreateCategoryUseCase
 let category: Category
@@ -9,9 +10,8 @@ let categoriesRepository: ICategoriesGateway
 
 describe('Categories Service tests', ()=>{
 
-    beforeEach(()=>{
-        categoriesRepository = new CategoriesRepositoryPostgres()
-        createCategoryeUse = new CreateCategoryUseCase(categoriesRepository)             
+    beforeEach(()=>{                
+        createCategoryeUse = new CreateCategoryUseCase(AppDataSource)             
     })
 
     it('Should be able to create a new category', async()=>{

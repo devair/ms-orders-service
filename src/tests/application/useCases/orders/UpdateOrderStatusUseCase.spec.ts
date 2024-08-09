@@ -1,8 +1,3 @@
-import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
-import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
-import { OrderItemsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/OrderItemsRepositoryPostgres"
-import { OrdersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/OrdersRepositoryPostgres"
-import { ProductsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import RabbitMQOrderQueueAdapterOUT from "../../../../infra/messaging/RabbitMQOrderQueueAdapterOUT"
 import { Customer } from "../../../../core/entities/Customer"
 import { IOrderQueueAdapterOUT } from "../../../../core/messaging/IOrderQueueAdapterOUT"
@@ -13,6 +8,7 @@ import { CreateOrderUseCase } from "../../../../application/useCases/orders/crea
 import { UpdateOrderStatusUseCase } from "../../../../application/useCases/orders/updateStatus/UpdateOrderStatusUseCase"
 import { CreateProductUseCase } from "../../../../application/useCases/products/createProduct/CreateProductUseCase"
 import { FindByCodeProductUseCase } from "../../../../application/useCases/products/findByCodeProduct/FindByCodeProductUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryUseCase: CreateCategoryUseCase
 let createProductUseCase: CreateProductUseCase
@@ -26,24 +22,14 @@ let orderCreatedPublisher : IOrderQueueAdapterOUT;
 describe('Orders tests', () => {
     beforeAll(async () => {
 
-        const categoriesRepository = new CategoriesRepositoryPostgres()
-        const customersRepository = new CustomersRepositoryPostgres()
-        const productsRepository = new ProductsRepositoryPostgres()
-        const ordersRepository = new OrdersRepositoryPostgres()
-        const orderItemsRepository = new OrderItemsRepositoryPostgres()
-        
         orderCreatedPublisher = new RabbitMQOrderQueueAdapterOUT() 
-        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)        
-        findByCodeProductUseCase = new FindByCodeProductUseCase(productsRepository)
-        
-        createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository)
-        createCustomerUseCase = new CreateCustomerUseCase(customersRepository)
-        createProductUseCase = new CreateProductUseCase(productsRepository, categoriesRepository)
-
-        createOrderUseCase = new CreateOrderUseCase(ordersRepository,orderItemsRepository, 
-            customersRepository, productsRepository,orderCreatedPublisher )
-         
-        updateOrderStatusUseCase = new UpdateOrderStatusUseCase(ordersRepository)
+        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(AppDataSource)        
+        findByCodeProductUseCase = new FindByCodeProductUseCase(AppDataSource)        
+        createCategoryUseCase = new CreateCategoryUseCase(AppDataSource)
+        createCustomerUseCase = new CreateCustomerUseCase(AppDataSource)
+        createProductUseCase = new CreateProductUseCase(AppDataSource)
+        createOrderUseCase = new CreateOrderUseCase(AppDataSource,orderCreatedPublisher )         
+        updateOrderStatusUseCase = new UpdateOrderStatusUseCase(AppDataSource)
 
 
         // creating a category

@@ -1,9 +1,19 @@
+import { DataSource } from "typeorm"
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
+import { CategoryEntity } from "../../../../infra/datasource/typeorm/entities/CategoryEntity"
+import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { InputUpdateCategoryDTO } from "../../../dtos/categories/IEditCategoryDTO"
 
 class EditCategoryUseCase {
 
-    constructor(private categoriesRepository: ICategoriesGateway) { }
+    private categoriesRepository: ICategoriesGateway
+
+    constructor(
+        private dataSource: DataSource        
+    ){
+        this.categoriesRepository = new CategoriesRepositoryPostgres(this.dataSource.getRepository(CategoryEntity))
+    }
+
 
     async execute({ id, name, description }: InputUpdateCategoryDTO): Promise<void> {
 

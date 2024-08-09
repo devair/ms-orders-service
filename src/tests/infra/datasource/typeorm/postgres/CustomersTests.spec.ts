@@ -1,12 +1,14 @@
 import { CustomersRepositoryPostgres } from "../../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
 import { ICustomersGateway } from "../../../../../communication/gateways/ICustomersGateway"
+import { AppDataSource } from "../../../../../infra/datasource/typeorm"
+import { CustomerEntity } from "../../../../../infra/datasource/typeorm/entities/CustomerEntity"
 
 let customersRepository: ICustomersGateway
 
 describe('Customers tests',()=>{
 
     beforeAll(()=>{
-        customersRepository = new CustomersRepositoryPostgres()
+        customersRepository = new CustomersRepositoryPostgres(AppDataSource.getRepository(CustomerEntity))
     })
 
     it('Should be able to create a new customer', async ()=>{

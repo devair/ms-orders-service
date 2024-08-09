@@ -8,11 +8,6 @@ const nameTest = 'Customer'
 
 describe("CustomersApi", () => {
 
-  beforeAll(async () => {
-    settings.setLogLevel('ERROR')    
-  }, 60000)
-
-
   it("should be able to create a new customer", async () => {
     const response = await request( await app)
       .post("/api/v1/customers")

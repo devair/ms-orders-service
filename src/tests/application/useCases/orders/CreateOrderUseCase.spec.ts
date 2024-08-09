@@ -12,6 +12,7 @@ import { CreateProductUseCase } from "../../../../application/useCases/products/
 import { FindByCodeProductUseCase } from "../../../../application/useCases/products/findByCodeProduct/FindByCodeProductUseCase"
 import { Customer } from "../../../../core/entities/Customer"
 import { IOrderQueueAdapterOUT } from "../../../../core/messaging/IOrderQueueAdapterOUT"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryUseCase: CreateCategoryUseCase
 let createProductUseCase: CreateProductUseCase
@@ -24,24 +25,17 @@ let orderCreatedPublisher : IOrderQueueAdapterOUT;
 describe('Orders tests', () => {
     
     beforeAll(async () => {
-
-        const categoriesRepository = new CategoriesRepositoryPostgres()
-        const customersRepository = new CustomersRepositoryPostgres()
-        const productsRepository = new ProductsRepositoryPostgres()
-        const ordersRepository = new OrdersRepositoryPostgres()
-        const orderItemsRepository = new OrderItemsRepositoryPostgres()
         
         orderCreatedPublisher = new RabbitMQOrderQueueAdapterOUT()
 
-        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)        
-        findByCodeProductUseCase = new FindByCodeProductUseCase(productsRepository)
+        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(AppDataSource)        
+        findByCodeProductUseCase = new FindByCodeProductUseCase(AppDataSource)
         
-        createCategoryUseCase = new CreateCategoryUseCase(categoriesRepository)
-        createCustomerUseCase = new CreateCustomerUseCase(customersRepository)
-        createProductUseCase = new CreateProductUseCase(productsRepository, categoriesRepository)
+        createCategoryUseCase = new CreateCategoryUseCase(AppDataSource)
+        createCustomerUseCase = new CreateCustomerUseCase(AppDataSource)
+        createProductUseCase = new CreateProductUseCase(AppDataSource)
 
-        createOrderUseCase = new CreateOrderUseCase(ordersRepository,orderItemsRepository, 
-            customersRepository, productsRepository,orderCreatedPublisher )
+        createOrderUseCase = new CreateOrderUseCase(AppDataSource,orderCreatedPublisher )
         // creating a category
         const category = { name: 'Bebida', description: 'Bebida gelada' }
         const categoryCreated = await createCategoryUseCase.execute(category)

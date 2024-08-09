@@ -1,16 +1,16 @@
 import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
 import { CreateCustomerUseCase } from "../../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
 import { FindByCpfCustomerUseCase } from "../../../../application/useCases/customers/findByCpfCustomer/FindByCpfCustomerUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCustomerUseCase : CreateCustomerUseCase
 let findByCpfCustomerUseCase : FindByCpfCustomerUseCase
 
 describe('Customers User Case tests', ()=>{
 
-    beforeEach(()=>{
-        const customersRepository = new CustomersRepositoryPostgres()
-        createCustomerUseCase = new CreateCustomerUseCase(customersRepository) 
-        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)                    
+    beforeEach(()=>{        
+        createCustomerUseCase = new CreateCustomerUseCase(AppDataSource) 
+        findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(AppDataSource)                    
     })
 
     it('Should be able to find a Customer by cpf', async()=>{

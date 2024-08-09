@@ -10,7 +10,7 @@ describe("OrdersApi", () => {
 
   beforeAll(async () => {
     settings.setLogLevel('ERROR')    
-  }, 60000)
+  }, 30000)
 
   it("should be able to create a new category", async () => {
     const response = await request(await app)
@@ -109,7 +109,7 @@ describe("OrdersApi", () => {
     expect(response.status).toBe(400)
   })
 
-  it("Should be able to list aall orders", async () => {
+  it("Should be able to list all orders", async () => {
     const response = await request(await app)
       .get(`/api/v1/orders`)      
     

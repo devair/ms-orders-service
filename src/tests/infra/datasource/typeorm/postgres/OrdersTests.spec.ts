@@ -7,6 +7,11 @@ import { ICustomersGateway } from "../../../../../communication/gateways/ICustom
 import { IOrdersGateway } from "../../../../../communication/gateways/IOrdersGateway"
 import { IProductsGateway } from "../../../../../communication/gateways/IProductsGateway"
 import { Order } from "../../../../../core/entities/Order"
+import { CustomerEntity } from "../../../../../infra/datasource/typeorm/entities/CustomerEntity"
+import { AppDataSource } from "../../../../../infra/datasource/typeorm"
+import { CategoryEntity } from "../../../../../infra/datasource/typeorm/entities/CategoryEntity"
+import { ProductEntity } from "../../../../../infra/datasource/typeorm/entities/ProductEntity"
+import { OrderEntity } from "../../../../../infra/datasource/typeorm/entities/OrderEntity"
 
 let ordersRepository: IOrdersGateway
 let customersRepository: ICustomersGateway
@@ -16,10 +21,10 @@ let categoriesRepository: ICategoriesGateway
 describe('Orders tests', () => {
     beforeAll( async () => {
 
-        customersRepository = new CustomersRepositoryPostgres()
-        categoriesRepository = new CategoriesRepositoryPostgres()
-        productsRepository = new ProductsRepositoryPostgres()
-        ordersRepository = new OrdersRepositoryPostgres()
+        customersRepository = new CustomersRepositoryPostgres(AppDataSource.getRepository(CustomerEntity))
+        categoriesRepository = new CategoriesRepositoryPostgres(AppDataSource.getRepository(CategoryEntity))
+        productsRepository = new ProductsRepositoryPostgres(AppDataSource.getRepository(ProductEntity))
+        ordersRepository = new OrdersRepositoryPostgres(AppDataSource.getRepository(OrderEntity))
 
         // creating a category
         const category = await categoriesRepository.create({ name: 'Bebida' , description: 'Bebida gelada'})

@@ -1,6 +1,8 @@
 import { CategoriesRepositoryPostgres } from "../../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { ICategoriesGateway } from "../../../../../communication/gateways/ICategoriesGateway"
 import { Category } from "../../../../../core/entities/Category"
+import { AppDataSource } from "../../../../../infra/datasource/typeorm"
+import { CategoryEntity } from "../../../../../infra/datasource/typeorm/entities/CategoryEntity"
 
 let categoriesRepository: ICategoriesGateway
 let category: Category
@@ -8,7 +10,7 @@ let category: Category
 describe('Category testes', () => {
 
     beforeAll(() => {
-        categoriesRepository = new CategoriesRepositoryPostgres()
+        categoriesRepository = new CategoriesRepositoryPostgres(AppDataSource.getRepository(CategoryEntity))
     })
 
     it('Should be able to create a new category', async () => {

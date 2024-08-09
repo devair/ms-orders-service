@@ -1,16 +1,13 @@
 import { FindByIdProductUseCase } from "../../../application/useCases/products/findByIdProduct/FindByIdProductUseCase";
 import { OutputFindProductDTO } from "../../../application/dtos/products/IFindProductDTO";
-import { IProductsGateway } from "../../gateways/IProductsGateway";
 
 class FindByIdProductController {
     
-    constructor(private productsRepository: IProductsGateway){}
+    constructor(private findByIdProductUseCase : FindByIdProductUseCase){}
 
     async handler(id: number): Promise<OutputFindProductDTO> {
-
-        const findByIdProductUseCase = new FindByIdProductUseCase(this.productsRepository)        
-
-        return await findByIdProductUseCase.execute(id);       
+        
+        return await this.findByIdProductUseCase.execute(id);       
 
     }
 }

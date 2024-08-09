@@ -1,18 +1,13 @@
 import { CreateProductUseCase } from "../../../application/useCases/products/createProduct/CreateProductUseCase";
 import { InputCreateProductDTO, OutputCreateProductDTO } from "../../../application/dtos/products/ICreateProductDTO";
-import { ICategoriesGateway } from "../../gateways/ICategoriesGateway";
-import { IProductsGateway } from "../../gateways/IProductsGateway";
 
 class CreateProductController {
     
-    constructor(private productsRepository: IProductsGateway,
-        private categoriesRepository: ICategoriesGateway){}
+    constructor(private createProductUseCase: CreateProductUseCase){}
 
     async handler(createProduct: InputCreateProductDTO): Promise<OutputCreateProductDTO>{
 
-        const categoryUseCase = new CreateProductUseCase(this.productsRepository, this.categoriesRepository )
-        
-        return await categoryUseCase.execute(createProduct);       
+        return await this.createProductUseCase.execute(createProduct);       
     }
 }
 

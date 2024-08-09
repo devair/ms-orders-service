@@ -1,15 +1,9 @@
 import request from "supertest"
 import { app } from "../../../../application/index"
-import { settings } from 'pactum'
 
 let categoryCreated: any
 
 describe("CategoriesApi", () => {
-
-  beforeAll(async () => {
-    settings.setLogLevel('ERROR')    
-  }, 60000)
-
 
   it("should be able to create a new category", async () => {
     const response = await request(await app)

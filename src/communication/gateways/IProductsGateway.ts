@@ -1,4 +1,4 @@
-import { InputCreateProductDTO } from "../../application/useCases/products/createProduct/ICreateProductDTO"
+import { InputCreateProductDTO } from "../../application/dtos/products/ICreateProductDTO"
 import { Product } from "../../core/entities/Product"
 
 interface IProductsGateway{

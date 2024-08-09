@@ -1,12 +1,12 @@
 import { Router } from 'express'
 import { CategoriesApi } from '../api/CategoriesApi'
 
-const categoriesRouter = Router()
-
-categoriesRouter.post('/', CategoriesApi.create.bind(CategoriesApi))
-categoriesRouter.put('/:id', CategoriesApi.update.bind(CategoriesApi))
-categoriesRouter.get('/search', CategoriesApi.search.bind(CategoriesApi))
-categoriesRouter.get('/:id', CategoriesApi.findById.bind(CategoriesApi))
-categoriesRouter.get('/', CategoriesApi.list.bind(CategoriesApi))
-
-export { categoriesRouter }
+export const categoriesRouter = (api: CategoriesApi)=> {
+    const router = Router()
+    router.post('/', (req,res)=>api.create(req,res))
+    router.put('/:id', (req,res)=>api.update(req,res))
+    router.get('/search', (req,res)=>api.search(req,res))
+    router.get('/:id', (req,res)=>api.findById(req,res))
+    router.get('/', (req,res)=>api.list(req,res))
+    return router
+}

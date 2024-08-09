@@ -1,26 +1,20 @@
-import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
-import { ProductsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
 import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
 import { CreateProductUseCase } from "../../../../application/useCases/products/createProduct/CreateProductUseCase"
 import { DeleteProductUseCase } from "../../../../application/useCases/products/deleteProduct/DeleteProductUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
-let productsRepository : IProductsGateway
-let categoriesRepository : ICategoriesGateway
 let createCategoryeUse : CreateCategoryUseCase
 let createProducteUse : CreateProductUseCase
 let deleteProductUseCase: DeleteProductUseCase
 
 describe('Products Use Case tests', ()=>{
 
-    beforeAll(()=>{
-        categoriesRepository = new CategoriesRepositoryPostgres()
-        productsRepository = new ProductsRepositoryPostgres()
-               
-        createCategoryeUse = new CreateCategoryUseCase(categoriesRepository)                     
-        createProducteUse = new CreateProductUseCase(productsRepository, categoriesRepository)
-        deleteProductUseCase = new DeleteProductUseCase(productsRepository)
+    beforeAll(()=>{                       
+        createCategoryeUse = new CreateCategoryUseCase(AppDataSource)                     
+        createProducteUse = new CreateProductUseCase(AppDataSource)
+        deleteProductUseCase = new DeleteProductUseCase(AppDataSource)
     })
 
     it('Should be able to delete a product', async () => {

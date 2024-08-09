@@ -1,16 +1,13 @@
 import { OutputFindProductDTO } from "../../../application/dtos/products/IFindProductDTO";
 import { ListProductsUseCase } from "../../../application/useCases/products/listProducts/ListProductsUseCase";
-import { IProductsGateway } from "../../gateways/IProductsGateway";
 
 class ListProductsController {
     
-    constructor(private productsRepository: IProductsGateway){}
+    constructor(private listProductsUseCase: ListProductsUseCase){}
 
     async handler(): Promise<OutputFindProductDTO[]> {
 
-        const listProductsUseCase = new ListProductsUseCase(this.productsRepository)        
-
-        return await listProductsUseCase.execute();       
+        return await this.listProductsUseCase.execute();       
 
     }
 }

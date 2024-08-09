@@ -1,13 +1,10 @@
-import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
-import { ProductsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
 import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
 import { CreateProductUseCase } from "../../../../application/useCases/products/createProduct/CreateProductUseCase"
 import { FindByIdProductUseCase } from "../../../../application/useCases/products/findByIdProduct/FindByIdProductUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
-let productsRepository : IProductsGateway
-let categoriesRepository : ICategoriesGateway
 let createProducteUse : CreateProductUseCase
 let createCategoryeUseCase : CreateCategoryUseCase
 let findByIdProductUseCase : FindByIdProductUseCase
@@ -15,12 +12,9 @@ describe('Products Use Case tests', ()=>{
 
    
     beforeAll(()=>{
-        categoriesRepository = new CategoriesRepositoryPostgres()
-        productsRepository = new ProductsRepositoryPostgres()
-
-        createCategoryeUseCase = new CreateCategoryUseCase(categoriesRepository)
-        createProducteUse = new CreateProductUseCase(productsRepository, categoriesRepository) 
-        findByIdProductUseCase = new FindByIdProductUseCase(productsRepository)                    
+        createCategoryeUseCase = new CreateCategoryUseCase(AppDataSource)
+        createProducteUse = new CreateProductUseCase(AppDataSource) 
+        findByIdProductUseCase = new FindByIdProductUseCase(AppDataSource)                    
     })
 
     it('Should be able to find a product by id', async()=>{

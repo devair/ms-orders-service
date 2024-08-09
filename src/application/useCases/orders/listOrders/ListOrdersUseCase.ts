@@ -1,9 +1,18 @@
-import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway"
+import { DataSource } from "typeorm"
+import { OrderEntity } from "../../../../infra/datasource/typeorm/entities/OrderEntity"
+import { OrdersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/OrdersRepositoryPostgres"
 import { OutputFindOrderDTO } from "../../../dtos/orders/IFindOrderDTO"
+import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway"
 
 class ListOrdersUseCase {
+    
+    private ordersRepository: IOrdersGateway
 
-    constructor(private ordersRepository: IOrdersGateway){}
+    constructor(
+        private dataSource: DataSource        
+    ) {
+        this.ordersRepository = new OrdersRepositoryPostgres(this.dataSource.getRepository(OrderEntity))        
+    }
 
     async execute(): Promise<OutputFindOrderDTO[]> { 
                 

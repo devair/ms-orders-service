@@ -1,11 +1,23 @@
+import { DataSource } from "typeorm"
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway";
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway";
+import { CategoryEntity } from "../../../../infra/datasource/typeorm/entities/CategoryEntity"
+import { ProductEntity } from "../../../../infra/datasource/typeorm/entities/ProductEntity"
+import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { InputCreateProductDTO, OutputCreateProductDTO } from "../../../dtos/products/ICreateProductDTO"
 
 class CreateProductUseCase {
+    
+    private productsRepository: IProductsGateway
+    private categoriesRepository: ICategoriesGateway
 
-    constructor(private productsRepository: IProductsGateway,
-        private categoriesRepository: ICategoriesGateway){}
+    constructor(
+        private dataSource: DataSource        
+    ){
+        this.productsRepository = new ProductsRepositoryPostgres(this.dataSource.getRepository(ProductEntity))
+        this.categoriesRepository = new CategoriesRepositoryPostgres(this.dataSource.getRepository(CategoryEntity))
+    }
 
     async execute ({code, name, description, categoryId, price, image }: InputCreateProductDTO): Promise<OutputCreateProductDTO>{
 

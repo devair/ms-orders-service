@@ -4,6 +4,9 @@ import { ICategoriesGateway } from "../../../../../communication/gateways/ICateg
 import { IProductsGateway } from "../../../../../communication/gateways/IProductsGateway"
 import { Category } from "../../../../../core/entities/Category"
 import { Product } from "../../../../../core/entities/Product"
+import { CategoryEntity } from "../../../../../infra/datasource/typeorm/entities/CategoryEntity"
+import { ProductEntity } from "../../../../../infra/datasource/typeorm/entities/ProductEntity"
+import { AppDataSource } from "../../../../../infra/datasource/typeorm"
 
 let productsRepository : IProductsGateway
 let categoriesRepository : ICategoriesGateway
@@ -12,8 +15,8 @@ let product: Product
 
 describe('Product tests',()=>{
     beforeAll(()=>{
-        categoriesRepository = new CategoriesRepositoryPostgres()
-        productsRepository = new ProductsRepositoryPostgres()
+        categoriesRepository = new CategoriesRepositoryPostgres(AppDataSource.getRepository(CategoryEntity))
+        productsRepository = new ProductsRepositoryPostgres(AppDataSource.getRepository(ProductEntity))
     })
 
     it('Should be able to create a new product', async ()=>{

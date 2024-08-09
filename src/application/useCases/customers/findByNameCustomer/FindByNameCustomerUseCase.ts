@@ -1,10 +1,19 @@
+import { DataSource } from "typeorm"
 import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway"
+import { CustomerEntity } from "../../../../infra/datasource/typeorm/entities/CustomerEntity"
+import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
 import { OutputFindCustomerDTO } from "../../../dtos/customers/IFindCustomerDTO"
 
 
 class FindByNameCustomerUseCase {
 
-    constructor(private customersRepository: ICustomersGateway){}
+    private customersRepository: ICustomersGateway
+
+    constructor(
+        private dataSource: DataSource        
+    ){
+        this.customersRepository = new CustomersRepositoryPostgres(this.dataSource.getRepository(CustomerEntity))
+    }
 
     async execute(name: string): Promise<OutputFindCustomerDTO[]> {
         const customers = await this.customersRepository.findByName(name)

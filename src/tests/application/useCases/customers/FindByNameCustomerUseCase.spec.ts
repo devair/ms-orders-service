@@ -1,6 +1,6 @@
-import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
 import { CreateCustomerUseCase } from "../../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
 import { FindByNameCustomerUseCase } from "../../../../application/useCases/customers/findByNameCustomer/FindByNameCustomerUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 
 let createCustomerUseCase : CreateCustomerUseCase
@@ -8,10 +8,9 @@ let findByNameCustomerUseCase : FindByNameCustomerUseCase
 
 describe('Customers User Case tests', ()=>{
 
-    beforeEach(()=>{
-        const customersRepository = new CustomersRepositoryPostgres()
-        createCustomerUseCase = new CreateCustomerUseCase(customersRepository) 
-        findByNameCustomerUseCase = new FindByNameCustomerUseCase(customersRepository)                    
+    beforeEach(()=>{        
+        createCustomerUseCase = new CreateCustomerUseCase(AppDataSource) 
+        findByNameCustomerUseCase = new FindByNameCustomerUseCase(AppDataSource)                    
     })
 
     it('Should be able to find a customer by name', async ()=>{

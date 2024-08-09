@@ -1,18 +1,27 @@
 import { Request, Response } from "express"
 import { CreateCustomerController } from "../../../communication/controllers/customers/CreateCustomerController";
-import { CustomersRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres";
 import { ListCustomersController } from "../../../communication/controllers/customers/ListCustomersController";
 import { FindByIdCustomerController } from "../../../communication/controllers/customers/FindByIdCustomerController";
 import { SearchCustomersController } from "../../../communication/controllers/customers/SearchCustomersController";
 import { CustomerPresenter } from "../../../communication/presenters/CustomerPresenter";
+import { DataSource } from "typeorm"
+import { CreateCustomerUseCase } from "../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
+import { ListCustomersUseCase } from "../../../application/useCases/customers/listCustomers/ListCustomersUseCase"
+import { FindByIdCustomerUseCase } from "../../../application/useCases/customers/findByIdCustomer/FindByIdCustomerUseCase"
+import { FindByCpfCustomerUseCase } from "../../../application/useCases/customers/findByCpfCustomer/FindByCpfCustomerUseCase"
+import { FindByNameCustomerUseCase } from "../../../application/useCases/customers/findByNameCustomer/FindByNameCustomerUseCase"
 
 class CustomersApi {
 
-    static async create(request: Request, response: Response): Promise<Response> {
+    constructor(
+        private readonly dataSource: DataSource
+    ) { }
+
+    async create(request: Request, response: Response): Promise<Response> {
         const { name, email, cpf, phone }= request.body;
         
-        const customersRepository = new CustomersRepositoryPostgres()
-        const createCustomerController = new CreateCustomerController(customersRepository)
+        const createCustomerUseCase = new CreateCustomerUseCase(this.dataSource)
+        const createCustomerController = new CreateCustomerController(createCustomerUseCase)
 
         try {
             const data = await createCustomerController.handler({ name, email, cpf, phone });
@@ -24,10 +33,10 @@ class CustomersApi {
         }        
     }
 
-    static async list(request: Request, response: Response): Promise<Response> {
+    async list(request: Request, response: Response): Promise<Response> {
 
-        const customersRepository = new CustomersRepositoryPostgres()
-        const listCustomersController = new ListCustomersController(customersRepository)
+        const listCustomersUseCase = new ListCustomersUseCase(this.dataSource)
+        const listCustomersController = new ListCustomersController(listCustomersUseCase)
         
         try{
             const data = await listCustomersController.handler()
@@ -39,12 +48,12 @@ class CustomersApi {
         }        
     }
 
-    static async findById(request: Request, response: Response): Promise<Response>{
+    async findById(request: Request, response: Response): Promise<Response>{
         
         const { id } = request.params
 
-        const customersRepository = new CustomersRepositoryPostgres()
-        const findByIdCustomersController = new FindByIdCustomerController(customersRepository)
+        const findByIdCustomerUseCase = new FindByIdCustomerUseCase(this.dataSource)        
+        const findByIdCustomersController = new FindByIdCustomerController(findByIdCustomerUseCase)
 
         try{
             const data = await findByIdCustomersController.handler( parseInt(id) )
@@ -56,12 +65,13 @@ class CustomersApi {
         }
     }
 
-    static async search (request: Request, response: Response): Promise<Response>{
+    async search (request: Request, response: Response): Promise<Response>{
         
         const { cpf, name }  = request.query as { [key: string]: string}
         
-        const customersRepository = new CustomersRepositoryPostgres()
-        const searchCustomersController = new SearchCustomersController(customersRepository)
+        const findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(this.dataSource)
+        const findByNameCustomerUseCase = new FindByNameCustomerUseCase(this.dataSource)
+        const searchCustomersController = new SearchCustomersController(findByCpfCustomerUseCase,findByNameCustomerUseCase)
 
         try{
             const data = await searchCustomersController.handler(cpf, name)

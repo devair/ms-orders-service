@@ -1,25 +1,35 @@
-import { AppDataSource } from "../../../../infra/datasource/typeorm"
 import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway"
-import { IOrderItemsGateway } from "../../../../communication/gateways/IOrderItemsGateway"
-import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway"
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
 import { Order } from "../../../../core/entities/Order"
 import { IOrderQueueAdapterOUT } from "../../../../core/messaging/IOrderQueueAdapterOUT"
 import { InputCreateOrderDTO, OutputCreateOrderDTO } from "../../../dtos/orders/ICreateOrderDTO"
+import { OrderEntity } from "../../../../infra/datasource/typeorm/entities/OrderEntity"
+import { OrderItemEntity } from "../../../../infra/datasource/typeorm/entities/OrderItemEntity"
+import { DataSource } from "typeorm"
+import { CustomerEntity } from "../../../../infra/datasource/typeorm/entities/CustomerEntity"
+import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
+import { ProductEntity } from "../../../../infra/datasource/typeorm/entities/ProductEntity"
 
 class CreateOrderUseCase {
 
-    constructor(private orderRepository: IOrdersGateway,
-        private orderItemsRepository: IOrderItemsGateway,
-        private customersRepository: ICustomersGateway,
-        private productsRepository: IProductsGateway,
+    private customersRepository: ICustomersGateway
+    private productsRepository: IProductsGateway
+    
+    constructor(
+        private dataSource: DataSource,
         private orderPublisher: IOrderQueueAdapterOUT
     ) {
+        this.customersRepository = new CustomersRepositoryPostgres(this.dataSource.getRepository(CustomerEntity))
+        this.productsRepository = new ProductsRepositoryPostgres(this.dataSource.getRepository(ProductEntity))
 
     }
     async execute({ customer, orderItems }: InputCreateOrderDTO): Promise<OutputCreateOrderDTO> {
 
         let customerFound
+        if(!orderItems){
+            throw new Error("orderItems missing")
+        }        
 
         if (customer) {
             customerFound = await this.customersRepository.findByCpf(customer.cpf)
@@ -30,32 +40,36 @@ class CreateOrderUseCase {
         }
 
         const order = Order.place(customerFound)
-        const promiseArray = orderItems.map(async (item) => {
-            const productFound = await this.productsRepository.findByCode(item.product.code)
-            
-            if(!productFound){
-                throw new Error(`Product ${item.product.code} not found`)
-            }
+        
 
-            if(!item.quantity){
-                throw new Error(`Quantity is missed`)
-            }
-            if(!item.unitPrice){
-                throw new Error(`Unit Price is missed`)
-            }
-
-            order.addItem({ product: productFound, quantity: item.quantity, unitPrice: item.unitPrice })
-
-        })
-
-        await Promise.all(promiseArray)
-
-        const queryRunner = AppDataSource.createQueryRunner()
+        const queryRunner = this.dataSource.createQueryRunner()
         await queryRunner.startTransaction()
 
         try {            
-            const orderCreated = await this.orderRepository.create(order)    
-            await this.orderItemsRepository.createAll(order.orderItems)    
+
+            const promiseArray = orderItems.map(async (item) => {
+                const productFound = await this.productsRepository.findByCode(item.product.code)
+                
+                if(!productFound){
+                    throw new Error(`Product ${item.product.code} not found`)
+                }
+    
+                if(!item.quantity){
+                    throw new Error(`Quantity is missed`)
+                }
+                if(!item.unitPrice){
+                    throw new Error(`Unit Price is missed`)
+                }
+    
+                order.addItem({ product: productFound, quantity: item.quantity, unitPrice: item.unitPrice })
+    
+            })
+    
+            await Promise.all(promiseArray)
+
+            const orderCreated = await queryRunner.manager.getRepository(OrderEntity).save(order)
+
+            await queryRunner.manager.getRepository(OrderItemEntity).save(order.orderItems)    
             
             const orderMessage = {
                 id: orderCreated.id,

@@ -1,16 +1,12 @@
 import { Repository } from "typeorm"
-import { AppDataSource } from ".."
 import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway"
 import { Order } from "../../../../core/entities/Order"
-import { OrderEntity } from "../entities/OrderEntity"
 
 class OrdersRepositoryPostgres implements IOrdersGateway{
     
-    private repository: Repository<Order>
-
-    constructor(){
-        this.repository = AppDataSource.getRepository(OrderEntity)
-    }
+    constructor(
+        private readonly repository: Repository<Order>
+    ){}
 
     async create(order: Order): Promise<Order> {        
         const orderCreated = await this.repository.save(order)

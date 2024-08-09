@@ -1,14 +1,14 @@
 import { Router } from "express"
 import { OrdersApi } from "../api/OrdersApi"
 
-const ordersRouter = Router()
 
-ordersRouter.post('/', OrdersApi.create.bind(OrdersApi))
+export const ordersRouter = (api: OrdersApi) => {
+    const router = Router()
 
-ordersRouter.get('/', OrdersApi.list.bind(OrdersApi))
+    router.post('/', (req, res) => api.create(req, res))
+    router.get('/', (req, res) => api.list(req, res))
+    router.get('/:id', (req, res) => api.findById(req, res))
+    router.patch('/:id/status', (req, res) => api.updateStatus(req, res))
 
-ordersRouter.get('/:id', OrdersApi.findById.bind(OrdersApi))
-
-ordersRouter.patch('/:id/status', OrdersApi.updateStatus.bind(OrdersApi))
-
-export { ordersRouter }
+    return router
+}

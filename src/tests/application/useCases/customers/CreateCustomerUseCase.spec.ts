@@ -1,13 +1,12 @@
-import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
 import { CreateCustomerUseCase } from "../../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCustomerUseCase: CreateCustomerUseCase
 
 describe('Customers Use Case tests',()=>{
 
-    beforeEach(()=>{
-        const customersRepository = new CustomersRepositoryPostgres()
-        createCustomerUseCase = new CreateCustomerUseCase(customersRepository)
+    beforeEach(()=>{        
+        createCustomerUseCase = new CreateCustomerUseCase(AppDataSource)
     })
 
     it('Should be able to create a new customer', async ()=>{

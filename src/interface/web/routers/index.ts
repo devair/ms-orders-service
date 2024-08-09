@@ -3,13 +3,27 @@ import { categoriesRouter } from "./categories.router";
 import { productsRouter } from "./products.router";
 import { customersRouter } from "./customers.router";
 import { ordersRouter } from "./orders.router";
+import { DataSource } from "typeorm"
+import { OrdersApi } from "../api/OrdersApi"
+import { ProductsApi } from "../api/ProductsApi"
+import { CustomersApi } from "../api/CustomersApi"
+import { CategoriesApi } from "../api/CategoriesApi"
 
-const router = Router()
+export const router = (dataSource: DataSource) => {
+        
+    const router = Router()
 
-router.use('/categories', categoriesRouter)
-router.use('/products', productsRouter)
-router.use('/customers', customersRouter)
-router.use('/orders', ordersRouter)
+    const categoriesApi = new CategoriesApi(dataSource)
+    router.use('/categories', categoriesRouter(categoriesApi))
 
+    const productsApi = new ProductsApi(dataSource)
+    router.use('/products', productsRouter(productsApi))
+    
+    const customersApi = new CustomersApi(dataSource)
+    router.use('/customers', customersRouter(customersApi))
 
-export { router }
+    const orderApi = new OrdersApi(dataSource)
+    router.use('/orders', ordersRouter(orderApi))
+
+    return router
+}

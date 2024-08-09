@@ -2,13 +2,16 @@ import { Router } from 'express'
 import { ProductsApi } from '../api/ProductsApi'
 
 
-const productsRouter = Router()
+export const productsRouter = (api: ProductsApi) => {
 
-productsRouter.get('/search',ProductsApi.search.bind(ProductsApi))
-productsRouter.get('/:id', ProductsApi.findById.bind(ProductsApi))
-productsRouter.delete('/:id', ProductsApi.delete.bind(ProductsApi))
-productsRouter.get('/', ProductsApi.list.bind(ProductsApi))
-productsRouter.post('/', ProductsApi.create.bind(ProductsApi))
-productsRouter.put('/:id', ProductsApi.update.bind(ProductsApi))
+    const router = Router()
 
-export { productsRouter }
+    router.get('/search', (req,res) => api.search(req,res))
+    router.get('/:id', (req,res) => api.findById(req,res))
+    router.delete('/:id', (req,res) => api.delete(req,res))
+    router.get('/', (req,res) => api.list(req,res))
+    router.post('/', (req,res) => api.create(req,res))
+    router.put('/:id', (req,res) => api.update(req,res))
+
+    return router
+}
