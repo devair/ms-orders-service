@@ -1,5 +1,5 @@
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
-import { OutputFindCategoryDTO } from "../findByIdCategory/IFindCategoryDTO"
+import { OutputFindCategoryDTO } from "../../../dtos/categories/IFindCategoryDTO"
 
 class ListCategoriesUseCase {
 

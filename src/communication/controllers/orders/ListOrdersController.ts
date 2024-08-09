@@ -1,4 +1,4 @@
-import { OutputFindOrderDTO } from "../../../application/useCases/orders/findByIdOrder/IFindOrderDTO"
+import { OutputFindOrderDTO } from "../../../application/dtos/orders/IFindOrderDTO"
 import { ListOrdersUseCase } from "../../../application/useCases/orders/listOrders/ListOrdersUseCase"
 import { IOrdersGateway } from "../../gateways/IOrdersGateway"
 

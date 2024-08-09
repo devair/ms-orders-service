@@ -1,5 +1,5 @@
-import { InputCreateCategoryDTO } from "../../application/useCases/categories/createCategory/ICreateCategoryDTO"
-import { InputUpdateCategoryDTO } from "../../application/useCases/categories/editCategory/IEditCategoryDTO"
+import { InputCreateCategoryDTO } from "../../application/dtos/categories/ICreateCategoryDTO"
+import { InputUpdateCategoryDTO } from "../../application/dtos/categories/IEditCategoryDTO"
 import { Category } from "../../core/entities/Category"
 
 interface ICategoriesGateway{

@@ -1,5 +1,5 @@
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
-import { InputUpdateCategoryDTO } from "./IEditCategoryDTO"
+import { InputUpdateCategoryDTO } from "../../../dtos/categories/IEditCategoryDTO"
 
 class EditCategoryUseCase {
 

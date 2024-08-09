@@ -1,4 +1,4 @@
-import { OutputFindCategoryDTO } from "../../../application/useCases/categories/findByIdCategory/IFindCategoryDTO";
+import { OutputFindCategoryDTO } from "../../../application/dtos/categories/IFindCategoryDTO";
 import { ListCategoriesUseCase } from "../../../application/useCases/categories/listCategories/ListCategoriesUseCase";
 import { ICategoriesGateway } from "../../gateways/ICategoriesGateway"
 

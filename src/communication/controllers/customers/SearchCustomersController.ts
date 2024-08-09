@@ -1,5 +1,5 @@
 import { FindByCpfCustomerUseCase } from "../../../application/useCases/customers/findByCpfCustomer/FindByCpfCustomerUseCase"
-import { OutputFindCustomerDTO } from "../../../application/useCases/customers/findByIdCustomer/IFindCustomerDTO"
+import { OutputFindCustomerDTO } from "../../../application/dtos/customers/IFindCustomerDTO"
 import { FindByNameCustomerUseCase } from "../../../application/useCases/customers/findByNameCustomer/FindByNameCustomerUseCase"
 import { ICustomersGateway } from "../../gateways/ICustomersGateway"
 

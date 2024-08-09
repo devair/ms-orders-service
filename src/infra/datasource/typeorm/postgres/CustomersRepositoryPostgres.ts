@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "..";
 import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway";
 import { Customer } from "../../../../core/entities/Customer";
-import { InputCreateCustomerDTO } from "../../../../application/useCases/customers/createCustomer/ICreateCustomerDTO";
+import { InputCreateCustomerDTO } from "../../../../application/dtos/customers/ICreateCustomerDTO";
 import { CustomerEntity } from "../entities/CustomerEntity";
 
 class CustomersRepositoryPostgres implements ICustomersGateway {

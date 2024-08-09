@@ -1,5 +1,5 @@
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
-import { OutputFindProductDTO } from "./IFindProductDTO"
+import { OutputFindProductDTO } from "../../../dtos/products/IFindProductDTO"
 
 class FindByIdProductUseCase {
 

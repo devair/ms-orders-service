@@ -2,8 +2,8 @@ import { Repository } from "typeorm"
 import { AppDataSource } from ".."
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
 import { Category } from "../../../../core/entities/Category"
-import { InputCreateCategoryDTO } from "../../../../application/useCases/categories/createCategory/ICreateCategoryDTO"
-import { InputUpdateCategoryDTO } from "../../../../application/useCases/categories/editCategory/IEditCategoryDTO"
+import { InputCreateCategoryDTO } from "../../../../application/dtos/categories/ICreateCategoryDTO"
+import { InputUpdateCategoryDTO } from "../../../../application/dtos/categories/IEditCategoryDTO"
 import { CategoryEntity } from "../entities/CategoryEntity"
 
 class CategoriesRepositoryPostgres implements ICategoriesGateway{

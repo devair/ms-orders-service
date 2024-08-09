@@ -2,7 +2,7 @@ import { Repository } from "typeorm"
 import { AppDataSource } from ".."
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
 import { Product } from "../../../../core/entities/Product"
-import { InputCreateProductDTO } from "../../../../application/useCases/products/createProduct/ICreateProductDTO"
+import { InputCreateProductDTO } from "../../../../application/dtos/products/ICreateProductDTO"
 import { ProductEntity } from "../entities/ProductEntity"
 
 

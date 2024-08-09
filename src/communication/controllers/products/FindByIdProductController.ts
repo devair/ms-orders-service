@@ -1,5 +1,5 @@
 import { FindByIdProductUseCase } from "../../../application/useCases/products/findByIdProduct/FindByIdProductUseCase";
-import { OutputFindProductDTO } from "../../../application/useCases/products/findByIdProduct/IFindProductDTO";
+import { OutputFindProductDTO } from "../../../application/dtos/products/IFindProductDTO";
 import { IProductsGateway } from "../../gateways/IProductsGateway";
 
 class FindByIdProductController {

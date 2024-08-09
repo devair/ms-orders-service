@@ -1,6 +1,5 @@
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
-import { OutputFindProductDTO } from "../findByIdProduct/IFindProductDTO"
-
+import { OutputFindProductDTO } from "../../../dtos/products/IFindProductDTO"
 class FindByNameProductUseCase {
 
     constructor(private productsRepository: IProductsGateway){}

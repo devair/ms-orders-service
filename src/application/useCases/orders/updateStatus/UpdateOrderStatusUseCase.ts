@@ -1,6 +1,6 @@
 import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway";
 import { Order, OrderStatus } from "../../../../core/entities/Order"
-import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "./IUpdateOrderStatusDTO";
+import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "../../../dtos/orders/IUpdateOrderStatusDTO";
 
 
 class UpdateOrderStatusUseCase{

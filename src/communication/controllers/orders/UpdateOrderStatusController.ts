@@ -1,4 +1,4 @@
-import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "../../../application/useCases/orders/updateStatus/IUpdateOrderStatusDTO";
+import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "../../../application/dtos/orders/IUpdateOrderStatusDTO";
 import { UpdateOrderStatusUseCase } from "../../../application/useCases/orders/updateStatus/UpdateOrderStatusUseCase";
 import { IOrdersGateway } from "../../gateways/IOrdersGateway";
 

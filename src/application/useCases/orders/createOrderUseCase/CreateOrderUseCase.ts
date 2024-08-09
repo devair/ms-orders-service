@@ -5,7 +5,7 @@ import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGatewa
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
 import { Order } from "../../../../core/entities/Order"
 import { IOrderQueueAdapterOUT } from "../../../../core/messaging/IOrderQueueAdapterOUT"
-import { InputCreateOrderDTO, OutputCreateOrderDTO } from "./ICreateOrderDTO"
+import { InputCreateOrderDTO, OutputCreateOrderDTO } from "../../../dtos/orders/ICreateOrderDTO"
 
 class CreateOrderUseCase {
 

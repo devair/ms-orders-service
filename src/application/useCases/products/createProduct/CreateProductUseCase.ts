@@ -1,6 +1,6 @@
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway";
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway";
-import { InputCreateProductDTO, OutputCreateProductDTO } from "./ICreateProductDTO";
+import { InputCreateProductDTO, OutputCreateProductDTO } from "../../../dtos/products/ICreateProductDTO"
 
 class CreateProductUseCase {
 

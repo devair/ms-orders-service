@@ -1,5 +1,5 @@
 import { CreateProductUseCase } from "../../../application/useCases/products/createProduct/CreateProductUseCase";
-import { InputCreateProductDTO, OutputCreateProductDTO } from "../../../application/useCases/products/createProduct/ICreateProductDTO";
+import { InputCreateProductDTO, OutputCreateProductDTO } from "../../../application/dtos/products/ICreateProductDTO";
 import { ICategoriesGateway } from "../../gateways/ICategoriesGateway";
 import { IProductsGateway } from "../../gateways/IProductsGateway";
 

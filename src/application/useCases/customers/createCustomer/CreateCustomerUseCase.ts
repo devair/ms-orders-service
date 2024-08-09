@@ -1,5 +1,5 @@
 import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway";
-import { InputCreateCustomerDTO, OutputCreateCustomerDTO } from "./ICreateCustomerDTO";
+import { InputCreateCustomerDTO, OutputCreateCustomerDTO } from "../../../dtos/customers/ICreateCustomerDTO";
 
 
 class CreateCustomerUseCase {

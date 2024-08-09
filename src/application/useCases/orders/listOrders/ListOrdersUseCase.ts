@@ -1,5 +1,5 @@
 import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway"
-import { OutputFindOrderDTO } from "../findByIdOrder/IFindOrderDTO"
+import { OutputFindOrderDTO } from "../../../dtos/orders/IFindOrderDTO"
 
 class ListOrdersUseCase {
 
