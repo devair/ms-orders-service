@@ -1,5 +1,5 @@
-import { FindByIdCustomerUseCase } from "../../../core/useCases/customers/findByIdCustomer/FindByIdCustomerUseCase"
-import { OutputFindCustomerDTO } from "../../../core/useCases/customers/findByIdCustomer/IFindCustomerDTO"
+import { FindByIdCustomerUseCase } from "../../../application/useCases/customers/findByIdCustomer/FindByIdCustomerUseCase"
+import { OutputFindCustomerDTO } from "../../../application/useCases/customers/findByIdCustomer/IFindCustomerDTO"
 import { ICustomersGateway } from "../../gateways/ICustomersGateway"
 
 class FindByIdCustomerController{

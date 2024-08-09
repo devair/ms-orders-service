@@ -1,4 +1,4 @@
-import { AppDataSource } from '../adapters/datasource/typeorm'; // Ajuste o caminho conforme necessário
+import { AppDataSource } from '../infra/datasource/typeorm'; // Ajuste o caminho conforme necessário
 
 beforeAll(async () => {
   await AppDataSource.initialize();
@@ -8,4 +8,4 @@ afterAll(async () => {
   await AppDataSource.destroy();
 });
 
-jest.mock('../adapters/messaging/RabbitMQOrderQueueAdapterOUT', () => require('../tests/adapters/messaging/mocks/OrderQueueAdapterOUTMock').default);
+jest.mock('../infra/messaging/RabbitMQOrderQueueAdapterOUT', () => require('../tests/infra/messaging/mocks/OrderQueueAdapterOUTMock').default);

@@ -6,8 +6,8 @@
   "author": "Devair F Tonon",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "ts-node src/index.ts",
+    "start": "ts-node src/application/index.ts",
+    "dev": "ts-node src/application/index.ts",
     "build": "tsc -p .",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "test": "jest --forceExit --detectOpenHandles",

@@ -1,5 +1,5 @@
-import { CreateOrderUseCase } from "../../../core/useCases/orders/createOrderUseCase/CreateOrderUseCase"
-import { InputCreateOrderDTO, OutputCreateOrderDTO } from "../../../core/useCases/orders/createOrderUseCase/ICreateOrderDTO"
+import { CreateOrderUseCase } from "../../../application/useCases/orders/createOrderUseCase/CreateOrderUseCase"
+import { InputCreateOrderDTO, OutputCreateOrderDTO } from "../../../application/useCases/orders/createOrderUseCase/ICreateOrderDTO"
 
 class CreateOrderController {
 

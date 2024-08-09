@@ -1,6 +1,6 @@
-import { CreateCategoryUseCase } from "../../../core/useCases/categories/createCategory/CreateCategoryUseCase";
-import { InputCreateCategoryDTO, OutputCreateCategoryDTO } from "../../../core/useCases/categories/createCategory/ICreateCategoryDTO";
-import { ICategoriesGateway } from "../../gateways/ICategoriesGateway";
+import { CreateCategoryUseCase } from "../../../application/useCases/categories/createCategory/CreateCategoryUseCase";
+import { InputCreateCategoryDTO, OutputCreateCategoryDTO } from "../../../application/useCases/categories/createCategory/ICreateCategoryDTO";
+import { ICategoriesGateway } from "../../gateways/ICategoriesGateway"
 
 class CreateCategoryController {
     

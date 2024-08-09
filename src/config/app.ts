@@ -1,8 +1,8 @@
 import express from "express"
 import "express-async-errors"
 import * as dotenv from 'dotenv'
-import { AppDataSource } from "../adapters/datasource/typeorm"
-import { router  } from '../adapters/web/routers'
+import { AppDataSource } from "../infra/datasource/typeorm"
+import { router  } from '../interface/web/routers'
 import swaggerUi from 'swagger-ui-express'
 import * as swaggerFile from '../openapi.json'
 

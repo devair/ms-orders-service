@@ -1,5 +1,5 @@
-import { FindByIdOrderUseCase } from "../../../core/useCases/orders/findByIdOrder/FindByIdOrderUseCase";
-import { OutputFindOrderDTO } from "../../../core/useCases/orders/findByIdOrder/IFindOrderDTO";
+import { FindByIdOrderUseCase } from "../../../application/useCases/orders/findByIdOrder/FindByIdOrderUseCase";
+import { OutputFindOrderDTO } from "../../../application/useCases/orders/findByIdOrder/IFindOrderDTO";
 import { IOrdersGateway } from "../../gateways/IOrdersGateway";
 
 class FindByIdOrderController {

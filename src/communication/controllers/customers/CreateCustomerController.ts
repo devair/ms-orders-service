@@ -1,5 +1,5 @@
-import { CreateCustomerUseCase } from "../../../core/useCases/customers/createCustomer/CreateCustomerUseCase"
-import { InputCreateCustomerDTO, OutputCreateCustomerDTO } from "../../../core/useCases/customers/createCustomer/ICreateCustomerDTO"
+import { CreateCustomerUseCase } from "../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
+import { InputCreateCustomerDTO, OutputCreateCustomerDTO } from "../../../application/useCases/customers/createCustomer/ICreateCustomerDTO"
 import { ICustomersGateway } from "../../gateways/ICustomersGateway"
 
 class CreateCustomerController {

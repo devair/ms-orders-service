@@ -1,5 +1,5 @@
-import { OutputFindOrderDTO } from "../../../core/useCases/orders/findByIdOrder/IFindOrderDTO"
-import { ListOrdersUseCase } from "../../../core/useCases/orders/listOrders/ListOrdersUseCase"
+import { OutputFindOrderDTO } from "../../../application/useCases/orders/findByIdOrder/IFindOrderDTO"
+import { ListOrdersUseCase } from "../../../application/useCases/orders/listOrders/ListOrdersUseCase"
 import { IOrdersGateway } from "../../gateways/IOrdersGateway"
 
 class ListOrdersController {

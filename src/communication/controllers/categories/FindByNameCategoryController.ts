@@ -1,6 +1,6 @@
-import { OutputFindCategoryDTO } from "../../../core/useCases/categories/findByIdCategory/IFindCategoryDTO";
-import { FindByNameCategoryUseCase } from "../../../core/useCases/categories/findByNameCategory/FindByNameCategoryUseCase";
-import { ICategoriesGateway } from "../../gateways/ICategoriesGateway";
+import { OutputFindCategoryDTO } from "../../../application/useCases/categories/findByIdCategory/IFindCategoryDTO";
+import { FindByNameCategoryUseCase } from "../../../application/useCases/categories/findByNameCategory/FindByNameCategoryUseCase";
+import { ICategoriesGateway } from "../../gateways/ICategoriesGateway"
 
 class FindByNameCategoryController {
     

@@ -1,5 +1,5 @@
-import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "../../../core/useCases/orders/updateStatus/IUpdateOrderStatusDTO";
-import { UpdateOrderStatusUseCase } from "../../../core/useCases/orders/updateStatus/UpdateOrderStatusUseCase";
+import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "../../../application/useCases/orders/updateStatus/IUpdateOrderStatusDTO";
+import { UpdateOrderStatusUseCase } from "../../../application/useCases/orders/updateStatus/UpdateOrderStatusUseCase";
 import { IOrdersGateway } from "../../gateways/IOrdersGateway";
 
 class UpdateOrderStatusController {

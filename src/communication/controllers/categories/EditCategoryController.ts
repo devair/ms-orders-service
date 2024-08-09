@@ -1,10 +1,10 @@
-import { EditCategoryUseCase } from "../../../core/useCases/categories/editCategory/EditCategoryUseCase";
-import { InputUpdateCategoryDTO } from "../../../core/useCases/categories/editCategory/IEditCategoryDTO";
-import { ICategoriesGateway } from "../../gateways/ICategoriesGateway";
+import { EditCategoryUseCase } from "../../../application/useCases/categories/editCategory/EditCategoryUseCase";
+import { InputUpdateCategoryDTO } from "../../../application/useCases/categories/editCategory/IEditCategoryDTO";
+import { ICategoriesGateway } from "../../gateways/ICategoriesGateway"
 
 class EditCategoryController {
     
-    constructor(private categoriesRepository: ICategoriesGateway,){}
+    constructor(private categoriesRepository: ICategoriesGateway){}
 
     async handler({ id, name, description }: InputUpdateCategoryDTO): Promise<void> {
 

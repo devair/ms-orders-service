@@ -1,6 +1,6 @@
-import { FindByCpfCustomerUseCase } from "../../../core/useCases/customers/findByCpfCustomer/FindByCpfCustomerUseCase"
-import { OutputFindCustomerDTO } from "../../../core/useCases/customers/findByIdCustomer/IFindCustomerDTO"
-import { FindByNameCustomerUseCase } from "../../../core/useCases/customers/findByNameCustomer/FindByNameCustomerUseCase"
+import { FindByCpfCustomerUseCase } from "../../../application/useCases/customers/findByCpfCustomer/FindByCpfCustomerUseCase"
+import { OutputFindCustomerDTO } from "../../../application/useCases/customers/findByIdCustomer/IFindCustomerDTO"
+import { FindByNameCustomerUseCase } from "../../../application/useCases/customers/findByNameCustomer/FindByNameCustomerUseCase"
 import { ICustomersGateway } from "../../gateways/ICustomersGateway"
 
 class SearchCustomersController {
