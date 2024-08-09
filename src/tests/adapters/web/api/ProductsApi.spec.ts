@@ -13,7 +13,7 @@ describe("ProductsApi", () => {
 
 
   it("should be able to create a new category", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/categories")
       .send({
         name: 'Bebidas',
@@ -28,7 +28,7 @@ describe("ProductsApi", () => {
 
 
   it("should be able to create a new product", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/products")
       .send({
         code: 'prod1',
@@ -46,7 +46,7 @@ describe("ProductsApi", () => {
   })
 
   it("should not be able to create a new product", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/products")
       .send({        
         name: 'Produto 1',        
@@ -56,7 +56,7 @@ describe("ProductsApi", () => {
 
   
   it("Should be able to find a product by id", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/products/${productCreated.id}`)          
 
     expect(response.status).toBe(200)
@@ -64,14 +64,14 @@ describe("ProductsApi", () => {
   })
 
   it("Should not be able to find a product by id", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/products/999999`)          
 
     expect(response.status).toBe(400)    
   })
 
   it("should be able to update a product", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .put(`/api/v1/products/${productCreated.id}`)
       .send({
         name: 'Suco',
@@ -83,7 +83,7 @@ describe("ProductsApi", () => {
   })
 
   it("should not be able to update a product", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .put(`/api/v1/products/9999999`)
       .send({
         name: 'Suco',
@@ -95,7 +95,7 @@ describe("ProductsApi", () => {
   })
 
   it("Should be able to search a product by name", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/products/search`)
       .query({'name': 'Suco'})
     
@@ -104,7 +104,7 @@ describe("ProductsApi", () => {
   })
 
   it("Should be able to search a product by code", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/products/search`)
       .query({'code': productCreated.code})
     
@@ -113,7 +113,7 @@ describe("ProductsApi", () => {
   })
 
   it("Should be able to search a category by name", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/products/search`)
       .query({'categoryName': categoryCreated.name})
     
@@ -123,14 +123,14 @@ describe("ProductsApi", () => {
 
 
   it("Should not be able to search a product by name", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/products/search`)      
     
     expect(response.status).toBe(400)    
   })
 
   it("Should be able to list all products", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/products`)      
     
     expect(response.status).toBe(200)    
@@ -138,7 +138,7 @@ describe("ProductsApi", () => {
   })
 
   it("Should be able to delete a products", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .delete(`/api/v1/products/${productCreated.id}`)          
     expect(response.status).toBe(204)        
   })

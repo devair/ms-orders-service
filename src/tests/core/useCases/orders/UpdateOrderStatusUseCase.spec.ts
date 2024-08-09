@@ -3,7 +3,9 @@ import { CustomersRepositoryPostgres } from "../../../../adapters/datasource/typ
 import { OrderItemsRepositoryPostgres } from "../../../../adapters/datasource/typeorm/postgres/OrderItemsRepositoryPostgres"
 import { OrdersRepositoryPostgres } from "../../../../adapters/datasource/typeorm/postgres/OrdersRepositoryPostgres"
 import { ProductsRepositoryPostgres } from "../../../../adapters/datasource/typeorm/postgres/ProductsRepositoryPostgres"
+import RabbitMQOrderQueueAdapterOUT from "../../../../adapters/messaging/RabbitMQOrderQueueAdapterOUT"
 import { Customer } from "../../../../core/entities/Customer"
+import { IOrderQueueAdapterOUT } from "../../../../core/messaging/IOrderQueueAdapterOUT"
 import { CreateCategoryUseCase } from "../../../../core/useCases/categories/createCategory/CreateCategoryUseCase"
 import { CreateCustomerUseCase } from "../../../../core/useCases/customers/createCustomer/CreateCustomerUseCase"
 import { FindByCpfCustomerUseCase } from "../../../../core/useCases/customers/findByCpfCustomer/FindByCpfCustomerUseCase"
@@ -19,6 +21,7 @@ let findByCpfCustomerUseCase: FindByCpfCustomerUseCase
 let findByCodeProductUseCase: FindByCodeProductUseCase
 let createOrderUseCase: CreateOrderUseCase
 let updateOrderStatusUseCase: UpdateOrderStatusUseCase
+let orderCreatedPublisher : IOrderQueueAdapterOUT;
 
 describe('Orders tests', () => {
     beforeAll(async () => {
@@ -29,6 +32,7 @@ describe('Orders tests', () => {
         const ordersRepository = new OrdersRepositoryPostgres()
         const orderItemsRepository = new OrderItemsRepositoryPostgres()
         
+        orderCreatedPublisher = new RabbitMQOrderQueueAdapterOUT() 
         findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)        
         findByCodeProductUseCase = new FindByCodeProductUseCase(productsRepository)
         
@@ -37,7 +41,7 @@ describe('Orders tests', () => {
         createProductUseCase = new CreateProductUseCase(productsRepository, categoriesRepository)
 
         createOrderUseCase = new CreateOrderUseCase(ordersRepository,orderItemsRepository, 
-            customersRepository, productsRepository )
+            customersRepository, productsRepository,orderCreatedPublisher )
          
         updateOrderStatusUseCase = new UpdateOrderStatusUseCase(ordersRepository)
 

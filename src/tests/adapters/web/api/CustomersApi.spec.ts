@@ -14,7 +14,7 @@ describe("CustomersApi", () => {
 
 
   it("should be able to create a new customer", async () => {
-    const response = await request(app)
+    const response = await request( await app)
       .post("/api/v1/customers")
       .send({
         name: nameTest,
@@ -30,7 +30,7 @@ describe("CustomersApi", () => {
   })
 
   it("should not be able to create a new customer", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/customers")
       .send({
         name: 'Customer'
@@ -41,7 +41,7 @@ describe("CustomersApi", () => {
 
   
   it("Should be able to find a customer by id", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/customers/${customerCreated.id}`)          
 
     expect(response.status).toBe(200)
@@ -49,7 +49,7 @@ describe("CustomersApi", () => {
   })
 
   it("Should not be able to find a customer by id", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/customers/999999`)          
 
     expect(response.status).toBe(400)    
@@ -57,7 +57,7 @@ describe("CustomersApi", () => {
 
   
   it("Should be able to search a customer by cpf", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/customers/search`)
       .query({'cpf': cpfTest})
     
@@ -66,7 +66,7 @@ describe("CustomersApi", () => {
   })
 
   it("Should be able to search a customer by name", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/customers/search`)
       .query({'name': nameTest})
     
@@ -75,14 +75,14 @@ describe("CustomersApi", () => {
   })
 
   it("Should not be able to search a customer", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/customers/search`)      
     
     expect(response.status).toBe(400)    
   })
 
   it("Should be able to list all customers", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/customers`)      
     
     expect(response.status).toBe(200)    

@@ -12,7 +12,7 @@ describe("CategoriesApi", () => {
 
 
   it("should be able to create a new category", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/categories")
       .send({
         name: 'Bebidas',
@@ -26,7 +26,7 @@ describe("CategoriesApi", () => {
   })
 
   it("should not be able to create a new category", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/categories")
       .send({
         name: 'Bebidas'
@@ -37,7 +37,7 @@ describe("CategoriesApi", () => {
 
   
   it("Should be able to find a category by id", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/categories/${categoryCreated.id}`)          
 
     expect(response.status).toBe(200)
@@ -45,14 +45,14 @@ describe("CategoriesApi", () => {
   })
 
   it("Should not be able to find a category by id", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/categories/999999`)          
 
     expect(response.status).toBe(400)    
   })
 
   it("should be able to update a category", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .put(`/api/v1/categories/${categoryCreated.id}`)
       .send({
         name: 'Suco',
@@ -64,7 +64,7 @@ describe("CategoriesApi", () => {
   })
 
   it("should not be able to update a category", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .put(`/api/v1/categories/9999999`)
       .send({
         name: 'Suco',
@@ -76,7 +76,7 @@ describe("CategoriesApi", () => {
   })
 
   it("Should be able to search a category by name", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/categories/search`)
       .query({'name': 'Suco'})
     
@@ -85,14 +85,14 @@ describe("CategoriesApi", () => {
   })
 
   it("Should not be able to search a category by name", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/categories/search`)      
     
     expect(response.status).toBe(400)    
   })
 
   it("Should be able to list aall categories", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/categories`)      
     
     expect(response.status).toBe(200)    

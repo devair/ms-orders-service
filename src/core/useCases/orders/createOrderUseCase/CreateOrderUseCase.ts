@@ -4,13 +4,16 @@ import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGatewa
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
 import { Order } from "../../../entities/Order"
 import { InputCreateOrderDTO, OutputCreateOrderDTO } from "./ICreateOrderDTO"
+import { AppDataSource } from "../../../../adapters/datasource/typeorm"
+import { IOrderQueueAdapterOUT } from "../../../messaging/IOrderQueueAdapterOUT"
 
 class CreateOrderUseCase {
 
     constructor(private orderRepository: IOrdersGateway,
         private orderItemsRepository: IOrderItemsGateway,
         private customersRepository: ICustomersGateway,
-        private productsRepository: IProductsGateway
+        private productsRepository: IProductsGateway,
+        private orderPublisher: IOrderQueueAdapterOUT
     ) {
 
     }
@@ -26,7 +29,6 @@ class CreateOrderUseCase {
             }
         }
 
-
         const order = Order.place(customerFound)
         const promiseArray = orderItems.map(async (item) => {
             const productFound = await this.productsRepository.findByCode(item.product.code)
@@ -35,20 +37,44 @@ class CreateOrderUseCase {
                 throw new Error(`Product ${item.product.code} not found`)
             }
 
+            if(!item.quantity){
+                throw new Error(`Quantity is missed`)
+            }
+            if(!item.unitPrice){
+                throw new Error(`Unit Price is missed`)
+            }
+
             order.addItem({ product: productFound, quantity: item.quantity, unitPrice: item.unitPrice })
 
         })
 
         await Promise.all(promiseArray)
 
-        const orderCreated = await this.orderRepository.create(order)
+        const queryRunner = AppDataSource.createQueryRunner()
+        await queryRunner.startTransaction()
 
-        await this.orderItemsRepository.createAll(order.orderItems)
+        try {            
+            const orderCreated = await this.orderRepository.create(order)    
+            await this.orderItemsRepository.createAll(order.orderItems)    
+            
+            const orderMessage = {
+                id: orderCreated.id,
+                status: orderCreated.status,
+                amount: orderCreated.amount
+            }
+              // Publicar evento de pedido criado
+            await this.orderPublisher.publish("orderCreated",JSON.stringify(orderMessage))
+            
+            await queryRunner.commitTransaction()    
 
-        return {
-            id: orderCreated.id,
-            status: orderCreated.status,
-            amount: orderCreated.amount
+            return orderMessage
+
+        } catch (error) {
+            await queryRunner.rollbackTransaction()
+            throw error
+        }
+        finally{
+            await queryRunner.release()
         }
     }
 }

@@ -5,9 +5,9 @@
       "es5",
       "es6"
     ],
-    "target": "ES2016",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "es2020",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,

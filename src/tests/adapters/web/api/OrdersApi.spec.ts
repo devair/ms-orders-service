@@ -13,7 +13,7 @@ describe("OrdersApi", () => {
   }, 60000)
 
   it("should be able to create a new category", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/categories")
       .send({
         name: 'Bebidas',
@@ -27,7 +27,7 @@ describe("OrdersApi", () => {
   })
 
   it("should be able to create a new product", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/products")
       .send({
         code: 'prod1',
@@ -45,7 +45,7 @@ describe("OrdersApi", () => {
   })
 
   it("should be able to create a new order", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/orders")
       .send({
         orderItems: [
@@ -66,7 +66,7 @@ describe("OrdersApi", () => {
   })
 
   it("should not be able to create a new order", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/api/v1/orders")
       .send({
         name: 'Bebidas'
@@ -77,7 +77,7 @@ describe("OrdersApi", () => {
 
   
   it("Should be able to find a order by id", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/orders/${orderCreated.id}`)          
 
     expect(response.status).toBe(200)
@@ -85,14 +85,14 @@ describe("OrdersApi", () => {
   })
 
   it("Should not be able to find a order by id", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/orders/999999`)          
 
     expect(response.status).toBe(400)    
   })
 
   it("should be able to update a order", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .patch(`/api/v1/orders/${orderCreated.id}/status`)
       .send({
         status: 'Pronto'        
@@ -101,7 +101,7 @@ describe("OrdersApi", () => {
   })
 
   it("should not be able to update a order", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .patch(`/api/v1/orders/${orderCreated.id}/status`)
       .send({
                 
@@ -110,7 +110,7 @@ describe("OrdersApi", () => {
   })
 
   it("Should be able to list aall orders", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .get(`/api/v1/orders`)      
     
     expect(response.status).toBe(200)    

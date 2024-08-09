@@ -17,20 +17,14 @@ class CategoriesApi {
         try{
             const data  = await listCategoriesController.handler()    
             response.contentType('application/json')
-
-            console.log(data)
-            
             return response.status(200).send(CategoryPresenter.toJson(data))
-
         } catch (ex) {
             return response.status(400).json({ message: ex.message });
         }
-
     }
 
     static async create(request: Request, response: Response): Promise<Response> {
-        const { name, description } = request.body;
-        
+        const { name, description } = request.body;        
         const categoriesRepository = new CategoriesRepositoryPostgres()
         const createCategoryController = new CreateCategoryController(categoriesRepository)
        

@@ -4,12 +4,14 @@ import { OrderItemsRepositoryPostgres } from "../../../../adapters/datasource/ty
 import { OrdersRepositoryPostgres } from "../../../../adapters/datasource/typeorm/postgres/OrdersRepositoryPostgres"
 import { ProductsRepositoryPostgres } from "../../../../adapters/datasource/typeorm/postgres/ProductsRepositoryPostgres"
 import { Customer } from "../../../../core/entities/Customer"
+import { IOrderQueueAdapterOUT } from "../../../../core/messaging/IOrderQueueAdapterOUT"
 import { CreateCategoryUseCase } from "../../../../core/useCases/categories/createCategory/CreateCategoryUseCase"
 import { CreateCustomerUseCase } from "../../../../core/useCases/customers/createCustomer/CreateCustomerUseCase"
 import { FindByCpfCustomerUseCase } from "../../../../core/useCases/customers/findByCpfCustomer/FindByCpfCustomerUseCase"
 import { CreateOrderUseCase } from "../../../../core/useCases/orders/createOrderUseCase/CreateOrderUseCase"
 import { CreateProductUseCase } from "../../../../core/useCases/products/createProduct/CreateProductUseCase"
 import { FindByCodeProductUseCase } from "../../../../core/useCases/products/findByCodeProduct/FindByCodeProductUseCase"
+import RabbitMQOrderQueueAdapterOUT from "../../../../adapters/messaging/RabbitMQOrderQueueAdapterOUT"
 
 let createCategoryUseCase: CreateCategoryUseCase
 let createProductUseCase: CreateProductUseCase
@@ -17,8 +19,10 @@ let createCustomerUseCase: CreateCustomerUseCase
 let findByCpfCustomerUseCase: FindByCpfCustomerUseCase
 let findByCodeProductUseCase: FindByCodeProductUseCase
 let createOrderUseCase: CreateOrderUseCase
+let orderCreatedPublisher : IOrderQueueAdapterOUT;
 
 describe('Orders tests', () => {
+    
     beforeAll(async () => {
 
         const categoriesRepository = new CategoriesRepositoryPostgres()
@@ -27,6 +31,8 @@ describe('Orders tests', () => {
         const ordersRepository = new OrdersRepositoryPostgres()
         const orderItemsRepository = new OrderItemsRepositoryPostgres()
         
+        orderCreatedPublisher = new RabbitMQOrderQueueAdapterOUT()
+
         findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(customersRepository)        
         findByCodeProductUseCase = new FindByCodeProductUseCase(productsRepository)
         
@@ -35,7 +41,7 @@ describe('Orders tests', () => {
         createProductUseCase = new CreateProductUseCase(productsRepository, categoriesRepository)
 
         createOrderUseCase = new CreateOrderUseCase(ordersRepository,orderItemsRepository, 
-            customersRepository, productsRepository )
+            customersRepository, productsRepository,orderCreatedPublisher )
         // creating a category
         const category = { name: 'Bebida', description: 'Bebida gelada' }
         const categoryCreated = await createCategoryUseCase.execute(category)

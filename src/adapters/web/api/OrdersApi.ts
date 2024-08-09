@@ -8,19 +8,22 @@ import { ListOrdersController } from "../../../communication/controllers/orders/
 import { FindByIdOrderController } from "../../../communication/controllers/orders/FindByIdOrderController";
 import { UpdateOrderStatusController } from "../../../communication/controllers/orders/UpdateOrderStatusController";
 import { OrderPresenter } from "../../../communication/presenters/OrderPresenter";
-
+import RabbitMQOrderQueueAdapterOUT from "../../messaging/RabbitMQOrderQueueAdapterOUT"
+import { CreateOrderUseCase } from "../../../core/useCases/orders/createOrderUseCase/CreateOrderUseCase"
 class OrdersApi {
-
+    
     static async create (request: Request, response: Response ): Promise<Response>{
-
+        
         const { customer, orderItems } =  request.body;                
         const ordersRepository = new OrdersRepositoryPostgres()
         const orderItemsRepository = new OrderItemsRepositoryPostgres()
         const customersRepository = new CustomersRepositoryPostgres()
         const productsRepository = new ProductsRepositoryPostgres()
+        const orderPublisher = new RabbitMQOrderQueueAdapterOUT()        
+        const createOrderUseCase = new CreateOrderUseCase(ordersRepository, orderItemsRepository,
+            customersRepository, productsRepository, orderPublisher)
 
-        const createOrderController = new CreateOrderController(ordersRepository,orderItemsRepository, 
-            customersRepository, productsRepository)
+        const createOrderController = new CreateOrderController(createOrderUseCase)
         
         try {
             const data = await createOrderController.handler({ customer, orderItems })

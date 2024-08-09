@@ -6,7 +6,8 @@
   "author": "Devair F Tonon",
   "license": "MIT",
   "scripts": {
-    "start": "tsc && node dist/index.js",
+    "start": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts",
     "build": "tsc -p .",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "test": "jest --forceExit --detectOpenHandles",
@@ -19,7 +20,8 @@
     "pg": "^8.12.0",
     "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "^5.0.1",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "amqplib": "^0.10.4"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^10.8.0",
@@ -46,6 +48,7 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "@types/amqplib": "^0.10.5"
   }
 }

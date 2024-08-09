@@ -8,3 +8,4 @@ afterAll(async () => {
   await AppDataSource.destroy();
 });
 
+jest.mock('../adapters/messaging/RabbitMQOrderQueueAdapterOUT', () => require('../tests/adapters/messaging/mocks/OrderQueueAdapterOUTMock').default);
