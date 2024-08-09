@@ -30,7 +30,7 @@ export default class  RabbitMQOrderQueueAdapterOUT implements IOrderQueueAdapter
         return new Promise((resolve, reject) => {
             this.channel.sendToQueue(queue, messageBuffer, {}, (err, ok) => {
                 if (err) {
-                    reject(err);
+                    reject(new Error(`Something went wrong: ${err}`));
                 } else {
                     resolve();
                 }
