@@ -1,4 +1,4 @@
-import { CreateOrderUseCase } from "../../../application/useCases/orders/createOrderUseCase/CreateOrderUseCase"
+import { CreateOrderUseCase } from "../../../application/useCases/orders/CreateOrderUseCase"
 import { InputCreateOrderDTO, OutputCreateOrderDTO } from "../../../application/dtos/orders/ICreateOrderDTO"
 
 class CreateOrderController {

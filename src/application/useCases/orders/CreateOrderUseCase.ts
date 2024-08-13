@@ -1,15 +1,18 @@
-import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway"
-import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
-import { Order } from "../../../../core/entities/Order"
-import { IOrderQueueAdapterOUT } from "../../../../core/messaging/IOrderQueueAdapterOUT"
-import { InputCreateOrderDTO, OutputCreateOrderDTO } from "../../../dtos/orders/ICreateOrderDTO"
-import { OrderEntity } from "../../../../infra/datasource/typeorm/entities/OrderEntity"
-import { OrderItemEntity } from "../../../../infra/datasource/typeorm/entities/OrderItemEntity"
 import { DataSource } from "typeorm"
-import { CustomerEntity } from "../../../../infra/datasource/typeorm/entities/CustomerEntity"
-import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
-import { ProductsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
-import { ProductEntity } from "../../../../infra/datasource/typeorm/entities/ProductEntity"
+import { ICustomersGateway } from "../../../communication/gateways/ICustomersGateway"
+import { IProductsGateway } from "../../../communication/gateways/IProductsGateway"
+import { Order } from "../../../core/entities/Order"
+import { IOrderQueueAdapterOUT } from "../../../core/messaging/IOrderQueueAdapterOUT"
+import { QueueNames } from "../../../core/messaging/QueueNames"
+import { CustomerEntity } from "../../../infra/datasource/typeorm/entities/CustomerEntity"
+import { OrderEntity } from "../../../infra/datasource/typeorm/entities/OrderEntity"
+import { OrderItemEntity } from "../../../infra/datasource/typeorm/entities/OrderItemEntity"
+import { ProductEntity } from "../../../infra/datasource/typeorm/entities/ProductEntity"
+import { CustomersRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
+import { InputCreateOrderDTO, OutputCreateOrderDTO } from "../../dtos/orders/ICreateOrderDTO"
+import { OutputOrderQueueDTO } from "../../dtos/orders/ICreateOrderQueueDTO"
+
 
 class CreateOrderUseCase {
 
@@ -18,7 +21,7 @@ class CreateOrderUseCase {
     
     constructor(
         private dataSource: DataSource,
-        private orderPublisher: IOrderQueueAdapterOUT
+        private orderToPay: IOrderQueueAdapterOUT        
     ) {
         this.customersRepository = new CustomersRepositoryPostgres(this.dataSource.getRepository(CustomerEntity))
         this.productsRepository = new ProductsRepositoryPostgres(this.dataSource.getRepository(ProductEntity))
@@ -71,17 +74,25 @@ class CreateOrderUseCase {
 
             await queryRunner.manager.getRepository(OrderItemEntity).save(order.orderItems)    
             
-            const orderMessage = {
+            const orderMessage: OutputOrderQueueDTO = {
+                orderId: orderCreated.id,
+                customerName: orderCreated.customer? orderCreated.customer.name: '',
+                status: orderCreated.status,
+                amount: orderCreated.amount
+            }
+
+            // Pedido pendente de pagamento
+            await this.orderToPay.publish(QueueNames.ORDER_CREATED,JSON.stringify(orderMessage))
+            
+            await queryRunner.commitTransaction()    
+            
+            const orderReturn = {
                 id: orderCreated.id,
                 status: orderCreated.status,
                 amount: orderCreated.amount
             }
-              // Publicar evento de pedido criado
-            await this.orderPublisher.publish("orderCreated",JSON.stringify(orderMessage))
-            
-            await queryRunner.commitTransaction()    
 
-            return orderMessage
+            return orderReturn
 
         } catch (error) {
             await queryRunner.rollbackTransaction()

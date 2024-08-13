@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm"
-import { IOrdersGateway } from "../../../../communication/gateways/IOrdersGateway"
-import { OutputFindOrderDTO } from "../../../dtos/orders/IFindOrderDTO";
-import { OrderEntity } from "../../../../infra/datasource/typeorm/entities/OrderEntity"
-import { OrdersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/OrdersRepositoryPostgres"
+import { IOrdersGateway } from "../../../communication/gateways/IOrdersGateway"
+import { OrderEntity } from "../../../infra/datasource/typeorm/entities/OrderEntity"
+import { OrdersRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/OrdersRepositoryPostgres"
+import { OutputFindOrderDTO } from "../../dtos/orders/IFindOrderDTO"
 
 class FindByIdOrderUseCase {
 

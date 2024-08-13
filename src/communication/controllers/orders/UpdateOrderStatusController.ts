@@ -1,5 +1,5 @@
 import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "../../../application/dtos/orders/IUpdateOrderStatusDTO";
-import { UpdateOrderStatusUseCase } from "../../../application/useCases/orders/updateStatus/UpdateOrderStatusUseCase";
+import { UpdateOrderStatusUseCase } from "../../../application/useCases/orders/UpdateOrderStatusUseCase";
 
 class UpdateOrderStatusController {
     

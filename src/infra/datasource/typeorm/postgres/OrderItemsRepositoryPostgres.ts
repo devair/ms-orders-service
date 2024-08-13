@@ -27,6 +27,21 @@ class OrderItemsRepositoryPostgres implements IOrderItemsGateway{
         const orderItemFound = await this.repository.findOne( { where: { id }})
         return orderItemFound
     }
+
+    async findByOrderId(orderId: number): Promise<OrderItem[]>{
+        const all = this.repository.createQueryBuilder("orderItem")
+        .innerJoinAndSelect('orderItem.product', 'product')
+        .select([
+            'orderItem.id',
+            'orderItem.quantity',            
+            'product.name',
+            'product.code'
+        ])
+        .where('orderItem.orderId = :orderId', { orderId })
+        .getMany()
+
+        return all
+    }
 }
 
 export { OrderItemsRepositoryPostgres }

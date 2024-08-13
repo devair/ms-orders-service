@@ -1,5 +1,5 @@
 import { OutputFindOrderDTO } from "../../../application/dtos/orders/IFindOrderDTO"
-import { ListOrdersUseCase } from "../../../application/useCases/orders/listOrders/ListOrdersUseCase"
+import { ListOrdersUseCase } from "../../../application/useCases/orders/ListOrdersUseCase"
 
 class ListOrdersController {
 

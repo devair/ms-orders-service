@@ -1,15 +1,15 @@
 import { Request, Response } from "express"
+import { DataSource } from "typeorm"
+import { CreateOrderUseCase } from "../../../application/useCases/orders/CreateOrderUseCase"
+import { FindByIdOrderUseCase } from "../../../application/useCases/orders/FindByIdOrderUseCase"
+import { ListOrdersUseCase } from "../../../application/useCases/orders/ListOrdersUseCase"
+import { UpdateOrderStatusUseCase } from "../../../application/useCases/orders/UpdateOrderStatusUseCase"
 import { CreateOrderController } from "../../../communication/controllers/orders/CreateOrderController"
-import { ListOrdersController } from "../../../communication/controllers/orders/ListOrdersController"
 import { FindByIdOrderController } from "../../../communication/controllers/orders/FindByIdOrderController"
+import { ListOrdersController } from "../../../communication/controllers/orders/ListOrdersController"
 import { UpdateOrderStatusController } from "../../../communication/controllers/orders/UpdateOrderStatusController"
 import { OrderPresenter } from "../../../communication/presenters/OrderPresenter"
 import RabbitMQOrderQueueAdapterOUT from "../../../infra/messaging/RabbitMQOrderQueueAdapterOUT"
-import { CreateOrderUseCase } from "../../../application/useCases/orders/createOrderUseCase/CreateOrderUseCase"
-import { DataSource } from "typeorm"
-import { ListOrdersUseCase } from "../../../application/useCases/orders/listOrders/ListOrdersUseCase"
-import { FindByIdOrderUseCase } from "../../../application/useCases/orders/findByIdOrder/FindByIdOrderUseCase"
-import { UpdateOrderStatusUseCase } from "../../../application/useCases/orders/updateStatus/UpdateOrderStatusUseCase"
 class OrdersApi {
     constructor(
         private readonly dataSource: DataSource
@@ -66,7 +66,8 @@ class OrdersApi {
         let { id } = request.params
         let { status } = request.body
 
-        const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(this.dataSource)       
+        const orderToProduce = new RabbitMQOrderQueueAdapterOUT()
+        const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(this.dataSource, orderToProduce)       
         const updateStatusOrderController = new UpdateOrderStatusController(updateOrderStatusUseCase)
 
         try {

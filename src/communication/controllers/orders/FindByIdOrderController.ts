@@ -1,4 +1,4 @@
-import { FindByIdOrderUseCase } from "../../../application/useCases/orders/findByIdOrder/FindByIdOrderUseCase";
+import { FindByIdOrderUseCase } from "../../../application/useCases/orders/FindByIdOrderUseCase";
 import { OutputFindOrderDTO } from "../../../application/dtos/orders/IFindOrderDTO";
 
 class FindByIdOrderController {

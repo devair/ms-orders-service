@@ -5,6 +5,9 @@ import { AppDataSource } from "../infra/datasource/typeorm"
 import { router  } from '../interface/web/routers'
 import swaggerUi from 'swagger-ui-express'
 import * as swaggerFile from '../openapi.json'
+import { UpdateOrderStatusUseCase } from "../application/useCases/orders/UpdateOrderStatusUseCase"
+import RabbitMQOrderQueueAdapterOUT from "../infra/messaging/RabbitMQOrderQueueAdapterOUT"
+import { OrderCreatedQueueAdapterIN } from "../infra/messaging/OrderUpdateQueueAdapterIN"
 
 dotenv.config()
 const rabbitMqUrl = process.env.RABBITMQ_URL ? process.env.RABBITMQ_URL : ''
@@ -25,6 +28,13 @@ export const createApp = async () => {
     // Configura Persistencia
     if (process.env.NODE_ENV !== 'test') {
         AppDataSource.initialize().then((datasource) => {
+
+            // Configura consumidor de ordem criada
+            const orderToProduceAdapterOut = new RabbitMQOrderQueueAdapterOUT()
+            orderToProduceAdapterOut.connect()
+            const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(datasource,orderToProduceAdapterOut)
+            const updateOrderStatusConsume = new OrderCreatedQueueAdapterIN(rabbitMqUrl, updateOrderStatusUseCase)
+            updateOrderStatusConsume.consume()
                         
             app.use('/api/v1', router(datasource))
             
