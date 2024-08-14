@@ -1,7 +1,7 @@
 import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
 import { Category } from "../../../../core/entities/Category"
-import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
+import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryeUse : CreateCategoryUseCase

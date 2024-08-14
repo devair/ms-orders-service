@@ -1,5 +1,5 @@
-import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
-import { FindByIdCategoryUseCase } from "../../../../application/useCases/categories/findByIdCategory/FindByIdCategoryUseCase"
+import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
+import { FindByIdCategoryUseCase } from "../../../../application/useCases/categories/FindByIdCategoryUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryeUse : CreateCategoryUseCase

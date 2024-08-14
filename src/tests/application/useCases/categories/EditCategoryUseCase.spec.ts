@@ -1,6 +1,6 @@
 import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
-import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
-import { EditCategoryUseCase } from "../../../../application/useCases/categories/editCategory/EditCategoryUseCase"
+import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
+import { EditCategoryUseCase } from "../../../../application/useCases/categories/EditCategoryUseCase"
 import { Category } from "../../../../core/entities/Category"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 

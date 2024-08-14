@@ -1,5 +1,5 @@
 import { OutputFindCustomerDTO } from "../../../application/dtos/customers/IFindCustomerDTO"
-import { ListCustomersUseCase } from "../../../application/useCases/customers/listCustomers/ListCustomersUseCase"
+import { ListCustomersUseCase } from "../../../application/useCases/customers/ListCustomersUseCase"
 
 class ListCustomersController{
 

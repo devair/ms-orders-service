@@ -1,6 +1,6 @@
 import { Product } from "../../../../core/entities/Product"
-import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
-import { CreateProductUseCase } from "../../../../application/useCases/products/createProduct/CreateProductUseCase"
+import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
+import { CreateProductUseCase } from "../../../../application/useCases/products/CreateProductUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 import { OutputCreateCategoryDTO } from "../../../../application/dtos/categories/ICreateCategoryDTO"
 

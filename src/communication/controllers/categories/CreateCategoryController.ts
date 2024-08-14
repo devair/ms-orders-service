@@ -1,4 +1,4 @@
-import { CreateCategoryUseCase } from "../../../application/useCases/categories/createCategory/CreateCategoryUseCase";
+import { CreateCategoryUseCase } from "../../../application/useCases/categories/CreateCategoryUseCase";
 import { InputCreateCategoryDTO, OutputCreateCategoryDTO } from "../../../application/dtos/categories/ICreateCategoryDTO";
 
 class CreateCategoryController {

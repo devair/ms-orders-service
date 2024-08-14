@@ -5,11 +5,11 @@ import { FindByIdCustomerController } from "../../../communication/controllers/c
 import { SearchCustomersController } from "../../../communication/controllers/customers/SearchCustomersController";
 import { CustomerPresenter } from "../../../communication/presenters/CustomerPresenter";
 import { DataSource } from "typeorm"
-import { CreateCustomerUseCase } from "../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
-import { ListCustomersUseCase } from "../../../application/useCases/customers/listCustomers/ListCustomersUseCase"
-import { FindByIdCustomerUseCase } from "../../../application/useCases/customers/findByIdCustomer/FindByIdCustomerUseCase"
-import { FindByCpfCustomerUseCase } from "../../../application/useCases/customers/findByCpfCustomer/FindByCpfCustomerUseCase"
-import { FindByNameCustomerUseCase } from "../../../application/useCases/customers/findByNameCustomer/FindByNameCustomerUseCase"
+import { CreateCustomerUseCase } from "../../../application/useCases/customers/CreateCustomerUseCase"
+import { ListCustomersUseCase } from "../../../application/useCases/customers/ListCustomersUseCase"
+import { FindByIdCustomerUseCase } from "../../../application/useCases/customers/FindByIdCustomerUseCase"
+import { FindByCpfCustomerUseCase } from "../../../application/useCases/customers/FindByCpfCustomerUseCase"
+import { FindByNameCustomerUseCase } from "../../../application/useCases/customers/FindByNameCustomerUseCase"
 
 class CustomersApi {
 

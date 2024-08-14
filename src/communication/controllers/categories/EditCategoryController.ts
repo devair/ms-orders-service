@@ -1,4 +1,4 @@
-import { EditCategoryUseCase } from "../../../application/useCases/categories/editCategory/EditCategoryUseCase";
+import { EditCategoryUseCase } from "../../../application/useCases/categories/EditCategoryUseCase";
 import { InputUpdateCategoryDTO } from "../../../application/dtos/categories/IEditCategoryDTO";
 
 class EditCategoryController {

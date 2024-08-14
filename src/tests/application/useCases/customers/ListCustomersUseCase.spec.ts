@@ -1,6 +1,5 @@
-import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
-import { CreateCustomerUseCase } from "../../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
-import { ListCustomersUseCase } from "../../../../application/useCases/customers/listCustomers/ListCustomersUseCase"
+import { CreateCustomerUseCase } from "../../../../application/useCases/customers/CreateCustomerUseCase"
+import { ListCustomersUseCase } from "../../../../application/useCases/customers/ListCustomersUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let listCustomersUseCase : ListCustomersUseCase

@@ -1,4 +1,4 @@
-import { EditProductUseCase } from "../../../application/useCases/products/editProduct/EditProductUseCase";
+import { EditProductUseCase } from "../../../application/useCases/products/EditProductUseCase";
 import { InputUpdateProductDTO } from "../../../application/dtos/products/IEditProductDTO";
 
 class EditProductController {

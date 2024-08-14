@@ -1,6 +1,5 @@
 import request from "supertest"
 import { app } from "../../../../application/index"
-import { settings } from 'pactum'
 
 let customerCreated: any
 const cpfTest = '99887766554'

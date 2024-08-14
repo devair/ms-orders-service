@@ -1,11 +1,11 @@
 import { DataSource } from "typeorm"
-import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
-import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
-import { CategoryEntity } from "../../../../infra/datasource/typeorm/entities/CategoryEntity"
-import { ProductEntity } from "../../../../infra/datasource/typeorm/entities/ProductEntity"
-import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
-import { ProductsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
-import { InputUpdateProductDTO, OutputUpdateProductDTO } from "../../../dtos/products/IEditProductDTO"
+import { ICategoriesGateway } from "../../../communication/gateways/ICategoriesGateway"
+import { IProductsGateway } from "../../../communication/gateways/IProductsGateway"
+import { CategoryEntity } from "../../../infra/datasource/typeorm/entities/CategoryEntity"
+import { ProductEntity } from "../../../infra/datasource/typeorm/entities/ProductEntity"
+import { CategoriesRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { ProductsRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
+import { InputUpdateProductDTO, OutputUpdateProductDTO } from "../../dtos/products/IEditProductDTO"
 
 class EditProductUseCase {
 

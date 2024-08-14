@@ -1,8 +1,8 @@
 import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
 import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
-import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
-import { CreateProductUseCase } from "../../../../application/useCases/products/createProduct/CreateProductUseCase"
-import { DeleteProductUseCase } from "../../../../application/useCases/products/deleteProduct/DeleteProductUseCase"
+import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
+import { CreateProductUseCase } from "../../../../application/useCases/products/CreateProductUseCase"
+import { DeleteProductUseCase } from "../../../../application/useCases/products/DeleteProductUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryeUse : CreateCategoryUseCase

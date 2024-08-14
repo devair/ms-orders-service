@@ -1,8 +1,8 @@
 import { Product } from "../../../../core/entities/Product"
-import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
-import { CreateProductUseCase } from "../../../../application/useCases/products/createProduct/CreateProductUseCase"
-import { EditProductUseCase } from "../../../../application/useCases/products/editProduct/EditProductUseCase"
-import { FindByIdProductUseCase } from "../../../../application/useCases/products/findByIdProduct/FindByIdProductUseCase"
+import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
+import { CreateProductUseCase } from "../../../../application/useCases/products/CreateProductUseCase"
+import { EditProductUseCase } from "../../../../application/useCases/products/EditProductUseCase"
+import { FindByIdProductUseCase } from "../../../../application/useCases/products/FindByIdProductUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryeUseCase: CreateCategoryUseCase

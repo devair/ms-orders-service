@@ -1,4 +1,4 @@
-import { CreateProductUseCase } from "../../../application/useCases/products/createProduct/CreateProductUseCase";
+import { CreateProductUseCase } from "../../../application/useCases/products/CreateProductUseCase";
 import { InputCreateProductDTO, OutputCreateProductDTO } from "../../../application/dtos/products/ICreateProductDTO";
 
 class CreateProductController {

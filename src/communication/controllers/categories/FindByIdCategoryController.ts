@@ -1,4 +1,4 @@
-import { FindByIdCategoryUseCase } from "../../../application/useCases/categories/findByIdCategory/FindByIdCategoryUseCase";
+import { FindByIdCategoryUseCase } from "../../../application/useCases/categories/FindByIdCategoryUseCase";
 import { OutputFindCategoryDTO } from "../../../application/dtos/categories/IFindCategoryDTO";
 
 class FindByIdCategoryController {

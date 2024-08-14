@@ -1,4 +1,4 @@
-import { DeleteProductUseCase } from "../../../application/useCases/products/deleteProduct/DeleteProductUseCase"
+import { DeleteProductUseCase } from "../../../application/useCases/products/DeleteProductUseCase"
 
 class DeleteProductController {
     

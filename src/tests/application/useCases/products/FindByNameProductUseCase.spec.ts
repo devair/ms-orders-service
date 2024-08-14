@@ -1,6 +1,6 @@
-import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
-import { CreateProductUseCase } from "../../../../application/useCases/products/createProduct/CreateProductUseCase"
-import { FindByNameProductUseCase } from "../../../../application/useCases/products/findByNameProduct/FindByNameProductUseCase"
+import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
+import { CreateProductUseCase } from "../../../../application/useCases/products/CreateProductUseCase"
+import { FindByNameProductUseCase } from "../../../../application/useCases/products/FindByNameProductUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createProducteUse : CreateProductUseCase

@@ -1,5 +1,5 @@
-import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
-import { ListCategoriesUseCase } from "../../../../application/useCases/categories/listCategories/ListCategoriesUseCase"
+import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
+import { ListCategoriesUseCase } from "../../../../application/useCases/categories/ListCategoriesUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 

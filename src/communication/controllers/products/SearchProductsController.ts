@@ -1,7 +1,7 @@
-import { FindByCodeProductUseCase } from "../../../application/useCases/products/findByCodeProduct/FindByCodeProductUseCase";
+import { FindByCodeProductUseCase } from "../../../application/useCases/products/FindByCodeProductUseCase";
 import { OutputFindProductDTO } from "../../../application/dtos/products/IFindProductDTO";
-import { FindByNameProductUseCase } from "../../../application/useCases/products/findByNameProduct/FindByNameProductUseCase";
-import { FindProductByCategoryNameUseCase } from "../../../application/useCases/products/findProductByCategoryName/FindProductByCategoryNameUseCase";
+import { FindByNameProductUseCase } from "../../../application/useCases/products/FindByNameProductUseCase";
+import { FindProductByCategoryNameUseCase } from "../../../application/useCases/products/FindProductByCategoryNameUseCase";
 
 class SearchProductsController {
 

@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm"
-import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
-import { CategoryEntity } from "../../../../infra/datasource/typeorm/entities/CategoryEntity"
-import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
-import { InputUpdateCategoryDTO } from "../../../dtos/categories/IEditCategoryDTO"
+import { ICategoriesGateway } from "../../../communication/gateways/ICategoriesGateway"
+import { CategoryEntity } from "../../../infra/datasource/typeorm/entities/CategoryEntity"
+import { CategoriesRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { InputUpdateCategoryDTO } from "../../dtos/categories/IEditCategoryDTO"
 
 class EditCategoryUseCase {
 

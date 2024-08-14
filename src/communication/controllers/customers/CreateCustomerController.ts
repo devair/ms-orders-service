@@ -1,4 +1,4 @@
-import { CreateCustomerUseCase } from "../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
+import { CreateCustomerUseCase } from "../../../application/useCases/customers/CreateCustomerUseCase"
 import { InputCreateCustomerDTO, OutputCreateCustomerDTO } from "../../../application/dtos/customers/ICreateCustomerDTO"
 
 class CreateCustomerController {

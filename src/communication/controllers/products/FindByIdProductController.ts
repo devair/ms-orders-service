@@ -1,4 +1,4 @@
-import { FindByIdProductUseCase } from "../../../application/useCases/products/findByIdProduct/FindByIdProductUseCase";
+import { FindByIdProductUseCase } from "../../../application/useCases/products/FindByIdProductUseCase";
 import { OutputFindProductDTO } from "../../../application/dtos/products/IFindProductDTO";
 
 class FindByIdProductController {

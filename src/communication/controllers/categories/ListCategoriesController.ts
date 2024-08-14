@@ -1,5 +1,5 @@
 import { OutputFindCategoryDTO } from "../../../application/dtos/categories/IFindCategoryDTO";
-import { ListCategoriesUseCase } from "../../../application/useCases/categories/listCategories/ListCategoriesUseCase";
+import { ListCategoriesUseCase } from "../../../application/useCases/categories/ListCategoriesUseCase";
 
 class ListCategoriesController {
     

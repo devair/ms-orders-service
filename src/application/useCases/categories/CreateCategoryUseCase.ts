@@ -1,9 +1,9 @@
 
 import { DataSource } from "typeorm"
-import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway";
-import { CategoryEntity } from "../../../../infra/datasource/typeorm/entities/CategoryEntity"
-import { InputCreateCategoryDTO, OutputCreateCategoryDTO } from "../../../dtos/categories/ICreateCategoryDTO";
-import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { ICategoriesGateway } from "../../../communication/gateways/ICategoriesGateway";
+import { CategoryEntity } from "../../../infra/datasource/typeorm/entities/CategoryEntity"
+import { InputCreateCategoryDTO, OutputCreateCategoryDTO } from "../../dtos/categories/ICreateCategoryDTO";
+import { CategoriesRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
 
 class CreateCategoryUseCase {
 

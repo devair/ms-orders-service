@@ -7,14 +7,14 @@ import { DeleteProductController } from "../../../communication/controllers/prod
 import { EditProductController } from "../../../communication/controllers/products/EditProductController"
 import { ProductPresenter } from "../../../communication/presenters/ProductPresenter"
 import { DataSource } from "typeorm"
-import { CreateProductUseCase } from "../../../application/useCases/products/createProduct/CreateProductUseCase"
-import { ListProductsUseCase } from "../../../application/useCases/products/listProducts/ListProductsUseCase"
-import { FindByIdProductUseCase } from "../../../application/useCases/products/findByIdProduct/FindByIdProductUseCase"
-import { FindByCodeProductUseCase } from "../../../application/useCases/products/findByCodeProduct/FindByCodeProductUseCase"
-import { FindByNameProductUseCase } from "../../../application/useCases/products/findByNameProduct/FindByNameProductUseCase"
-import { FindProductByCategoryNameUseCase } from "../../../application/useCases/products/findProductByCategoryName/FindProductByCategoryNameUseCase"
-import { DeleteProductUseCase } from "../../../application/useCases/products/deleteProduct/DeleteProductUseCase"
-import { EditProductUseCase } from "../../../application/useCases/products/editProduct/EditProductUseCase"
+import { CreateProductUseCase } from "../../../application/useCases/products/CreateProductUseCase"
+import { ListProductsUseCase } from "../../../application/useCases/products/ListProductsUseCase"
+import { FindByIdProductUseCase } from "../../../application/useCases/products/FindByIdProductUseCase"
+import { FindByCodeProductUseCase } from "../../../application/useCases/products/FindByCodeProductUseCase"
+import { FindByNameProductUseCase } from "../../../application/useCases/products/FindByNameProductUseCase"
+import { FindProductByCategoryNameUseCase } from "../../../application/useCases/products/FindProductByCategoryNameUseCase"
+import { DeleteProductUseCase } from "../../../application/useCases/products/DeleteProductUseCase"
+import { EditProductUseCase } from "../../../application/useCases/products/EditProductUseCase"
 
 
 class ProductsApi {

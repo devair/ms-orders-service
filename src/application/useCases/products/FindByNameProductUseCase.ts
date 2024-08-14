@@ -1,10 +1,9 @@
 import { DataSource } from "typeorm"
-import { IProductsGateway } from "../../../../communication/gateways/IProductsGateway"
-import { ProductEntity } from "../../../../infra/datasource/typeorm/entities/ProductEntity"
-import { ProductsRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
-import { OutputFindProductDTO } from "../../../dtos/products/IFindProductDTO"
-
-class FindProductByCategoryNameUseCase {
+import { IProductsGateway } from "../../../communication/gateways/IProductsGateway"
+import { ProductEntity } from "../../../infra/datasource/typeorm/entities/ProductEntity"
+import { ProductsRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/ProductsRepositoryPostgres"
+import { OutputFindProductDTO } from "../../dtos/products/IFindProductDTO"
+class FindByNameProductUseCase {
 
     private productsRepository: IProductsGateway
     
@@ -14,7 +13,7 @@ class FindProductByCategoryNameUseCase {
         this.productsRepository = new ProductsRepositoryPostgres(this.dataSource.getRepository(ProductEntity))     
     }
     async execute(name: string): Promise<OutputFindProductDTO[]> {
-        const products = await this.productsRepository.findByCategory(name)
+        const products = await this.productsRepository.findByName(name)      
         
         const output = products.map((elem) => ({
             id: elem.id,
@@ -29,4 +28,4 @@ class FindProductByCategoryNameUseCase {
     }
 }
 
-export { FindProductByCategoryNameUseCase }
+export { FindByNameProductUseCase }

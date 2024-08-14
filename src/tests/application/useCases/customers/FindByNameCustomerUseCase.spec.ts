@@ -1,5 +1,5 @@
-import { CreateCustomerUseCase } from "../../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
-import { FindByNameCustomerUseCase } from "../../../../application/useCases/customers/findByNameCustomer/FindByNameCustomerUseCase"
+import { CreateCustomerUseCase } from "../../../../application/useCases/customers/CreateCustomerUseCase"
+import { FindByNameCustomerUseCase } from "../../../../application/useCases/customers/FindByNameCustomerUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 

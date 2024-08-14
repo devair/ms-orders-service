@@ -6,11 +6,11 @@ import { EditCategoryController } from "../../../communication/controllers/categ
 import { FindByNameCategoryController } from "../../../communication/controllers/categories/FindByNameCategoryController"
 import { CategoryPresenter } from "../../../communication/presenters/CategoryPresenter"
 import { DataSource } from "typeorm"
-import { CreateCategoryUseCase } from "../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
-import { ListCategoriesUseCase } from "../../../application/useCases/categories/listCategories/ListCategoriesUseCase"
-import { FindByIdCategoryUseCase } from "../../../application/useCases/categories/findByIdCategory/FindByIdCategoryUseCase"
-import { EditCategoryUseCase } from "../../../application/useCases/categories/editCategory/EditCategoryUseCase"
-import { FindByNameCategoryUseCase } from "../../../application/useCases/categories/findByNameCategory/FindByNameCategoryUseCase"
+import { CreateCategoryUseCase } from "../../../application/useCases/categories/CreateCategoryUseCase"
+import { ListCategoriesUseCase } from "../../../application/useCases/categories/ListCategoriesUseCase"
+import { FindByIdCategoryUseCase } from "../../../application/useCases/categories/FindByIdCategoryUseCase"
+import { EditCategoryUseCase } from "../../../application/useCases/categories/EditCategoryUseCase"
+import { FindByNameCategoryUseCase } from "../../../application/useCases/categories/FindByNameCategoryUseCase"
 
 class CategoriesApi {
 

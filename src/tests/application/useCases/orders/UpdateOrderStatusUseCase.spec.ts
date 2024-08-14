@@ -1,13 +1,13 @@
 import RabbitMQOrderQueueAdapterOUT from "../../../../infra/messaging/RabbitMQOrderQueueAdapterOUT"
 import { Customer } from "../../../../core/entities/Customer"
 import { IOrderQueueAdapterOUT } from "../../../../core/messaging/IOrderQueueAdapterOUT"
-import { CreateCategoryUseCase } from "../../../../application/useCases/categories/createCategory/CreateCategoryUseCase"
-import { CreateCustomerUseCase } from "../../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
-import { FindByCpfCustomerUseCase } from "../../../../application/useCases/customers/findByCpfCustomer/FindByCpfCustomerUseCase"
-import { CreateOrderUseCase } from "../../../../application/useCases/orders/createOrderUseCase/CreateOrderUseCase"
-import { UpdateOrderStatusUseCase } from "../../../../application/useCases/orders/updateStatus/UpdateOrderStatusUseCase"
-import { CreateProductUseCase } from "../../../../application/useCases/products/createProduct/CreateProductUseCase"
-import { FindByCodeProductUseCase } from "../../../../application/useCases/products/findByCodeProduct/FindByCodeProductUseCase"
+import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
+import { CreateCustomerUseCase } from "../../../../application/useCases/customers/CreateCustomerUseCase"
+import { FindByCpfCustomerUseCase } from "../../../../application/useCases/customers/FindByCpfCustomerUseCase"
+import { CreateOrderUseCase } from "../../../../application/useCases/orders/CreateOrderUseCase"
+import { UpdateOrderStatusUseCase } from "../../../../application/useCases/orders/UpdateOrderStatusUseCase"
+import { CreateProductUseCase } from "../../../../application/useCases/products/CreateProductUseCase"
+import { FindByCodeProductUseCase } from "../../../../application/useCases/products/FindByCodeProductUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCategoryUseCase: CreateCategoryUseCase
@@ -22,6 +22,7 @@ let orderCreatedPublisher : IOrderQueueAdapterOUT;
 describe('Orders tests', () => {
     beforeAll(async () => {
 
+        orderCreatedPublisher = new RabbitMQOrderQueueAdapterOUT()
         orderCreatedPublisher = new RabbitMQOrderQueueAdapterOUT() 
         findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(AppDataSource)        
         findByCodeProductUseCase = new FindByCodeProductUseCase(AppDataSource)        
@@ -29,7 +30,7 @@ describe('Orders tests', () => {
         createCustomerUseCase = new CreateCustomerUseCase(AppDataSource)
         createProductUseCase = new CreateProductUseCase(AppDataSource)
         createOrderUseCase = new CreateOrderUseCase(AppDataSource,orderCreatedPublisher )         
-        updateOrderStatusUseCase = new UpdateOrderStatusUseCase(AppDataSource)
+        updateOrderStatusUseCase = new UpdateOrderStatusUseCase(AppDataSource,orderCreatedPublisher)
 
 
         // creating a category

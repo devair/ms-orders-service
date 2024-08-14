@@ -1,5 +1,5 @@
 import { OutputFindProductDTO } from "../../../application/dtos/products/IFindProductDTO";
-import { ListProductsUseCase } from "../../../application/useCases/products/listProducts/ListProductsUseCase";
+import { ListProductsUseCase } from "../../../application/useCases/products/ListProductsUseCase";
 
 class ListProductsController {
     

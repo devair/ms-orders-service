@@ -1,4 +1,4 @@
-import { FindByIdCustomerUseCase } from "../../../application/useCases/customers/findByIdCustomer/FindByIdCustomerUseCase"
+import { FindByIdCustomerUseCase } from "../../../application/useCases/customers/FindByIdCustomerUseCase"
 import { OutputFindCustomerDTO } from "../../../application/dtos/customers/IFindCustomerDTO"
 
 class FindByIdCustomerController{

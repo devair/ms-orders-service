@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm"
-import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway"
-import { CustomerEntity } from "../../../../infra/datasource/typeorm/entities/CustomerEntity"
-import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
-import { OutputFindCustomerDTO } from "../../../dtos/customers/IFindCustomerDTO"
+import { ICustomersGateway } from "../../../communication/gateways/ICustomersGateway"
+import { CustomerEntity } from "../../../infra/datasource/typeorm/entities/CustomerEntity"
+import { CustomersRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
+import { OutputFindCustomerDTO } from "../../dtos/customers/IFindCustomerDTO"
 
 
 class FindByNameCustomerUseCase {

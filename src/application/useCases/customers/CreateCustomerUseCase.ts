@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm"
-import { ICustomersGateway } from "../../../../communication/gateways/ICustomersGateway";
-import { InputCreateCustomerDTO, OutputCreateCustomerDTO } from "../../../dtos/customers/ICreateCustomerDTO";
-import { CustomersRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
-import { CustomerEntity } from "../../../../infra/datasource/typeorm/entities/CustomerEntity"
+import { ICustomersGateway } from "../../../communication/gateways/ICustomersGateway";
+import { InputCreateCustomerDTO, OutputCreateCustomerDTO } from "../../dtos/customers/ICreateCustomerDTO";
+import { CustomersRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/CustomersRepositoryPostgres"
+import { CustomerEntity } from "../../../infra/datasource/typeorm/entities/CustomerEntity"
 
 
 class CreateCustomerUseCase {

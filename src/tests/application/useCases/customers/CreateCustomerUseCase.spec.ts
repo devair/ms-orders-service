@@ -1,4 +1,4 @@
-import { CreateCustomerUseCase } from "../../../../application/useCases/customers/createCustomer/CreateCustomerUseCase"
+import { CreateCustomerUseCase } from "../../../../application/useCases/customers/CreateCustomerUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 let createCustomerUseCase: CreateCustomerUseCase

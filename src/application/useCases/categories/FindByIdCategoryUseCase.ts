@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm"
-import { ICategoriesGateway } from "../../../../communication/gateways/ICategoriesGateway"
-import { CategoryEntity } from "../../../../infra/datasource/typeorm/entities/CategoryEntity"
-import { CategoriesRepositoryPostgres } from "../../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
-import { OutputFindCategoryDTO } from "../../../dtos/categories/IFindCategoryDTO"
+import { ICategoriesGateway } from "../../../communication/gateways/ICategoriesGateway"
+import { CategoryEntity } from "../../../infra/datasource/typeorm/entities/CategoryEntity"
+import { CategoriesRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/CategoriesRepositoryPostgres"
+import { OutputFindCategoryDTO } from "../../dtos/categories/IFindCategoryDTO"
 
 class FindByIdCategoryUseCase {
 
