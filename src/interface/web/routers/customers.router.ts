@@ -7,7 +7,7 @@ export const customersRouter = (api: CustomersApi) => {
     router.get('/:id', (req, res) => api.findById(req, res))
     router.get('/', (req, res) => api.list(req, res))
     router.post('/', (req, res) => api.create(req, res))
-    router.delete('/', (req, res) => api.delete(req, res))
+    router.post('/delete', (req, res) => api.delete(req, res))
 
     return router
 }

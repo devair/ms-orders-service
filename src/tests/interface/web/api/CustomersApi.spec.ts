@@ -85,7 +85,7 @@ describe("CustomersApi", () => {
 
   it("Should be able to create a request to delete a customers", async () => {
     const response = await request(await app)
-      .delete(`/api/v1/customers`)      
+      .post(`/api/v1/customers/delete`)      
       .send({
         name: 'Customer',
         address: 'Address',
