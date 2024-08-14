@@ -83,4 +83,17 @@ describe("CustomersApi", () => {
     expect(response.body).toBeInstanceOf(Array)
   })
 
+  it("Should be able to create a request to delete a customers", async () => {
+    const response = await request(await app)
+      .delete(`/api/v1/customers`)      
+      .send({
+        name: 'Customer',
+        address: 'Address',
+        phone: '111111111'
+      }) 
+
+    expect(response.status).toBe(201)
+    expect(response.body).toHaveProperty("id")  
+  })
+
 })

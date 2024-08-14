@@ -10,6 +10,8 @@ import { ListCustomersUseCase } from "../../../application/useCases/customers/Li
 import { FindByIdCustomerUseCase } from "../../../application/useCases/customers/FindByIdCustomerUseCase"
 import { FindByCpfCustomerUseCase } from "../../../application/useCases/customers/FindByCpfCustomerUseCase"
 import { FindByNameCustomerUseCase } from "../../../application/useCases/customers/FindByNameCustomerUseCase"
+import { DeleteCustomerUseCase } from "../../../application/useCases/customers/DeleteCustomerUseCase"
+import { DeleteCustomerController } from "../../../communication/controllers/customers/DeleteCustomerController"
 
 class CustomersApi {
 
@@ -80,6 +82,22 @@ class CustomersApi {
         }
         catch( ex ) {
             return response.status(400).json({ message: ex.message })
+        }        
+    }
+
+    async delete(request: Request, response: Response): Promise<Response> {
+        const { name, address, phone }= request.body;
+        
+        const deleteCustomerUseCase = new DeleteCustomerUseCase(this.dataSource)
+        const deleteCustomerController = new DeleteCustomerController(deleteCustomerUseCase)
+
+        try {
+            const data = await deleteCustomerController.handler({ name, address, phone });
+            response.contentType('application/json')            
+            return response.status(201).send(CustomerPresenter.toJson(data))
+        }
+        catch (ex) {
+            return response.status(400).json({ message: ex.message });
         }        
     }
 }
