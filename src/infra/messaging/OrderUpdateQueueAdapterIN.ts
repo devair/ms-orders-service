@@ -1,15 +1,14 @@
 import amqpCallback from "amqplib/callback_api"
-import { UpdateOrderStatusUseCase } from "../../application/useCases/orders/UpdateOrderStatusUseCase"
-import { OutputOrderQueueDTO } from "../../application/dtos/orders/ICreateOrderQueueDTO"
 import { QueueNames } from "../../core/messaging/QueueNames"
+import { IUpdateOrderUseCase } from "../../core/useCase/IUpdateOrderUseCase"
 
 export class OrderCreatedQueueAdapterIN {
     constructor(
         private rabbitMQUrl: string,
-        private updateOrderUseCase: UpdateOrderStatusUseCase
+        private updateOrderUseCase: IUpdateOrderUseCase
     ) { }
 
-    async consume() {
+    async consume(queueName: string) {
         amqpCallback.connect(this.rabbitMQUrl, (err: any, connection: any) => {
             if (err) {
                 throw err;
@@ -18,14 +17,14 @@ export class OrderCreatedQueueAdapterIN {
                 if (err) {
                     throw err;
                 }
-                channel.assertQueue(QueueNames.ORDER_PAID, { durable: true });
-                channel.consume(QueueNames.ORDER_PAID, async (msg: any) => {
+                channel.assertQueue(queueName, { durable: true });
+                channel.consume(queueName, async (msg: any) => {
                     if (msg !== null) {
                         try {
                             // Processa a mensagem                            
                             const order = JSON.parse(msg.content.toString());
 
-                            console.log('Payment - Received:', order)
+                            console.log('Message received:', order)
 
                             // Aqui o servico persiste e publica na mesma transacao para o proximo canal
                             await this.updateOrderUseCase.execute({ id: order.id, status: order.status})

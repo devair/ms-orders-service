@@ -5,7 +5,7 @@ dotenv.config()
 
 const commonConfig = {
   entities: [__dirname + '/entities/*.ts','dist/adapters/**/entities/*.js'],
-  synchronize: true,
+  synchronize: true,  
   logging: false
 };
 

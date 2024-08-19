@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm"
 import { IOrdersGateway } from "../../../communication/gateways/IOrdersGateway"
-import { Order, OrderStatus } from "../../../core/entities/Order"
+import { OrderStatus } from "../../../core/entities/Order"
 import { OrderEntity } from "../../../infra/datasource/typeorm/entities/OrderEntity"
 import { OrdersRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/OrdersRepositoryPostgres"
 import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "../../dtos/orders/IUpdateOrderStatusDTO"
@@ -10,9 +10,10 @@ import { IOrderItemsGateway } from "../../../communication/gateways/IOrderItemsG
 import { OrderItemsRepositoryPostgres } from "../../../infra/datasource/typeorm/postgres/OrderItemsRepositoryPostgres"
 import { OrderItemEntity } from "../../../infra/datasource/typeorm/entities/OrderItemEntity"
 import { OutputOrderItemQueueDTO, OutputOrderQueueDTO } from "../../dtos/orders/ICreateOrderQueueDTO"
+import { IUpdateOrderUseCase } from "../../../core/useCase/IUpdateOrderUseCase"
 
 
-class UpdateOrderStatusUseCase{
+class UpdateOrderStatusUseCase implements IUpdateOrderUseCase{
     
     private ordersRepository: IOrdersGateway
     private orderItemRepository: IOrderItemsGateway

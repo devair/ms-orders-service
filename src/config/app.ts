@@ -9,6 +9,8 @@ import { UpdateOrderStatusUseCase } from "../application/useCases/orders/UpdateO
 import RabbitMQOrderQueueAdapterOUT from "../infra/messaging/RabbitMQOrderQueueAdapterOUT"
 import { OrderCreatedQueueAdapterIN } from "../infra/messaging/OrderUpdateQueueAdapterIN"
 import helmet from 'helmet'
+import { UpdateOrderDoneUseCase } from "../application/useCases/orders/UpdateOrderDoneUseCase"
+import { QueueNames } from "../core/messaging/QueueNames"
 
 
 dotenv.config()
@@ -57,7 +59,12 @@ export const createApp = async () => {
             orderToProduceAdapterOut.connect()
             const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(datasource, orderToProduceAdapterOut)
             const updateOrderStatusConsume = new OrderCreatedQueueAdapterIN(rabbitMqUrl, updateOrderStatusUseCase)
-            updateOrderStatusConsume.consume()
+            updateOrderStatusConsume.consume(QueueNames.ORDER_PAID)
+
+            const updateOrderDoneUseCase = new UpdateOrderDoneUseCase(datasource)
+            const updateOrderDoneConsume = new OrderCreatedQueueAdapterIN(rabbitMqUrl, updateOrderDoneUseCase)
+            updateOrderDoneConsume.consume(QueueNames.ORDER_DONE)
+
 
             app.use('/api/v1', router(datasource))
 
