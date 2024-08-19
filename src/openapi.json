@@ -1103,6 +1103,132 @@
           }
         }
       },
+      "/api/v1/customers/delete": {
+        "post": {
+          "tags": [
+            "customers"
+          ],
+          "summary": "Request to delete a customer",
+          "description": "Request to delete a customer",
+          "requestBody": {
+            "description": "Request to delete a customer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "John Snow"
+                    },
+                    "address": {
+                      "type": "string",
+                      "example": "415 Mission Street, 3rd Floor - San Francisco, CA 94105 "
+                    },
+                    "phone": {
+                      "type": "string",
+                      "example": "1-800-664-9073"
+                    }
+                  }
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "John Snow"
+                      },
+                      "address": {
+                        "type": "string",
+                        "example": "415 Mission Street, 3rd Floor - San Francisco, CA 94105 "
+                      },
+                      "phone": {
+                        "type": "string",
+                        "example": "77899933"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "customers"
+          ],
+          "summary": "List customers",
+          "description": "List customers",
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "John Snow"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "test@example.com"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "77899933"
+                        },
+                        "cpf": {
+                          "type": "string",
+                          "example": "12345678901"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "/api/v1/orders": {
         "post": {
           "tags": [
