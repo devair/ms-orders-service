@@ -65,6 +65,10 @@ export const createApp = async () => {
             const updateOrderDoneConsume = new OrderCreatedQueueAdapterIN(rabbitMqUrl, updateOrderDoneUseCase)
             updateOrderDoneConsume.consume(QueueNames.ORDER_DONE)
 
+            const updateOrderRejectUseCase = new UpdateOrderDoneUseCase(datasource)
+            const updateOrderRejectConsume = new OrderCreatedQueueAdapterIN(rabbitMqUrl, updateOrderRejectUseCase)
+            updateOrderRejectConsume.consume(QueueNames.PAYMENT_REJECTED)
+
 
             app.use('/api/v1', router(datasource))
 
