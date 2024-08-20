@@ -70,6 +70,14 @@ class UpdateOrderStatusUseCase implements IUpdateOrderUseCase{
             switch (orderStatus){
                 case OrderStatus.DONE: {
                     await this.orderToProduce.publish(QueueNames.ORDER_FINISHED,JSON.stringify(orderMessage))     
+
+                    const customerMessage = {
+                        orderId: orderMessage.orderId,
+                        status: orderMessage.status,
+                    }
+
+                    await this.orderToProduce.publish(QueueNames.CUSTOMER_NOTIFICATION,JSON.stringify(customerMessage))     
+                    
                     break
                 }
                 case OrderStatus.REJECTED: {

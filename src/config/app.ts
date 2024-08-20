@@ -57,10 +57,10 @@ export const createApp = async () => {
 
             const rabbitMQConnection = await amqplib.connect(rabbitMqUrl)
 
-            // Configura consumidor de ordem criada
+            // Configura os publicadores
             const queuesOut:string[] = [ QueueNames.ORDER_CREATED, QueueNames.ORDER_TO_PRODUCE, 
                                          QueueNames.ORDER_DONE, QueueNames.ORDER_FINISHED,
-                                        QueueNames.PAYMENT_REJECTED]
+                                        QueueNames.PAYMENT_REJECTED, QueueNames.CUSTOMER_NOTIFICATION]
                                         
             const orderPublisher = new RabbitMQOrderQueueAdapterOUT(rabbitMQConnection, queuesOut)
             orderPublisher.connect()
@@ -76,7 +76,6 @@ export const createApp = async () => {
             const updateOrderRejectUseCase = new UpdateOrderStatusUseCase(datasource, orderPublisher)
             const updateOrderRejectConsume = new OrderCreatedQueueAdapterIN(rabbitMqUrl, updateOrderRejectUseCase)
             updateOrderRejectConsume.consume(QueueNames.PAYMENT_REJECTED)
-
 
             app.use('/api/v1', router(datasource, orderPublisher))
 

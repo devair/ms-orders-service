@@ -4,5 +4,6 @@ export enum QueueNames {
     ORDER_TO_PRODUCE = "orderProduction",
     ORDER_DONE = "orderDone",
     ORDER_FINISHED = "orderFinished",
-    PAYMENT_REJECTED = "paymentReject"
+    PAYMENT_REJECTED = "paymentReject",
+    CUSTOMER_NOTIFICATION = "customerNotification"
 }
