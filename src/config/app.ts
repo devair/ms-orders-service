@@ -1,6 +1,7 @@
 import express from "express"
 import "express-async-errors"
 import * as dotenv from 'dotenv'
+import amqplib from "amqplib"
 import { AppDataSource } from "../infra/datasource/typeorm"
 import { router } from '../interface/web/routers'
 import swaggerUi from 'swagger-ui-express'
@@ -9,7 +10,6 @@ import { UpdateOrderStatusUseCase } from "../application/useCases/orders/UpdateO
 import RabbitMQOrderQueueAdapterOUT from "../infra/messaging/RabbitMQOrderQueueAdapterOUT"
 import { OrderCreatedQueueAdapterIN } from "../infra/messaging/OrderUpdateQueueAdapterIN"
 import helmet from 'helmet'
-import { UpdateOrderDoneUseCase } from "../application/useCases/orders/UpdateOrderDoneUseCase"
 import { QueueNames } from "../core/messaging/QueueNames"
 
 
@@ -52,33 +52,41 @@ export const createApp = async () => {
 
     // Configura Persistencia
     if (process.env.NODE_ENV !== 'test') {
-        AppDataSource.initialize().then((datasource) => {
+        AppDataSource.initialize().then(async (datasource) => {
+
+
+            const rabbitMQConnection = await amqplib.connect(rabbitMqUrl)
 
             // Configura consumidor de ordem criada
-            const orderToProduceAdapterOut = new RabbitMQOrderQueueAdapterOUT()
-            orderToProduceAdapterOut.connect()
-            const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(datasource, orderToProduceAdapterOut)
+            const queuesOut:string[] = [ QueueNames.ORDER_CREATED, QueueNames.ORDER_TO_PRODUCE, 
+                                         QueueNames.ORDER_DONE, QueueNames.ORDER_FINISHED,
+                                        QueueNames.PAYMENT_REJECTED]
+                                        
+            const orderPublisher = new RabbitMQOrderQueueAdapterOUT(rabbitMQConnection, queuesOut)
+            orderPublisher.connect()
+
+            const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(datasource, orderPublisher)
             const updateOrderStatusConsume = new OrderCreatedQueueAdapterIN(rabbitMqUrl, updateOrderStatusUseCase)
             updateOrderStatusConsume.consume(QueueNames.ORDER_PAID)
 
-            const updateOrderDoneUseCase = new UpdateOrderDoneUseCase(datasource)
+            const updateOrderDoneUseCase = new UpdateOrderStatusUseCase(datasource, orderPublisher)
             const updateOrderDoneConsume = new OrderCreatedQueueAdapterIN(rabbitMqUrl, updateOrderDoneUseCase)
             updateOrderDoneConsume.consume(QueueNames.ORDER_DONE)
 
-            const updateOrderRejectUseCase = new UpdateOrderDoneUseCase(datasource)
+            const updateOrderRejectUseCase = new UpdateOrderStatusUseCase(datasource, orderPublisher)
             const updateOrderRejectConsume = new OrderCreatedQueueAdapterIN(rabbitMqUrl, updateOrderRejectUseCase)
             updateOrderRejectConsume.consume(QueueNames.PAYMENT_REJECTED)
 
 
-            app.use('/api/v1', router(datasource))
+            app.use('/api/v1', router(datasource, orderPublisher))
 
             app.listen(port, () => {
                 console.log(`Orders service listening  on port ${port}`)
             })
         }).catch(error => console.log(error))
     }
-    else {
-        app.use('/api/v1', router(AppDataSource))
+    else {                
+        app.use('/api/v1', router(AppDataSource, null ))
     }
 
     return app

@@ -8,8 +8,9 @@ import { OrdersApi } from "../api/OrdersApi"
 import { ProductsApi } from "../api/ProductsApi"
 import { CustomersApi } from "../api/CustomersApi"
 import { CategoriesApi } from "../api/CategoriesApi"
+import { IOrderQueueAdapterOUT } from "../../../core/messaging/IOrderQueueAdapterOUT"
 
-export const router = (dataSource: DataSource) => {
+export const router = (dataSource: DataSource, publisher: IOrderQueueAdapterOUT) => {
         
     const router = Router()
 
@@ -22,7 +23,7 @@ export const router = (dataSource: DataSource) => {
     const customersApi = new CustomersApi(dataSource)
     router.use('/customers', customersRouter(customersApi))
 
-    const orderApi = new OrdersApi(dataSource)
+    const orderApi = new OrdersApi(dataSource, publisher)
     router.use('/orders', ordersRouter(orderApi))
 
     return router

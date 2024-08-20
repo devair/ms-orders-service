@@ -10,15 +10,16 @@ import { ListOrdersController } from "../../../communication/controllers/orders/
 import { UpdateOrderStatusController } from "../../../communication/controllers/orders/UpdateOrderStatusController"
 import { OrderPresenter } from "../../../communication/presenters/OrderPresenter"
 import RabbitMQOrderQueueAdapterOUT from "../../../infra/messaging/RabbitMQOrderQueueAdapterOUT"
+import { IOrderQueueAdapterOUT } from "../../../core/messaging/IOrderQueueAdapterOUT"
 class OrdersApi {
     constructor(
-        private readonly dataSource: DataSource
+        private readonly dataSource: DataSource,
+        private publisher: IOrderQueueAdapterOUT
     ) { }
 
     async create(request: Request, response: Response): Promise<Response> {
-        const { customer, orderItems } = request.body
-        const orderPublisher = new RabbitMQOrderQueueAdapterOUT()
-        const createOrderUseCase = new CreateOrderUseCase(this.dataSource, orderPublisher)
+        const { customer, orderItems } = request.body        
+        const createOrderUseCase = new CreateOrderUseCase(this.dataSource, this.publisher)
         const createOrderController = new CreateOrderController(createOrderUseCase)
 
         try {
@@ -65,9 +66,8 @@ class OrdersApi {
 
         let { id } = request.params
         let { status } = request.body
-
-        const orderToProduce = new RabbitMQOrderQueueAdapterOUT()
-        const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(this.dataSource, orderToProduce)       
+        
+        const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(this.dataSource, this.publisher)       
         const updateStatusOrderController = new UpdateOrderStatusController(updateOrderStatusUseCase)
 
         try {

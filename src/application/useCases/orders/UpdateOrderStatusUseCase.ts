@@ -66,8 +66,21 @@ class UpdateOrderStatusUseCase implements IUpdateOrderUseCase{
                 amount: orderUpdated.amount,
                 items : orderItemQueueOutput
             }
-
-            await this.orderToProduce.publish(QueueNames.ORDER_TO_PRODUCE,JSON.stringify(orderMessage))
+            
+            switch (orderStatus){
+                case OrderStatus.DONE: {
+                    await this.orderToProduce.publish(QueueNames.ORDER_FINISHED,JSON.stringify(orderMessage))     
+                    break
+                }
+                case OrderStatus.REJECTED: {
+                    await this.orderToProduce.publish(QueueNames.PAYMENT_REJECTED,JSON.stringify(orderMessage))     
+                    break
+                }
+                case OrderStatus.RECEIVED: {
+                    await this.orderToProduce.publish(QueueNames.ORDER_TO_PRODUCE,JSON.stringify(orderMessage))                 
+                    break
+                }
+            }
            
             return { 
                 id: orderUpdated.id,
