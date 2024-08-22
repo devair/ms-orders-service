@@ -17,6 +17,12 @@ class CreateCategoryUseCase {
 
     async execute({ name, description }: InputCreateCategoryDTO): Promise<OutputCreateCategoryDTO> {
 
+        if(!name || !description){
+            throw new Error(`Missing name or description field`);
+        }
+
+        name = name.trim()
+
         const categoryAlreadExists = await this.categoriesRepository.findOneByName(name)
 
         if (categoryAlreadExists) {

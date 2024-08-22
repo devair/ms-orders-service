@@ -11,7 +11,7 @@ import RabbitMQOrderQueueAdapterOUT from "../infra/messaging/RabbitMQOrderQueueA
 import { OrderCreatedQueueAdapterIN } from "../infra/messaging/OrderUpdateQueueAdapterIN"
 import helmet from 'helmet'
 import { QueueNames } from "../core/messaging/QueueNames"
-
+import sanitizeJsonBody from "./sanitizeJsonBody"
 
 dotenv.config()
 const rabbitMqUrl = process.env.RABBITMQ_URL ? process.env.RABBITMQ_URL : ''
@@ -21,6 +21,10 @@ export const createApp = async () => {
     const app = express()
     app.disable("x-powered-by")
     app.use(express.json())
+   
+    // Middleware XSS Clean
+    app.use(sanitizeJsonBody); // Adiciona o middleware de sanitização
+    
 
     // Define o cabeçalho X-Content-Type-Options para 'nosniff'
     app.use((req, res, next) => {
@@ -28,7 +32,7 @@ export const createApp = async () => {
         next()
     })
 
-    // Configura o Content-Security-Policy usando helmet
+    // Configura o Content-Security-Policy usando helmet    
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ["'self'"],
@@ -58,10 +62,10 @@ export const createApp = async () => {
             const rabbitMQConnection = await amqplib.connect(rabbitMqUrl)
 
             // Configura os publicadores
-            const queuesOut:string[] = [ QueueNames.ORDER_CREATED, QueueNames.ORDER_TO_PRODUCE, 
-                                         QueueNames.ORDER_DONE, QueueNames.ORDER_FINISHED,
-                                        QueueNames.PAYMENT_REJECTED, QueueNames.CUSTOMER_NOTIFICATION]
-                                        
+            const queuesOut: string[] = [QueueNames.ORDER_CREATED, QueueNames.ORDER_TO_PRODUCE,
+            QueueNames.ORDER_DONE, QueueNames.ORDER_FINISHED,
+            QueueNames.PAYMENT_REJECTED, QueueNames.CUSTOMER_NOTIFICATION]
+
             const orderPublisher = new RabbitMQOrderQueueAdapterOUT(rabbitMQConnection, queuesOut)
             orderPublisher.connect()
 
@@ -79,13 +83,13 @@ export const createApp = async () => {
 
             app.use('/api/v1', router(datasource, orderPublisher))
 
-            app.listen(port, () => {
+            app.listen(port,'0.0.0.0', () => {
                 console.log(`Orders service listening  on port ${port}`)
             })
         }).catch(error => console.log(error))
     }
-    else {                
-        app.use('/api/v1', router(AppDataSource, null ))
+    else {
+        app.use('/api/v1', router(AppDataSource, null))
     }
 
     return app
