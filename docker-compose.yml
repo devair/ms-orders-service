@@ -29,6 +29,7 @@ services:
       - DB_PASS=docker
       - DB_HOST=postgres-db
       - DB_PORT=5432     
+      - RABBITMQ_URL=amqp://localhost
     links:
       - postgres-db
 
