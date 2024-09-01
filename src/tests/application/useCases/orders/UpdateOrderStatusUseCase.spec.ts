@@ -1,4 +1,3 @@
-import RabbitMQOrderQueueAdapterOUT from "../../../../infra/messaging/RabbitMQOrderQueueAdapterOUT"
 import { Customer } from "../../../../core/entities/Customer"
 import { IOrderQueueAdapterOUT } from "../../../../core/messaging/IOrderQueueAdapterOUT"
 import { CreateCategoryUseCase } from "../../../../application/useCases/categories/CreateCategoryUseCase"
@@ -9,6 +8,8 @@ import { UpdateOrderStatusUseCase } from "../../../../application/useCases/order
 import { CreateProductUseCase } from "../../../../application/useCases/products/CreateProductUseCase"
 import { FindByCodeProductUseCase } from "../../../../application/useCases/products/FindByCodeProductUseCase"
 import { AppDataSource } from "../../../../infra/datasource/typeorm"
+import { QueueNames } from "../../../../core/messaging/QueueNames"
+import OrderQueueAdapterOUTMock from "../../../infra/messaging/mocks/OrderQueueAdapterOUTMock"
 
 let createCategoryUseCase: CreateCategoryUseCase
 let createProductUseCase: CreateProductUseCase
@@ -21,9 +22,15 @@ let orderCreatedPublisher : IOrderQueueAdapterOUT;
 
 describe('Orders tests', () => {
     beforeAll(async () => {
+        
+        const instance = new OrderQueueAdapterOUTMock('param1', 'param2');
 
-        orderCreatedPublisher = new RabbitMQOrderQueueAdapterOUT()
-        orderCreatedPublisher = new RabbitMQOrderQueueAdapterOUT() 
+        // Configura os publicadores
+        const queuesOut: string[] = [QueueNames.ORDER_CREATED, QueueNames.ORDER_TO_PRODUCE,
+            QueueNames.ORDER_DONE, QueueNames.ORDER_FINISHED,
+            QueueNames.PAYMENT_REJECTED, QueueNames.CUSTOMER_NOTIFICATION]
+
+        orderCreatedPublisher = instance //new RabbitMQOrderQueueAdapterOUT(connection, queuesOut)        
         findByCpfCustomerUseCase = new FindByCpfCustomerUseCase(AppDataSource)        
         findByCodeProductUseCase = new FindByCodeProductUseCase(AppDataSource)        
         createCategoryUseCase = new CreateCategoryUseCase(AppDataSource)

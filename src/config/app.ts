@@ -12,6 +12,7 @@ import { OrderCreatedQueueAdapterIN } from "../infra/messaging/OrderUpdateQueueA
 import helmet from 'helmet'
 import { QueueNames } from "../core/messaging/QueueNames"
 import sanitizeJsonBody from "./sanitizeJsonBody"
+import OrderQueueAdapterOUTMock from "../tests/infra/messaging/mocks/OrderQueueAdapterOUTMock"
 
 dotenv.config()
 const rabbitMqUrl = process.env.RABBITMQ_URL ? process.env.RABBITMQ_URL : ''
@@ -89,7 +90,8 @@ export const createApp = async () => {
         }).catch(error => console.log(error))
     }
     else {
-        app.use('/api/v1', router(AppDataSource, null))
+        const instance = new OrderQueueAdapterOUTMock('param1', 'param2');
+        app.use('/api/v1', router(AppDataSource, instance))
     }
 
     return app

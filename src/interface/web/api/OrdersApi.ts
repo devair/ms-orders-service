@@ -9,7 +9,6 @@ import { FindByIdOrderController } from "../../../communication/controllers/orde
 import { ListOrdersController } from "../../../communication/controllers/orders/ListOrdersController"
 import { UpdateOrderStatusController } from "../../../communication/controllers/orders/UpdateOrderStatusController"
 import { OrderPresenter } from "../../../communication/presenters/OrderPresenter"
-import RabbitMQOrderQueueAdapterOUT from "../../../infra/messaging/RabbitMQOrderQueueAdapterOUT"
 import { IOrderQueueAdapterOUT } from "../../../core/messaging/IOrderQueueAdapterOUT"
 class OrdersApi {
     constructor(
