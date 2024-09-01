@@ -72,14 +72,33 @@ Para executar a aplicação é necesssário ter o Docker instalado localmente co
   cd ms-orders-service
 ~~~
 
-### c) Rodar no Docker
+### c) Variáveis de Ambiente
+
+A seguir as variáveis de ambiente utilizadas no Docker compose
+
+|  Nome da variável|Descrição  | Valor padrão|
+|--|--|--| 
+|POSTGRES_DB|Nome do banco de dados Postgres|pedidos_db|
+|POSTGRES_PASSWORD|Senha do banco de dados Postgres|docker|
+|POSTGRES_USER|Usuário do banco de dados Postgres|docker|
+|DB_HOST|Endereço do host do banco de dados Postgres|localhost|
+|DB_PORT|Porta do banco de dados Postgres|5432|
+|DB_DATABASE|Nome do banco de dados da aplicação| pedidos_db|
+|DB_USER|Usuário do banco de dados da aplicação|docker|
+|DB_PASS|Senha do banco de dados da aplicação|docker|
+|APP_PORT|Porta da aplicação|3333|
+|RABBITMQ_URL|Endereço do RabbitMQ|amqp://localhost|
+
+
+
+### d) Rodar no Docker
 
 ### 
 ~~~bash  
 docker compose build && docker compose up
 ~~~  
 
-### d) Verificar o estado da aplicação
+### e) Verificar o estado da aplicação
 Executar o comando abaixo no prompt e obter o retorno 'Ok' indicando que a aplicação está em execução
 
 ~~~bash
