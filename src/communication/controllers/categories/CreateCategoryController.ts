@@ -1,16 +1,13 @@
-import { CreateCategoryUseCase } from "../../../core/useCases/categories/createCategory/CreateCategoryUseCase";
-import { InputCreateCategoryDTO, OutputCreateCategoryDTO } from "../../../core/useCases/categories/createCategory/ICreateCategoryDTO";
-import { ICategoriesGateway } from "../../gateways/ICategoriesGateway";
+import { CreateCategoryUseCase } from "../../../application/useCases/categories/CreateCategoryUseCase";
+import { InputCreateCategoryDTO, OutputCreateCategoryDTO } from "../../../application/dtos/categories/ICreateCategoryDTO";
 
 class CreateCategoryController {
     
-    constructor(private categoriesRepository: ICategoriesGateway){}
+    constructor(private categoryUseCase: CreateCategoryUseCase){}
 
     async handler(createCategory: InputCreateCategoryDTO): Promise<OutputCreateCategoryDTO> {
 
-        const categoryUseCase = new CreateCategoryUseCase(this.categoriesRepository)
-        
-        return await categoryUseCase.execute(createCategory);            
+        return await this.categoryUseCase.execute(createCategory);            
     }
 }
 

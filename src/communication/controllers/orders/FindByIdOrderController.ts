@@ -1,17 +1,12 @@
-import { FindByIdOrderUseCase } from "../../../core/useCases/orders/findByIdOrder/FindByIdOrderUseCase";
-import { OutputFindOrderDTO } from "../../../core/useCases/orders/findByIdOrder/IFindOrderDTO";
-import { IOrdersGateway } from "../../gateways/IOrdersGateway";
+import { FindByIdOrderUseCase } from "../../../application/useCases/orders/FindByIdOrderUseCase";
+import { OutputFindOrderDTO } from "../../../application/dtos/orders/IFindOrderDTO";
 
 class FindByIdOrderController {
     
-    constructor(private ordersRepository: IOrdersGateway){}
+    constructor(private findByIdOrderUseCase: FindByIdOrderUseCase){}
 
     async handler(id: number): Promise<OutputFindOrderDTO> {
-
-        const findByIdOrderUseCase = new FindByIdOrderUseCase(this.ordersRepository)        
-
-        return await findByIdOrderUseCase.execute(id);       
-
+        return await this.findByIdOrderUseCase.execute(id);       
     }
 }
 

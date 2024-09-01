@@ -1,6 +1,6 @@
+import { InputCreateCategoryDTO } from "../../application/dtos/categories/ICreateCategoryDTO"
+import { InputUpdateCategoryDTO } from "../../application/dtos/categories/IEditCategoryDTO"
 import { Category } from "../../core/entities/Category"
-import { InputCreateCategoryDTO } from "../../core/useCases/categories/createCategory/ICreateCategoryDTO"
-import { InputUpdateCategoryDTO } from "../../core/useCases/categories/editCategory/IEditCategoryDTO"
 
 interface ICategoriesGateway{
 
@@ -13,6 +13,8 @@ interface ICategoriesGateway{
     findById(id: number): Promise<Category>
 
     update({ id, name, description }: InputUpdateCategoryDTO): Promise<void>
+
+    findOneByName(name: string): Promise<Category>
 }
 
 export { ICategoriesGateway }

@@ -1,16 +1,13 @@
-import { OutputFindCategoryDTO } from "../../../core/useCases/categories/findByIdCategory/IFindCategoryDTO";
-import { FindByNameCategoryUseCase } from "../../../core/useCases/categories/findByNameCategory/FindByNameCategoryUseCase";
-import { ICategoriesGateway } from "../../gateways/ICategoriesGateway";
+import { OutputFindCategoryDTO } from "../../../application/dtos/categories/IFindCategoryDTO";
+import { FindByNameCategoryUseCase } from "../../../application/useCases/categories/FindByNameCategoryUseCase";
 
 class FindByNameCategoryController {
     
-    constructor(private categoriesRepository: ICategoriesGateway){}
+    constructor(private findByNameCategoryUseCase: FindByNameCategoryUseCase){}
 
     async handler(name: string): Promise<OutputFindCategoryDTO[]> {
 
-        const findByNameCategoryUseCase = new FindByNameCategoryUseCase(this.categoriesRepository)        
-
-        return await findByNameCategoryUseCase.execute(name);       
+        return await this.findByNameCategoryUseCase.execute(name);       
 
     }
 }

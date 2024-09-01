@@ -1,16 +1,13 @@
-import { FindByIdCustomerUseCase } from "../../../core/useCases/customers/findByIdCustomer/FindByIdCustomerUseCase"
-import { OutputFindCustomerDTO } from "../../../core/useCases/customers/findByIdCustomer/IFindCustomerDTO"
-import { ICustomersGateway } from "../../gateways/ICustomersGateway"
+import { FindByIdCustomerUseCase } from "../../../application/useCases/customers/FindByIdCustomerUseCase"
+import { OutputFindCustomerDTO } from "../../../application/dtos/customers/IFindCustomerDTO"
 
 class FindByIdCustomerController{
 
-    constructor(private customersRepository: ICustomersGateway){}
+    constructor(private findByIdCustomerUseCase: FindByIdCustomerUseCase){}
 
     async handler(id: number): Promise<OutputFindCustomerDTO>{
-        
-        const findByIdCustomerUseCase = new FindByIdCustomerUseCase(this.customersRepository)
-        
-        return await findByIdCustomerUseCase.execute(id)
+                
+        return await this.findByIdCustomerUseCase.execute(id)
     }
 }
 

@@ -1,33 +1,32 @@
-import { FindByCodeProductUseCase } from "../../../core/useCases/products/findByCodeProduct/FindByCodeProductUseCase";
-import { OutputFindProductDTO } from "../../../core/useCases/products/findByIdProduct/IFindProductDTO";
-import { FindByNameProductUseCase } from "../../../core/useCases/products/findByNameProduct/FindByNameProductUseCase";
-import { FindProductByCategoryNameUseCase } from "../../../core/useCases/products/findProductByCategoryName/FindProductByCategoryNameUseCase";
-import { IProductsGateway } from "../../gateways/IProductsGateway";
+import { FindByCodeProductUseCase } from "../../../application/useCases/products/FindByCodeProductUseCase";
+import { OutputFindProductDTO } from "../../../application/dtos/products/IFindProductDTO";
+import { FindByNameProductUseCase } from "../../../application/useCases/products/FindByNameProductUseCase";
+import { FindProductByCategoryNameUseCase } from "../../../application/useCases/products/FindProductByCategoryNameUseCase";
 
 class SearchProductsController {
 
-    constructor(private productsRepository: IProductsGateway){}
+    constructor(
+        private findByNameProductUseCase: FindByNameProductUseCase,
+        private findProductByCategoryNameUseCase: FindProductByCategoryNameUseCase,
+        private findByCodeProductUseCase: FindByCodeProductUseCase
+    ){}
 
     async handler (name : string, categoryName: string, code: string): Promise<OutputFindProductDTO[]>{
         
         if(!name && !categoryName && !code){
             throw Error('Missing parameters: code, name OR categoryName')
         }
-
-        const findByNameProductUseCase = new FindByNameProductUseCase(this.productsRepository)
-        const findProductByCategoryNameUseCase = new FindProductByCategoryNameUseCase(this.productsRepository)
-        const findByCodeProductUseCase = new FindByCodeProductUseCase(this.productsRepository) 
         
         let products = [];
         
         if(name){
-            products = await findByNameProductUseCase.execute( name.toString())
+            products = await this.findByNameProductUseCase.execute( name.toString())
         }
         else if (categoryName){
-            products = await findProductByCategoryNameUseCase.execute( categoryName.toString())
+            products = await this.findProductByCategoryNameUseCase.execute( categoryName.toString())
         }
         else if (code){            
-            const product = await findByCodeProductUseCase.execute( code.toString())            
+            const product = await this.findByCodeProductUseCase.execute( code.toString())            
             products.push(product)
         }
     

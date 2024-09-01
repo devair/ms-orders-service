@@ -1,16 +1,12 @@
-import { OutputFindOrderDTO } from "../../../core/useCases/orders/findByIdOrder/IFindOrderDTO"
-import { ListOrdersUseCase } from "../../../core/useCases/orders/listOrders/ListOrdersUseCase"
-import { IOrdersGateway } from "../../gateways/IOrdersGateway"
+import { OutputFindOrderDTO } from "../../../application/dtos/orders/IFindOrderDTO"
+import { ListOrdersUseCase } from "../../../application/useCases/orders/ListOrdersUseCase"
 
 class ListOrdersController {
 
-    constructor(private ordersRepository: IOrdersGateway){}
+    constructor(private listOrdersUseCase: ListOrdersUseCase){}
 
     async handler(): Promise<OutputFindOrderDTO[]>{
-
-        const listOrdersUseCase = new ListOrdersUseCase(this.ordersRepository)
-
-        return await listOrdersUseCase.execute()
+        return await this.listOrdersUseCase.execute()
     }
 
 }

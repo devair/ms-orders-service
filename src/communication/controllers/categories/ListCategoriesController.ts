@@ -1,17 +1,12 @@
-import { OutputFindCategoryDTO } from "../../../core/useCases/categories/findByIdCategory/IFindCategoryDTO";
-import { ListCategoriesUseCase } from "../../../core/useCases/categories/listCategories/ListCategoriesUseCase";
-import { ICategoriesGateway } from "../../gateways/ICategoriesGateway";
+import { OutputFindCategoryDTO } from "../../../application/dtos/categories/IFindCategoryDTO";
+import { ListCategoriesUseCase } from "../../../application/useCases/categories/ListCategoriesUseCase";
 
 class ListCategoriesController {
     
-    constructor(private categoriesRepository: ICategoriesGateway){}
+    constructor(private listCategoriesUseCase: ListCategoriesUseCase){}
 
-    async handler(): Promise<OutputFindCategoryDTO[]> {
-
-        const listCategoriesUseCase = new ListCategoriesUseCase(this.categoriesRepository)        
-
-        return await listCategoriesUseCase.execute();       
-
+    async handler(): Promise<OutputFindCategoryDTO[]> {        
+        return await this.listCategoriesUseCase.execute();       
     }
 }
 

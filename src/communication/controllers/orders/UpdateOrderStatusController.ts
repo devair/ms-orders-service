@@ -1,16 +1,13 @@
-import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "../../../core/useCases/orders/updateStatus/IUpdateOrderStatusDTO";
-import { UpdateOrderStatusUseCase } from "../../../core/useCases/orders/updateStatus/UpdateOrderStatusUseCase";
-import { IOrdersGateway } from "../../gateways/IOrdersGateway";
+import { InputUpdateOrderStatusDTO, OutputUpdateOrderStatusDTO } from "../../../application/dtos/orders/IUpdateOrderStatusDTO";
+import { UpdateOrderStatusUseCase } from "../../../application/useCases/orders/UpdateOrderStatusUseCase";
 
 class UpdateOrderStatusController {
     
-    constructor(private ordersRepository: IOrdersGateway ) {}
+    constructor(private updateOrderStatusUseCase: UpdateOrderStatusUseCase ) {}
 
     async handler({ id, status }: InputUpdateOrderStatusDTO ): Promise<OutputUpdateOrderStatusDTO> {
 
-        const updateOrderStatusUseCase = new UpdateOrderStatusUseCase(this.ordersRepository)        
-
-        return await updateOrderStatusUseCase.execute({ id, status});       
+        return await this.updateOrderStatusUseCase.execute({ id, status});       
     }
 }
 
