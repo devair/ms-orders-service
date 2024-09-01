@@ -109,9 +109,9 @@ O desenho abaixo mostra a arquitetura de software seguindo o padrão Clean Arqui
 
   ### c) Relatórios de Vulnerabilidades
 
-* ![Antes](./static/owasp/2024-08-21-ZAP-Report-After-Treatment.pdf)
+* ![Antes](./static/owasp/2024-08-21-ZAP-Report-Before-Treatment.pdf)
 
-* ![Depois](./static/owasp/2024-08-21-ZAP-Report-Before-Treatment.pdf)
+* ![Depois](./static/owasp/2024-08-21-ZAP-Report-After-Treatment.pdf)
 
 ### d) Relatórios de Impactos Pessoais - RIPD
 
@@ -121,99 +121,42 @@ O desenho abaixo mostra a arquitetura de software seguindo o padrão Clean Arqui
 
   
 
-Para executar a aplicação é necesssário ter o Docker instalado localmente com o Kubernetes ativado
+Pré-requisitos:
+* Docker  com Kubernetes ativado.
+ 
 
-  
+### a) Rodar toda aplicação
 
-### a) Clonar o projeto
-
-  
+Utilizar o projeto contido no repositório em https://github.com/devair/microservicos para executar a aplicação com os 3 micros serviços, os bancos de dados e o serviço de menssageria  
 
 ~~~bash
 
-git  clone  https://github.com/devair/ms-orders-service.git
+git  clone https://github.com/devair/microservicos.git
 
 ~~~
 
-  
 
 ### b) Acessar o diretório do projeto
-
-  
-
-~~~bash
-
-cd  ms-orders-service
-
-~~~
-
-  
-
-### c) Variáveis de Ambiente
-
-  
-
-A seguir as variáveis de ambiente utilizadas no Docker compose
-
-  
-
-| Nome da variável|Descrição | Valor padrão|
-
-|--|--|--|
-
-|POSTGRES_DB|Nome do banco de dados Postgres|pedidos_db|
-
-|POSTGRES_PASSWORD|Senha do banco de dados Postgres|docker|
-
-|POSTGRES_USER|Usuário do banco de dados Postgres|docker|
-
-|DB_HOST|Endereço do host do banco de dados Postgres|localhost|
-
-|DB_PORT|Porta do banco de dados Postgres|5432|
-
-|DB_DATABASE|Nome do banco de dados da aplicação| pedidos_db|
-
-|DB_USER|Usuário do banco de dados da aplicação|docker|
-
-|DB_PASS|Senha do banco de dados da aplicação|docker|
-
-|APP_PORT|Porta da aplicação|3333|
-
-|RABBITMQ_URL|Endereço do RabbitMQ|amqp://localhost|
-
-  
-  
-  
-
-### d) Rodar no Docker
-
-  
-
-###
+ 
 
 ~~~bash
 
-docker  compose  build && docker  compose  up
+cd  microservicos
 
 ~~~
+ 
 
-  
-
-### e) Verificar o estado da aplicação
-
-Executar o comando abaixo no prompt e obter o retorno 'Ok' indicando que a aplicação está em execução
-
-  
-
+### c) Rodar no Docker
+ 
 ~~~bash
 
-curl  http://localhost:3333/health
+docker  compose up -d --build
 
 ~~~
-
+  
   
 
-## 6) Documentação Swagger
+## 6) Documentação Swagger do Serviço de Pedidos
 
   
 
@@ -227,7 +170,6 @@ http://localhost:3333/api-docs
   
 
 Para utilizar a aplicação precisa-se seguir a sequência de chamadas de APIs abaixo.
-
   
 
 ### a) Cadastro de Categorias
