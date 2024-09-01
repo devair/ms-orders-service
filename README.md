@@ -25,7 +25,26 @@ O estabelecimento pode gerenciar as informações dos produtos visualizados pelo
 O estabelecimento pode gerenciar o pedido à medida que ele segue em preparação, utilizando suas informações ao longo das etapas e atualizando o status do pedido para Aguardando pagamento, Recebido, Em preparação, Pronto, Finalizado e Rejeitado.
 
 
-## 2) Documentos
+## 2) Justificativa do Padrão de Micro Serviço
+A adoção do padrão SAGA Coreografrado para este projeto justifica-se pelo fato da aplicação estar distribuidas em 3 micro serviços distintos que necessitam de consistência nas transações o que torna mais simples a implementação devido ao fato de que cada serviço pode responder a eventos e tomar decisões de forma autonoma, em comparação com o padrão SAGA Orquestrado, onde a coordenação dos micros serviços é centralizada e que pode tornar-se excessivamente complexa.
+
+
+## 3) Arquiteturas
+
+### a) Micro Serviços - SAGA Coreografado
+O desenho da arquitetura de micro serviço segue abaixo
+
+<img src="./static/images/fase 5 - arquitetura de micro servico.jpg" alt="Arquitetura de Micro Serviço"/>
+
+
+### b) Arquitetura de Software
+O desenho abaixo mostra a arquitetura de software seguindo o padrão Clean Arquiteture
+
+<img src="./static/images/Application Clean Architecture.png" alt="Architeture software diagram"/>
+
+
+
+## 4) Documentos
 
 ### a) Relatório de testes unitários
 
@@ -37,7 +56,7 @@ O estabelecimento pode gerenciar o pedido à medida que ele segue em preparaçã
 [Análise no SonarCloud](https://sonarcloud.io/summary/overall?id=devair_ms-orders-service)
 ![imagem sonar](./static/sonar-analise.png)
 
-## 4) Rodar localmente no Docker for Windows
+## 5) Rodar localmente no Docker for Windows
 
 Para executar a aplicação é necesssário ter o Docker instalado localmente com o Kubernetes ativado
 
@@ -67,12 +86,12 @@ Executar o comando abaixo no prompt e obter o retorno 'Ok' indicando que a aplic
 curl http://localhost:3333/health
 ~~~
 
-## 5) Documentação Swagger
+## 6) Documentação Swagger
 
 http://localhost:3333/api-docs
 
 
-## 6) Utilização da aplicação
+## 7) Utilização da aplicação
 
 Para utilizar a aplicação precisa-se seguir a sequência de chamadas de APIs abaixo.
 
@@ -208,5 +227,36 @@ Body Response:
     "id": <ORDER ID>,
     "status": "<ORDER STATUS>",
     "amount": <ORDER AMOUNT>
+}
+~~~
+
+
+{c:orange}### e) Solicitação de exclusão de dados - LGPD {/c}
+
+
+Utilizar a API abaixo para solicitar a exclusão de dados do cliente com base na LGPD.
+
+
+POST http://localhost:3333/api/v1/customers/delete
+
+Content-Type: application/json
+
+Body Request:
+~~~json
+{
+  "name": "Zezinho",
+  "address": "Rua das Couves, 123 - Itajuba - BV - SC",
+  "phone": "111111111"
+}
+~~~
+
+Response Status Code: 201
+
+Body Response:
+~~~json
+{
+  "name": "Zezinho",
+  "address": "Rua das Couves, 123 - Itajuba - BV - SC",
+  "phone": "111111111"
 }
 ~~~
