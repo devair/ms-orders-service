@@ -113,12 +113,8 @@ O desenho abaixo mostra a arquitetura de software seguindo o padrão Clean Arqui
 
 * ![Depois](./static/owasp/2024-08-21-ZAP-Report-After-Treatment.pdf)
 
-### d) Relatórios de Impactos Pessoais - RIPD
-
-
 
 ## 5) Rodar localmente no Docker for Windows
-
   
 
 Pré-requisitos:
